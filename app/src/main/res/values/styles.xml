@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ProgressDialog" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowBackground">@color/translucent_white</item>
+    </style>
+
+</resources>

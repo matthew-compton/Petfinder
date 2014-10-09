@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+apply plugin: 'retrolambda'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+    defaultConfig {
+        applicationId 'com.ambergleam.petfinder'
+        minSdkVersion 15
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.google.code.gson:gson:1.7.2'
+    compile 'com.netflix.rxjava:rxjava-android:0.20.4'
+    compile 'com.jakewharton:butterknife:5.1.2'
+    compile 'net.orfjackal.retrolambda:retrolambda:1.6.1'
+    compile 'com.squareup.retrofit:retrofit:1.6.1'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.squareup.picasso:picasso:2.3.4'
+    compile 'com.crittercism:crittercism-android-agent:+'
+    compile 'com.squareup.dagger:dagger:1.2.2'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+}
