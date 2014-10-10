@@ -8,7 +8,7 @@ public enum AnimalType {
         return this.name().toLowerCase();
     }
 
-    public AnimalType fromString(String str) {
+    public static AnimalType fromString(String str) {
         for (AnimalType type : AnimalType.values()) {
             if (type.getString().equals(str.toLowerCase())) {
                 return type;

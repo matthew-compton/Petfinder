@@ -1,7 +1,7 @@
 package com.ambergleam.petfinder.service;
 
-import com.ambergleam.petfinder.model.AnimalType;
 import com.ambergleam.petfinder.model.Pet;
+import com.ambergleam.petfinder.model.Preference;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -12,12 +12,11 @@ public class PetfinderServiceManager {
     private static final String TAG = PetfinderServiceManager.class.getSimpleName();
 
     private PetfinderService mPetfinderService;
-    private AnimalType mAnimalTypePreference;
+    private Preference mPreference;
 
-    public PetfinderServiceManager(PetfinderService petfinderService, AnimalType animalTypePreference) {
+    public PetfinderServiceManager(PetfinderService petfinderService, Preference preference) {
         mPetfinderService = petfinderService;
-        mAnimalTypePreference = animalTypePreference;
-        mPetfinderService.setAnimalTypePreference(mAnimalTypePreference);
+        setPreference(preference);
     }
 
     public Observable<Pet> performSearch() {
@@ -26,6 +25,15 @@ public class PetfinderServiceManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(searchResponse -> Observable.from(searchResponse.mPets)
                 );
+    }
+
+    public Preference getPreference() {
+        return mPreference;
+    }
+
+    public void setPreference(Preference preference) {
+        mPreference = preference;
+        mPetfinderService.setPreference(preference);
     }
 
 }

@@ -38,18 +38,21 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.inject(this, layout);
+
+//        DialogUtils.showLoadingDialog(getFragmentManager(), false);
+        mPetfinderServiceManager.getPreference().loadPreference(getActivity());
+//        DialogUtils.hideLoadingDialog(getFragmentManager());
+
         setHasOptionsMenu(true);
         return layout;
     }
 
-    private void loadCuteAnimal() {
-//        DialogUtils.showLoadingDialog(getFragmentManager(), false);
+    private void findPet() {
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Pet> successAction = pet -> {
             mPetNameTextView.setText(pet.mName);
             Picasso.with(getActivity()).load(pet.mImageUrl).into(mPetPictureImageView);
-//            DialogUtils.hideLoadingDialog(getFragmentManager());
         };
 
         mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
@@ -62,7 +65,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadCuteAnimal();
+        findPet();
     }
 
     @Override
@@ -82,7 +85,7 @@ public class MainFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refresh:
-                loadCuteAnimal();
+                findPet();
                 break;
             case R.id.settings:
                 Intent i = new Intent(getActivity(), SettingsActivity.class);
