@@ -51,21 +51,15 @@ public class MainFragment extends BaseFragment {
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Pet> successAction = pet -> {
-            mPetNameTextView.setText(pet.mName);
-            Picasso.with(getActivity()).load(pet.mImageUrl).into(mPetPictureImageView);
+            mPetNameTextView.setText(pet.mName.mString + " - " + pet.mAnimal.mString);
+            Picasso.with(getActivity()).load(pet.mMedia.mPhotos.mPhotos[0].mPhotoUrl).into(mPetPictureImageView);
         };
 
         mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
-            mPetNameTextView.setText("No results.");
+            mPetNameTextView.setText(getString(R.string.no_results));
             mPetPictureImageView.setImageResource(R.drawable.ic_launcher);
         }));
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        findPet();
     }
 
     @Override
@@ -84,7 +78,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.refresh:
+            case R.id.search:
                 findPet();
                 break;
             case R.id.settings:

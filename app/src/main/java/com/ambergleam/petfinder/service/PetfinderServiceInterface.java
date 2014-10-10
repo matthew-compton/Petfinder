@@ -1,5 +1,7 @@
 package com.ambergleam.petfinder.service;
 
+import com.ambergleam.petfinder.model.SearchResponse;
+
 import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;

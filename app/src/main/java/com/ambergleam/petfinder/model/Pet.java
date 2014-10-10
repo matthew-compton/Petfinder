@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName;
 public class Pet {
 
     @SerializedName("id")
-    public String mId;
+    public Id mId;
 
     @SerializedName("name")
-    public String mName;
+    public Name mName;
 
     @SerializedName("animal")
-    public String mAnimal;
+    public Animal mAnimal;
 
-    @SerializedName("imageUrl")
-    public String mImageUrl;
+    @SerializedName("media")
+    public Media mMedia;
 
 }
