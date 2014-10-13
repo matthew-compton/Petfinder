@@ -17,6 +17,7 @@ import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
 import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
+import com.ambergleam.petfinder.utils.DialogUtils;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -68,6 +69,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPet() {
+        DialogUtils.showLoadingDialog(getActivity().getSupportFragmentManager(), false);
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Petfinder> successAction = petfinder -> {
@@ -88,7 +90,7 @@ public class MainFragment extends BaseFragment {
             mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
             updateUI();
         } else {
-            Log.e(TAG, "Pet is invalid: " + pet.toString());
+            Log.e(TAG, "Pet is invalid.");
             findPet();
         }
     }
@@ -103,11 +105,11 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mPet == null) {
-            findPet();
-        } else {
-            updateUI();
-        }
+//        if (mPet == null) {
+//            findPet();
+//        } else {
+//            updateUI();
+//        }
     }
 
     @Override
@@ -172,6 +174,7 @@ public class MainFragment extends BaseFragment {
         Picasso.with(getActivity())
                 .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
                 .into(mPetPictureImageView);
+        DialogUtils.hideLoadingDialog(getActivity().getSupportFragmentManager());
     }
 
     private void updateImageButtons() {
