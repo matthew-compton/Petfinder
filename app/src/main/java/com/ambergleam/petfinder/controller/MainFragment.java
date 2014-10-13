@@ -57,7 +57,7 @@ public class MainFragment extends BaseFragment {
 
         mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
             mPetNameTextView.setText(getString(R.string.no_results));
-            mPetPictureImageView.setImageResource(R.drawable.ic_launcher);
+            mPetPictureImageView.setImageResource(R.drawable.paw);
         }));
 
     }
