@@ -9,6 +9,30 @@ public class Pet implements Serializable {
     @SerializedName("id")
     public Id mId;
 
+    @SerializedName("shelterPetId")
+    public ShelterPetId mShelterPetId;
+
+    @SerializedName("shelterId")
+    public ShelterId mShelterId;
+
+    @SerializedName("status")
+    public Status mStatus;
+
+    @SerializedName("description")
+    public Description mDescription;
+
+    @SerializedName("sex")
+    public Sex mSex;
+
+    @SerializedName("age")
+    public Age mAge;
+
+    @SerializedName("size")
+    public Size mSize;
+
+    @SerializedName("mix")
+    public Mix mMix;
+
     @SerializedName("name")
     public Name mName;
 
@@ -17,5 +41,17 @@ public class Pet implements Serializable {
 
     @SerializedName("media")
     public Media mMedia;
+
+    @SerializedName("options")
+    public Options mOptions;
+
+    @SerializedName("breeds")
+    public Breeds mBreeds;
+
+    @SerializedName("contact")
+    public Contact mContact;
+
+    @SerializedName("lastUpdate")
+    public LastUpdate mLastUpdate;
 
 }

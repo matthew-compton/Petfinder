@@ -8,12 +8,13 @@
         android:name=".PetfinderApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
+        android:logo="@drawable/paw"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.ambergleam.petfinder.controller.MainActivity"
             android:label="@string/app_name"
-            android:icon="@drawable/paw">
+            android:icon="@drawable/ic_launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,8 +22,7 @@
         </activity>
         <activity
             android:name="com.ambergleam.petfinder.controller.SettingsActivity"
-            android:label="@string/settings"
-            android:icon="@drawable/paw">
+            android:label="@string/settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".controller.MainActivity"/>

@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -28,15 +30,20 @@ public class MainFragment extends BaseFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private static final String EXTRA_PET = TAG + ".mPet";
+    private static final String EXTRA_INDEX = TAG + ".mImageIndex";
 
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
-    @InjectView(R.id.pet_image) ImageView mPetPictureImageView;
+    @InjectView(R.id.image) ImageView mPetPictureImageView;
+    @InjectView(R.id.previous) ImageButton mPreviousImageButton;
+    @InjectView(R.id.next) ImageButton mNextImageButton;
+
     @InjectView(R.id.pet_name) TextView mPetNameTextView;
 
     private Pet mPet;
+    private int mImageIndex;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +52,12 @@ public class MainFragment extends BaseFragment {
 
         if (savedInstanceState != null) {
             mPet = (Pet) savedInstanceState.getSerializable(EXTRA_PET);
+            mImageIndex = savedInstanceState.getInt(EXTRA_INDEX);
+        } else {
+            mPet = null;
+            mImageIndex = 3;
         }
-
-//        DialogUtils.showLoadingDialog(getFragmentManager(), false);
         mPetfinderServiceManager.getPreference().loadPreference(getActivity());
-//        DialogUtils.hideLoadingDialog(getFragmentManager());
 
         setHasOptionsMenu(true);
         return layout;
@@ -60,12 +68,12 @@ public class MainFragment extends BaseFragment {
 
         Action1<Pet> successAction = pet -> {
             mPet = pet;
-            updatePet();
+            updateUI();
         };
 
         mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
             mPet = null;
-            updatePet();
+            updateUI();
         }));
     }
 
@@ -73,12 +81,17 @@ public class MainFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(EXTRA_PET, mPet);
+        outState.getInt(EXTRA_INDEX, mImageIndex);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updatePet();
+        if (mPet == null) {
+            findPet();
+        } else {
+            updateUI();
+        }
     }
 
     @Override
@@ -108,13 +121,41 @@ public class MainFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updatePet() {
+    @OnClick(R.id.previous)
+    public void onClickPrevious() {
+        getPreviousImage();
+    }
+
+    @OnClick(R.id.next)
+    public void onClickNext() {
+        getNextImage();
+    }
+
+    private void getPreviousImage() {
+        mImageIndex -= 5;
+        if (mImageIndex < 0) {
+            mImageIndex = mPet.mMedia.mPhotos.mPhotos.length + mImageIndex;
+        }
+        updateUI();
+    }
+
+    private void getNextImage() {
+        mImageIndex += 5;
+        mImageIndex %= mPet.mMedia.mPhotos.mPhotos.length;
+        updateUI();
+    }
+
+    private void updateUI() {
         if (mPet != null) {
-            mPetNameTextView.setText(mPet.mName.mString + " - " + mPet.mAnimal.mString);
-            Picasso.with(getActivity()).load(mPet.mMedia.mPhotos.mPhotos[0].mPhotoUrl).into(mPetPictureImageView);
+            mPetNameTextView.setText(mPet.mName.mString);
+            mPreviousImageButton.setVisibility(View.VISIBLE);
+            mNextImageButton.setVisibility(View.VISIBLE);
+            Picasso.with(getActivity()).load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl).into(mPetPictureImageView);
         } else {
             mPetNameTextView.setText(getString(R.string.no_results));
-            mPetPictureImageView.setImageResource(R.drawable.paw);
+            mPreviousImageButton.setVisibility(View.INVISIBLE);
+            mNextImageButton.setVisibility(View.INVISIBLE);
+            Picasso.with(getActivity()).load(R.drawable.paw).into(mPetPictureImageView);
         }
     }
 

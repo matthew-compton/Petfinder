@@ -8,16 +8,16 @@ public class Preference {
 
     private static final String PREF_ANIMAL_TYPE = "animal_type";
 
-    private AnimalType mAnimalType;
+    private Animal.AnimalType mAnimalType;
 
     public Preference() {
-        mAnimalType = AnimalType.ALL;
+        mAnimalType = Animal.AnimalType.ALL;
     }
 
     public void loadPreference(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String animalType = preferences.getString(PREF_ANIMAL_TYPE, AnimalType.ALL.getString());
-        mAnimalType = AnimalType.fromString(animalType);
+        String animalType = preferences.getString(PREF_ANIMAL_TYPE, Animal.AnimalType.ALL.getString());
+        mAnimalType = Animal.AnimalType.fromString(animalType);
     }
 
     public void savePreference(Context context) {
@@ -27,11 +27,11 @@ public class Preference {
         editor.apply();
     }
 
-    public AnimalType getAnimalType() {
+    public Animal.AnimalType getAnimalType() {
         return mAnimalType;
     }
 
-    public void setAnimalType(AnimalType animalType) {
+    public void setAnimalType(Animal.AnimalType animalType) {
         mAnimalType = animalType;
     }
 

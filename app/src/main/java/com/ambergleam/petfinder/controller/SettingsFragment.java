@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.ambergleam.petfinder.R;
-import com.ambergleam.petfinder.model.AnimalType;
+import com.ambergleam.petfinder.model.Animal;
 import com.ambergleam.petfinder.model.Preference;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
 
@@ -80,41 +80,41 @@ public class SettingsFragment extends BaseFragment {
         radioButton.toggle();
         switch (radioButton.getId()) {
             case R.id.type_all:
-                mPreference.setAnimalType(AnimalType.ALL);
+                mPreference.setAnimalType(Animal.AnimalType.ALL);
                 break;
             case R.id.type_barnyard:
-                mPreference.setAnimalType(AnimalType.BARNYARD);
+                mPreference.setAnimalType(Animal.AnimalType.BARNYARD);
                 break;
             case R.id.type_bird:
-                mPreference.setAnimalType(AnimalType.BIRD);
+                mPreference.setAnimalType(Animal.AnimalType.BIRD);
                 break;
             case R.id.type_cat:
-                mPreference.setAnimalType(AnimalType.CAT);
+                mPreference.setAnimalType(Animal.AnimalType.CAT);
                 break;
             case R.id.type_dog:
-                mPreference.setAnimalType(AnimalType.DOG);
+                mPreference.setAnimalType(Animal.AnimalType.DOG);
                 break;
             case R.id.type_horse:
-                mPreference.setAnimalType(AnimalType.HORSE);
+                mPreference.setAnimalType(Animal.AnimalType.HORSE);
                 break;
             case R.id.type_pig:
-                mPreference.setAnimalType(AnimalType.PIG);
+                mPreference.setAnimalType(Animal.AnimalType.PIG);
                 break;
             case R.id.type_reptile:
-                mPreference.setAnimalType(AnimalType.REPTILE);
+                mPreference.setAnimalType(Animal.AnimalType.REPTILE);
                 break;
             case R.id.type_small_and_furry:
-                mPreference.setAnimalType(AnimalType.SMALLFURRY);
+                mPreference.setAnimalType(Animal.AnimalType.SMALLFURRY);
                 break;
             default:
-                mPreference.setAnimalType(AnimalType.ALL);
+                mPreference.setAnimalType(Animal.AnimalType.ALL);
                 break;
         }
     }
 
     private void clear() {
         mTypeAllRadioButton.setChecked(true);
-        mPreference.setAnimalType(AnimalType.ALL);
+        mPreference.setAnimalType(Animal.AnimalType.ALL);
     }
 
     private void updateUI() {
