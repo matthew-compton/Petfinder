@@ -81,7 +81,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updatePet(Pet pet) {
-        if (pet != null && pet.mMedia != null) {
+        if (pet != null && pet.mMedia.mPhotos != null) {
             mPet = pet;
             mImageIndex = INDEX_INITIAL;
             mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
