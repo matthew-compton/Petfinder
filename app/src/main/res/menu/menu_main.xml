@@ -4,13 +4,19 @@
     <item
         android:id="@+id/search"
         android:title="@string/search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@android:drawable/ic_popup_sync"
         android:showAsAction="always"/>
+
+    <item
+        android:id="@+id/info"
+        android:title="@string/info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="ifRoom|withText"/>
 
     <item
         android:id="@+id/settings"
         android:title="@string/settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="always"/>
+        android:showAsAction="never"/>
 
 </menu>

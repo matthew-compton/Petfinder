@@ -31,8 +31,8 @@ public class MainFragment extends BaseFragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
-    private static final String EXTRA_PET = TAG + ".mPet";
-    private static final String EXTRA_INDEX = TAG + ".mImageIndex";
+    private static final String STATE_PET = TAG + "STATE_PET";
+    private static final String STATE_INDEX = TAG + "STATE_INDEX";
 
     private static final int INDEX_INITIAL = 3;
     private static final int INDEX_DELTA = 5;
@@ -45,7 +45,7 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.previous) ImageButton mPreviousImageButton;
     @InjectView(R.id.next) ImageButton mNextImageButton;
 
-    @InjectView(R.id.pet_name) TextView mPetNameTextView;
+    @InjectView(R.id.name) TextView mNameTextView;
 
     private Pet mPet;
     private int mImageIndex;
@@ -57,8 +57,8 @@ public class MainFragment extends BaseFragment {
         ButterKnife.inject(this, layout);
 
         if (savedInstanceState != null) {
-            mPet = (Pet) savedInstanceState.getSerializable(EXTRA_PET);
-            mImageIndex = savedInstanceState.getInt(EXTRA_INDEX);
+            mPet = (Pet) savedInstanceState.getSerializable(STATE_PET);
+            mImageIndex = savedInstanceState.getInt(STATE_INDEX);
             mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
         }
         mPetfinderServiceManager.getPreference().loadPreference(getActivity());
@@ -95,8 +95,8 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(EXTRA_PET, mPet);
-        outState.getInt(EXTRA_INDEX, mImageIndex);
+        outState.putSerializable(STATE_PET, mPet);
+        outState.getInt(STATE_INDEX, mImageIndex);
     }
 
     @Override
@@ -128,9 +128,14 @@ public class MainFragment extends BaseFragment {
             case R.id.search:
                 findPet();
                 break;
+            case R.id.info:
+                Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
+                intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
+                startActivity(intentDetail);
+                break;
             case R.id.settings:
-                Intent i = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(i);
+                Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intentSettings);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -161,7 +166,14 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateUI() {
-        mPetNameTextView.setText(mPet.mName.mString);
+        mNameTextView.setText(mPet.mName.mString);
+        updateImageButtons();
+        Picasso.with(getActivity())
+                .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
+                .into(mPetPictureImageView);
+    }
+
+    private void updateImageButtons() {
         if (mImageIndex - INDEX_DELTA < 0) {
             mPreviousImageButton.setVisibility(View.INVISIBLE);
         } else {
@@ -172,9 +184,6 @@ public class MainFragment extends BaseFragment {
         } else {
             mNextImageButton.setVisibility(View.VISIBLE);
         }
-        Picasso.with(getActivity())
-                .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
-                .into(mPetPictureImageView);
     }
 
 }
