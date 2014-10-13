@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
+import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
 import com.squareup.picasso.Picasso;
 
@@ -69,8 +70,8 @@ public class MainFragment extends BaseFragment {
     private void findPet() {
         mCompositeSubscription = new CompositeSubscription();
 
-        Action1<Pet> successAction = pet -> {
-            updatePet(pet);
+        Action1<Petfinder> successAction = petfinder -> {
+            updatePet(petfinder.mPet);
         };
 
         Action1<Throwable> failureAction = throwable -> {

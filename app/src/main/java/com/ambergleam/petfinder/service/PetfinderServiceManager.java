@@ -1,6 +1,6 @@
 package com.ambergleam.petfinder.service;
 
-import com.ambergleam.petfinder.model.Pet;
+import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.model.Preference;
 
 import rx.Observable;
@@ -19,11 +19,11 @@ public class PetfinderServiceManager {
         setPreference(preference);
     }
 
-    public Observable<Pet> performSearch() {
+    public Observable<Petfinder> performSearch() {
         return mPetfinderService.search()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPet));
+                .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder));
     }
 
     public Preference getPreference() {
