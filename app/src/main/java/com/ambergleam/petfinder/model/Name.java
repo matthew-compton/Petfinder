@@ -2,7 +2,9 @@ package com.ambergleam.petfinder.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Name {
+import java.io.Serializable;
+
+public class Name implements Serializable {
 
     @SerializedName("$t")
     public String mString;

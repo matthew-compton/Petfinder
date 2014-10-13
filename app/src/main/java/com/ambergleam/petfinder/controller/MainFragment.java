@@ -27,6 +27,8 @@ public class MainFragment extends BaseFragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
+    private static final String EXTRA_PET = TAG + ".mPet";
+
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
@@ -34,10 +36,16 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.pet_image) ImageView mPetPictureImageView;
     @InjectView(R.id.pet_name) TextView mPetNameTextView;
 
+    private Pet mPet;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.inject(this, layout);
+
+        if (savedInstanceState != null) {
+            mPet = (Pet) savedInstanceState.getSerializable(EXTRA_PET);
+        }
 
 //        DialogUtils.showLoadingDialog(getFragmentManager(), false);
         mPetfinderServiceManager.getPreference().loadPreference(getActivity());
@@ -51,15 +59,26 @@ public class MainFragment extends BaseFragment {
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Pet> successAction = pet -> {
-            mPetNameTextView.setText(pet.mName.mString + " - " + pet.mAnimal.mString);
-            Picasso.with(getActivity()).load(pet.mMedia.mPhotos.mPhotos[0].mPhotoUrl).into(mPetPictureImageView);
+            mPet = pet;
+            updatePet();
         };
 
         mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
-            mPetNameTextView.setText(getString(R.string.no_results));
-            mPetPictureImageView.setImageResource(R.drawable.paw);
+            mPet = null;
+            updatePet();
         }));
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(EXTRA_PET, mPet);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updatePet();
     }
 
     @Override
@@ -87,6 +106,16 @@ public class MainFragment extends BaseFragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updatePet() {
+        if (mPet != null) {
+            mPetNameTextView.setText(mPet.mName.mString + " - " + mPet.mAnimal.mString);
+            Picasso.with(getActivity()).load(mPet.mMedia.mPhotos.mPhotos[0].mPhotoUrl).into(mPetPictureImageView);
+        } else {
+            mPetNameTextView.setText(getString(R.string.no_results));
+            mPetPictureImageView.setImageResource(R.drawable.paw);
+        }
     }
 
 }
