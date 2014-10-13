@@ -2,6 +2,7 @@ package com.ambergleam.petfinder.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,9 @@ public class MainFragment extends BaseFragment {
     private static final String EXTRA_PET = TAG + ".mPet";
     private static final String EXTRA_INDEX = TAG + ".mImageIndex";
 
+    private static final int INDEX_INITIAL = 3;
+    private static final int INDEX_DELTA = 5;
+
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
@@ -44,6 +48,7 @@ public class MainFragment extends BaseFragment {
 
     private Pet mPet;
     private int mImageIndex;
+    private int mImageIndexLength;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,9 +58,7 @@ public class MainFragment extends BaseFragment {
         if (savedInstanceState != null) {
             mPet = (Pet) savedInstanceState.getSerializable(EXTRA_PET);
             mImageIndex = savedInstanceState.getInt(EXTRA_INDEX);
-        } else {
-            mPet = null;
-            mImageIndex = 3;
+            mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
         }
         mPetfinderServiceManager.getPreference().loadPreference(getActivity());
 
@@ -67,14 +70,25 @@ public class MainFragment extends BaseFragment {
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Pet> successAction = pet -> {
-            mPet = pet;
-            updateUI();
+            updatePet(pet);
         };
 
-        mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, throwable -> {
-            mPet = null;
+        Action1<Throwable> failureAction = throwable -> {
+            Log.e(TAG, throwable.getMessage().toString());
+        };
+
+        mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
+    }
+
+    private void updatePet(Pet pet) {
+        if (pet != null && pet.mMedia != null) {
+            mPet = pet;
+            mImageIndex = INDEX_INITIAL;
+            mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
             updateUI();
-        }));
+        } else {
+            Log.e(TAG, "Pet is invalid: " + pet.toString());
+        }
     }
 
     @Override
@@ -132,31 +146,34 @@ public class MainFragment extends BaseFragment {
     }
 
     private void getPreviousImage() {
-        mImageIndex -= 5;
+        mImageIndex -= INDEX_DELTA;
         if (mImageIndex < 0) {
-            mImageIndex = mPet.mMedia.mPhotos.mPhotos.length + mImageIndex;
+            mImageIndex = mImageIndexLength + mImageIndex;
         }
         updateUI();
     }
 
     private void getNextImage() {
-        mImageIndex += 5;
-        mImageIndex %= mPet.mMedia.mPhotos.mPhotos.length;
+        mImageIndex += INDEX_DELTA;
+        mImageIndex %= mImageIndexLength;
         updateUI();
     }
 
     private void updateUI() {
-        if (mPet != null) {
-            mPetNameTextView.setText(mPet.mName.mString);
-            mPreviousImageButton.setVisibility(View.VISIBLE);
-            mNextImageButton.setVisibility(View.VISIBLE);
-            Picasso.with(getActivity()).load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl).into(mPetPictureImageView);
-        } else {
-            mPetNameTextView.setText(getString(R.string.no_results));
+        mPetNameTextView.setText(mPet.mName.mString);
+        if (mImageIndex - INDEX_DELTA < 0) {
             mPreviousImageButton.setVisibility(View.INVISIBLE);
-            mNextImageButton.setVisibility(View.INVISIBLE);
-            Picasso.with(getActivity()).load(R.drawable.paw).into(mPetPictureImageView);
+        } else {
+            mPreviousImageButton.setVisibility(View.VISIBLE);
         }
+        if (mImageIndex + INDEX_DELTA > mImageIndexLength) {
+            mNextImageButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextImageButton.setVisibility(View.VISIBLE);
+        }
+        Picasso.with(getActivity())
+                .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
+                .into(mPetPictureImageView);
     }
 
 }

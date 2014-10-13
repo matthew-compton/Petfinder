@@ -23,7 +23,8 @@ public class PetfinderServiceManager {
         return mPetfinderService.search()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPet));
+                .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPet))
+                .filter(pet -> pet.mMedia != null);
     }
 
     public Preference getPreference() {
