@@ -89,6 +89,7 @@ public class MainFragment extends BaseFragment {
             updateUI();
         } else {
             Log.e(TAG, "Pet is invalid: " + pet.toString());
+            findPet();
         }
     }
 
