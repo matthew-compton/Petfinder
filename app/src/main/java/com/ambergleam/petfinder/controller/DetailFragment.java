@@ -155,7 +155,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateName() {
-        if (mPet.mName.mString != null && !mPet.mName.mString.equals("")) {
+        if (mPet.mName.mString != null) {
             mNameLayout.setVisibility(View.VISIBLE);
             mNameTextView.setText(mPet.mName.mString);
         } else {
@@ -164,45 +164,45 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateAnimal() {
-        if (mPet.mAnimal.mString != null && !mPet.mAnimal.mString.equals("")) {
+        if (mPet.mAnimal.mString != null) {
             mAnimalLayout.setVisibility(View.VISIBLE);
-            mAnimalTextView.setText(mPet.mAnimal.mString);
+            mAnimalTextView.setText(mPet.mAnimal.toString());
         } else {
             mAnimalLayout.setVisibility(View.GONE);
         }
     }
 
     private void updateGender() {
-        if (mPet.mGender.mString != null && !mPet.mGender.mString.equals("")) {
+        if (mPet.mGender.mString != null && !mPet.mGender.toString().equals("")) {
             mGenderLayout.setVisibility(View.VISIBLE);
-            mGenderTextView.setText(mPet.mGender.mString);
+            mGenderTextView.setText(mPet.mGender.toString());
         } else {
             mGenderLayout.setVisibility(View.GONE);
         }
     }
 
     private void updateMix() {
-        if (mPet.mMix.mString != null && !mPet.mMix.mString.equals("")) {
+        if (mPet.mMix.mString != null && !mPet.mMix.toString().equals("")) {
             mMixLayout.setVisibility(View.VISIBLE);
-            mMixTextView.setText(mPet.mMix.mString);
+            mMixTextView.setText(mPet.mMix.toString());
         } else {
             mMixLayout.setVisibility(View.GONE);
         }
     }
 
     private void updateAge() {
-        if (mPet.mAge.mString != null && !mPet.mAge.mString.equals("")) {
+        if (mPet.mAge.mString != null && !mPet.mAge.toString().equals("")) {
             mAgeLayout.setVisibility(View.VISIBLE);
-            mAgeTextView.setText(mPet.mAge.mString);
+            mAgeTextView.setText(mPet.mAge.toString());
         } else {
             mAgeLayout.setVisibility(View.GONE);
         }
     }
 
     private void updateSize() {
-        if (mPet.mSize.mString != null && !mPet.mSize.mString.equals("")) {
+        if (mPet.mSize.mString != null && !mPet.mSize.toString().equals("")) {
             mSizeLayout.setVisibility(View.VISIBLE);
-            mSizeTextView.setText(mPet.mSize.mString);
+            mSizeTextView.setText(mPet.mSize.toString());
         } else {
             mSizeLayout.setVisibility(View.GONE);
         }

@@ -9,23 +9,25 @@ public class Mix implements Serializable {
     @SerializedName("$t")
     public String mString;
 
-    public enum GenderEnum {
+    public String toString() {
+        return MixEnum.fromUrlFormatString(mString).toString();
+    }
 
-        YES, NO;
+    public enum MixEnum {
 
-        private static final GenderEnum DEFAULT = NO;
+        YES, NO, NONE;
 
         public String toUrlFormatString() {
             return this.name().toLowerCase();
         }
 
-        public static GenderEnum fromUrlFormatString(String str) {
-            for (GenderEnum type : GenderEnum.values()) {
+        public static MixEnum fromUrlFormatString(String str) {
+            for (MixEnum type : MixEnum.values()) {
                 if (type.toUrlFormatString().equals(str)) {
                     return type;
                 }
             }
-            return DEFAULT;
+            return NONE;
         }
 
         @Override
@@ -35,8 +37,9 @@ public class Mix implements Serializable {
                     return "Yes";
                 case NO:
                     return "No";
+                case NONE:
                 default:
-                    return DEFAULT.toString();
+                    return "";
             }
         }
     }

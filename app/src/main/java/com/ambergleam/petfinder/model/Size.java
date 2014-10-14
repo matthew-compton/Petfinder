@@ -9,11 +9,13 @@ public class Size implements Serializable {
     @SerializedName("$t")
     public String mString;
 
+    public String toString() {
+        return SizeEnum.fromUrlFormatString(mString).toString();
+    }
+
     public enum SizeEnum {
 
-        S, M, L, XL;
-
-        private static final SizeEnum DEFAULT = M;
+        S, M, L, XL, NONE;
 
         public String toUrlFormatString() {
             return this.name();
@@ -25,7 +27,7 @@ public class Size implements Serializable {
                     return type;
                 }
             }
-            return DEFAULT;
+            return NONE;
         }
 
         @Override
@@ -39,8 +41,9 @@ public class Size implements Serializable {
                     return "Large";
                 case XL:
                     return "Extra-Large";
+                case NONE:
                 default:
-                    return DEFAULT.toString();
+                    return "";
             }
         }
 
