@@ -9,17 +9,17 @@ public class Animal implements Serializable {
     @SerializedName("$t")
     public String mString;
 
-    public enum AnimalType {
+    public enum AnimalEnum {
 
         BARNYARD, BIRD, CAT, DOG, HORSE, PIG, REPTILE, SMALLFURRY, ALL;
 
-        public String getString() {
+        public String toUrlFormatString() {
             return this.name().toLowerCase();
         }
 
-        public static AnimalType fromString(String str) {
-            for (AnimalType type : AnimalType.values()) {
-                if (type.getString().equals(str.toLowerCase())) {
+        public static AnimalEnum fromUrlFormatString(String str) {
+            for (AnimalEnum type : AnimalEnum.values()) {
+                if (type.toUrlFormatString().equals(str)) {
                     return type;
                 }
             }

@@ -80,41 +80,41 @@ public class SettingsFragment extends BaseFragment {
         radioButton.toggle();
         switch (radioButton.getId()) {
             case R.id.type_all:
-                mPreference.setAnimalType(Animal.AnimalType.ALL);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.ALL);
                 break;
             case R.id.type_barnyard:
-                mPreference.setAnimalType(Animal.AnimalType.BARNYARD);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.BARNYARD);
                 break;
             case R.id.type_bird:
-                mPreference.setAnimalType(Animal.AnimalType.BIRD);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.BIRD);
                 break;
             case R.id.type_cat:
-                mPreference.setAnimalType(Animal.AnimalType.CAT);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.CAT);
                 break;
             case R.id.type_dog:
-                mPreference.setAnimalType(Animal.AnimalType.DOG);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.DOG);
                 break;
             case R.id.type_horse:
-                mPreference.setAnimalType(Animal.AnimalType.HORSE);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.HORSE);
                 break;
             case R.id.type_pig:
-                mPreference.setAnimalType(Animal.AnimalType.PIG);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.PIG);
                 break;
             case R.id.type_reptile:
-                mPreference.setAnimalType(Animal.AnimalType.REPTILE);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.REPTILE);
                 break;
             case R.id.type_small_and_furry:
-                mPreference.setAnimalType(Animal.AnimalType.SMALLFURRY);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.SMALLFURRY);
                 break;
             default:
-                mPreference.setAnimalType(Animal.AnimalType.ALL);
+                mPreference.setAnimalEnum(Animal.AnimalEnum.ALL);
                 break;
         }
     }
 
     private void clear() {
         mTypeAllRadioButton.setChecked(true);
-        mPreference.setAnimalType(Animal.AnimalType.ALL);
+        mPreference.setAnimalEnum(Animal.AnimalEnum.ALL);
     }
 
     private void updateUI() {
@@ -122,7 +122,7 @@ public class SettingsFragment extends BaseFragment {
     }
 
     private void updateAnimalType() {
-        switch (mPreference.getAnimalType()) {
+        switch (mPreference.getAnimalEnum()) {
             case ALL:
                 mTypeAllRadioButton.setChecked(true);
                 break;

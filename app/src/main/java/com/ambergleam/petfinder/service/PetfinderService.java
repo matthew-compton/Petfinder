@@ -34,7 +34,7 @@ public class PetfinderService {
     }
 
     public Observable<SearchResponse> search() {
-        if (mPreference.getAnimalType() == Animal.AnimalType.ALL) {
+        if (mPreference.getAnimalEnum() == Animal.AnimalEnum.ALL) {
             return mServiceInterface.search(
                     API_KEY,
                     OUTPUT,
@@ -43,7 +43,7 @@ public class PetfinderService {
         } else {
             return mServiceInterface.search(
                     API_KEY,
-                    mPreference.getAnimalType().getString(),
+                    mPreference.getAnimalEnum().toUrlFormatString(),
                     OUTPUT,
                     FORMAT
             );

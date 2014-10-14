@@ -8,31 +8,31 @@ public class Preference {
 
     private static final String PREF_ANIMAL_TYPE = "animal_type";
 
-    private Animal.AnimalType mAnimalType;
+    private Animal.AnimalEnum mAnimalEnum;
 
     public Preference() {
-        mAnimalType = Animal.AnimalType.ALL;
+        mAnimalEnum = Animal.AnimalEnum.ALL;
     }
 
     public void loadPreference(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String animalType = preferences.getString(PREF_ANIMAL_TYPE, Animal.AnimalType.ALL.getString());
-        mAnimalType = Animal.AnimalType.fromString(animalType);
+        String animalType = preferences.getString(PREF_ANIMAL_TYPE, Animal.AnimalEnum.ALL.toUrlFormatString());
+        mAnimalEnum = Animal.AnimalEnum.fromUrlFormatString(animalType);
     }
 
     public void savePreference(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(PREF_ANIMAL_TYPE, mAnimalType.getString());
+        editor.putString(PREF_ANIMAL_TYPE, mAnimalEnum.toUrlFormatString());
         editor.apply();
     }
 
-    public Animal.AnimalType getAnimalType() {
-        return mAnimalType;
+    public Animal.AnimalEnum getAnimalEnum() {
+        return mAnimalEnum;
     }
 
-    public void setAnimalType(Animal.AnimalType animalType) {
-        mAnimalType = animalType;
+    public void setAnimalEnum(Animal.AnimalEnum animalEnum) {
+        mAnimalEnum = animalEnum;
     }
 
 }

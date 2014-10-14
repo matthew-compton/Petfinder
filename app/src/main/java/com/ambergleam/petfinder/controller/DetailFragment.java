@@ -33,6 +33,9 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.layout_animal) LinearLayout mAnimalLayout;
     @InjectView(R.id.pet_animal) TextView mAnimalTextView;
 
+    @InjectView(R.id.layout_gender) LinearLayout mGenderLayout;
+    @InjectView(R.id.pet_gender) TextView mGenderTextView;
+
     @InjectView(R.id.layout_mix) LinearLayout mMixLayout;
     @InjectView(R.id.pet_mix) TextView mMixTextView;
 
@@ -54,6 +57,7 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.pet_address) TextView mAddressTextView;
     @InjectView(R.id.image_phone) ImageView mAddressImageView;
 
+    @InjectView(R.id.divider_lower) View mDividerLower;
     @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
     @InjectView(R.id.pet_description) TextView mDescriptionTextView;
 
@@ -140,13 +144,14 @@ public class DetailFragment extends BaseFragment {
     private void updateUI() {
         updateName();
         updateAnimal();
+        updateGender();
         updateMix();
         updateAge();
         updateSize();
-        updateDescription();
         updatePhone();
         updateEmail();
         updateAddress();
+        updateDescription();
     }
 
     private void updateName() {
@@ -164,6 +169,15 @@ public class DetailFragment extends BaseFragment {
             mAnimalTextView.setText(mPet.mAnimal.mString);
         } else {
             mAnimalLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateGender() {
+        if (mPet.mGender.mString != null && !mPet.mGender.mString.equals("")) {
+            mGenderLayout.setVisibility(View.VISIBLE);
+            mGenderTextView.setText(mPet.mGender.mString);
+        } else {
+            mGenderLayout.setVisibility(View.GONE);
         }
     }
 
@@ -194,15 +208,6 @@ public class DetailFragment extends BaseFragment {
         }
     }
 
-    private void updateDescription() {
-        if (mPet.mDescription.mString != null && !mPet.mDescription.mString.equals("")) {
-            mDescriptionLayout.setVisibility(View.VISIBLE);
-            mDescriptionTextView.setText(mPet.mDescription.mString);
-        } else {
-            mDescriptionLayout.setVisibility(View.GONE);
-        }
-    }
-
     private void updatePhone() {
         if (mPet.mContact.mPhone.mString != null && !mPet.mContact.mPhone.mString.equals("")) {
             mPhoneLayout.setVisibility(View.VISIBLE);
@@ -227,6 +232,17 @@ public class DetailFragment extends BaseFragment {
             mAddressTextView.setText(mPet.mContact.getAddressString());
         } else {
             mAddressLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateDescription() {
+        if (mPet.mDescription.mString != null && !mPet.mDescription.mString.equals("")) {
+            mDividerLower.setVisibility(View.VISIBLE);
+            mDescriptionLayout.setVisibility(View.VISIBLE);
+            mDescriptionTextView.setText(mPet.mDescription.mString);
+        } else {
+            mDividerLower.setVisibility(View.GONE);
+            mDescriptionLayout.setVisibility(View.GONE);
         }
     }
 

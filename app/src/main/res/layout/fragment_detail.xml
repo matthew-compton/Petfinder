@@ -57,6 +57,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_gender"
+            style="@style/DetailLayoutHorizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_gender"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/pet_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:gravity="right"
+                tools:text="F"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_mix"
             style="@style/DetailLayoutHorizontal">
 
@@ -149,7 +170,6 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@android:drawable/stat_sys_phone_call"
-                android:scaleType="fitXY"
                 android:clickable="true"/>
 
         </RelativeLayout>
@@ -181,7 +201,6 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@android:drawable/sym_action_email"
-                android:scaleType="fitXY"
                 android:clickable="true"/>
 
         </RelativeLayout>
@@ -213,12 +232,13 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@android:drawable/ic_dialog_map"
-                android:scaleType="fitXY"
                 android:clickable="true"/>
 
         </RelativeLayout>
 
-        <View style="@style/Divider"/>
+        <View
+            android:id="@+id/divider_lower"
+            style="@style/Divider"/>
 
         <LinearLayout
             android:id="@+id/layout_description"

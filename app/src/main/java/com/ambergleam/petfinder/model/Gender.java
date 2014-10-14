@@ -4,23 +4,23 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Size implements Serializable {
+public class Gender implements Serializable {
 
     @SerializedName("$t")
     public String mString;
 
-    public enum SizeEnum {
+    public enum GenderEnum {
 
-        S, M, L, XL;
+        M, F;
 
-        private static final SizeEnum DEFAULT = M;
+        private static final GenderEnum DEFAULT = M;
 
         public String toUrlFormatString() {
             return this.name();
         }
 
-        public static SizeEnum fromUrlFormatString(String str) {
-            for (SizeEnum type : SizeEnum.values()) {
+        public static GenderEnum fromUrlFormatString(String str) {
+            for (GenderEnum type : GenderEnum.values()) {
                 if (type.toUrlFormatString().equals(str)) {
                     return type;
                 }
@@ -31,19 +31,14 @@ public class Size implements Serializable {
         @Override
         public String toString() {
             switch (this) {
-                case S:
-                    return "Small";
                 case M:
-                    return "Medium";
-                case L:
-                    return "Large";
-                case XL:
-                    return "Extra-Large";
+                    return "Male";
+                case F:
+                    return "Female";
                 default:
                     return DEFAULT.toString();
             }
         }
-
     }
 
 }

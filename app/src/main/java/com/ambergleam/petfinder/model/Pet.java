@@ -22,7 +22,7 @@ public class Pet implements Serializable {
     public Description mDescription;
 
     @SerializedName("sex")
-    public Sex mSex;
+    public Gender mGender;
 
     @SerializedName("age")
     public Age mAge;
