@@ -1,5 +1,7 @@
 package com.ambergleam.petfinder.controller;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -7,7 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
@@ -15,6 +19,7 @@ import com.ambergleam.petfinder.model.Pet;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class DetailFragment extends BaseFragment {
 
@@ -24,22 +29,33 @@ public class DetailFragment extends BaseFragment {
 
     @InjectView(R.id.layout_name) LinearLayout mNameLayout;
     @InjectView(R.id.pet_name) TextView mNameTextView;
+
     @InjectView(R.id.layout_animal) LinearLayout mAnimalLayout;
     @InjectView(R.id.pet_animal) TextView mAnimalTextView;
+
     @InjectView(R.id.layout_mix) LinearLayout mMixLayout;
     @InjectView(R.id.pet_mix) TextView mMixTextView;
+
     @InjectView(R.id.layout_age) LinearLayout mAgeLayout;
     @InjectView(R.id.pet_age) TextView mAgeTextView;
+
     @InjectView(R.id.layout_size) LinearLayout mSizeLayout;
     @InjectView(R.id.pet_size) TextView mSizeTextView;
+
+    @InjectView(R.id.layout_phone) RelativeLayout mPhoneLayout;
+    @InjectView(R.id.pet_phone) TextView mPhoneTextView;
+    @InjectView(R.id.image_phone) ImageView mPhoneImageView;
+
+    @InjectView(R.id.layout_email) RelativeLayout mEmailLayout;
+    @InjectView(R.id.pet_email) TextView mEmailTextView;
+    @InjectView(R.id.image_email) ImageView mEmailImageView;
+
+    @InjectView(R.id.layout_address) RelativeLayout mAddressLayout;
+    @InjectView(R.id.pet_address) TextView mAddressTextView;
+    @InjectView(R.id.image_phone) ImageView mAddressImageView;
+
     @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
     @InjectView(R.id.pet_description) TextView mDescriptionTextView;
-    @InjectView(R.id.layout_phone) LinearLayout mPhoneLayout;
-    @InjectView(R.id.pet_phone) TextView mPhoneTextView;
-    @InjectView(R.id.layout_email) LinearLayout mEmailLayout;
-    @InjectView(R.id.pet_email) TextView mEmailTextView;
-    @InjectView(R.id.layout_address) LinearLayout mAddressLayout;
-    @InjectView(R.id.pet_address) TextView mAddressTextView;
 
     private Pet mPet;
 
@@ -82,6 +98,43 @@ public class DetailFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    @OnClick(R.id.image_phone)
+    public void onClickPhone() {
+        launchPhone();
+    }
+
+    @OnClick(R.id.image_email)
+    public void onClickEmail() {
+        launchEmail();
+    }
+
+    @OnClick(R.id.image_address)
+    public void onClickAddress() {
+        launchMap();
+    }
+
+    private void launchPhone() {
+        String number = mPhoneTextView.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + number));
+        startActivity(intent);
+    }
+
+    private void launchEmail() {
+        String recipient = mEmailTextView.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{recipient});
+        startActivity(intent);
+    }
+
+    private void launchMap() {
+        String address = mAddressTextView.getText().toString();
+        String uri = "https://maps.google.com/maps?f=d&daddr=" + address;
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(i);
     }
 
     private void updateUI() {

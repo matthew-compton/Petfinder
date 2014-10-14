@@ -121,11 +121,12 @@
 
         <View style="@style/Divider"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layout_phone"
-            style="@style/DetailLayoutVertical">
+            style="@style/DetailLayout">
 
             <TextView
+                android:id="@+id/label_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_phone"
@@ -136,18 +137,29 @@
                 android:id="@+id/pet_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/label_phone"
                 android:textSize="@dimen/text_normal"
                 android:phoneNumber="true"
-                android:singleLine="true"
                 tools:text="404-421-5787"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/image_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/stat_sys_phone_call"
+                android:scaleType="fitXY"
+                android:clickable="true"/>
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/layout_email"
-            style="@style/DetailLayoutVertical">
+            style="@style/DetailLayout">
 
             <TextView
+                android:id="@+id/label_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_email"
@@ -158,17 +170,28 @@
                 android:id="@+id/pet_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/label_email"
                 android:textSize="@dimen/text_normal"
-                android:singleLine="true"
                 tools:text="ambergleam@gmail.com"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/image_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/sym_action_email"
+                android:scaleType="fitXY"
+                android:clickable="true"/>
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/layout_address"
-            style="@style/DetailLayoutVertical">
+            style="@style/DetailLayout">
 
             <TextView
+                android:id="@+id/label_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_address"
@@ -179,10 +202,21 @@
                 android:id="@+id/pet_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/label_address"
                 android:textSize="@dimen/text_normal"
                 tools:text="845 Spring St. NW #126\nAtlanta, GA 30308"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/image_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_dialog_map"
+                android:scaleType="fitXY"
+                android:clickable="true"/>
+
+        </RelativeLayout>
 
         <View style="@style/Divider"/>
 
