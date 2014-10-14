@@ -56,6 +56,8 @@ public class MainFragment extends BaseFragment {
     private int mImageIndex;
     private int mImageIndexLength;
 
+    private boolean isLoading = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_main, container, false);
@@ -73,17 +75,21 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPet() {
-        mCompositeSubscription = new CompositeSubscription();
+        if (!isLoading) {
+            isLoading = true;
+            mCompositeSubscription = new CompositeSubscription();
 
-        Action1<Petfinder> successAction = petfinder -> {
-            updatePet(petfinder.mPet);
-        };
+            Action1<Petfinder> successAction = petfinder -> {
+                updatePet(petfinder.mPet);
+            };
 
-        Action1<Throwable> failureAction = throwable -> {
-            Log.e(TAG, throwable.getMessage().toString());
-        };
+            Action1<Throwable> failureAction = throwable -> {
+                Log.e(TAG, throwable.getMessage().toString());
+                isLoading = false;
+            };
 
-        mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
+            mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
+        }
     }
 
     private void updatePet(Pet pet) {
@@ -94,6 +100,7 @@ public class MainFragment extends BaseFragment {
             updateUI();
         } else {
             Log.e(TAG, "Pet is invalid.");
+            isLoading = false;
             findPet();
         }
     }
@@ -200,16 +207,20 @@ public class MainFragment extends BaseFragment {
                         new Callback() {
                             @Override
                             public void onSuccess() {
-                                mLoadingProgressBar.setVisibility(View.GONE);
-                                mPetPictureImageView.setVisibility(View.VISIBLE);
+                                onImageLoadFinish();
                             }
 
                             @Override
                             public void onError() {
-                                mLoadingProgressBar.setVisibility(View.GONE);
-                                mPetPictureImageView.setVisibility(View.VISIBLE);
+                                onImageLoadFinish();
                             }
                         });
+    }
+
+    private void onImageLoadFinish() {
+        mLoadingProgressBar.setVisibility(View.GONE);
+        mPetPictureImageView.setVisibility(View.VISIBLE);
+        isLoading = false;
     }
 
 }
