@@ -25,6 +25,10 @@ public class Animal implements Serializable {
             for (AnimalEnum type : AnimalEnum.values()) {
                 if (type.toUrlFormatString().equals(str.toLowerCase())) {
                     return type;
+                } else if (str.equals("Scales, Fins & Other")) {
+                    return REPTILE;
+                } else if (str.equals("Small & Furry")) {
+                    return SMALLFURRY;
                 }
             }
             return ALL;

@@ -1,7 +1,7 @@
 package com.ambergleam.petfinder.service;
 
 import com.ambergleam.petfinder.model.Animal;
-import com.ambergleam.petfinder.model.Preference;
+import com.ambergleam.petfinder.PetfinderPreference;
 import com.ambergleam.petfinder.model.SearchResponse;
 
 import retrofit.RestAdapter;
@@ -18,7 +18,7 @@ public class PetfinderService {
     private static final String FORMAT = "json";
 
     private final PetfinderServiceInterface mServiceInterface;
-    private Preference mPreference;
+    private PetfinderPreference mPetfinderPreference;
 
     public static PetfinderService newInstance() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -34,7 +34,7 @@ public class PetfinderService {
     }
 
     public Observable<SearchResponse> search() {
-        if (mPreference.getAnimalEnum() == Animal.AnimalEnum.ALL) {
+        if (mPetfinderPreference.getAnimalEnum() == Animal.AnimalEnum.ALL) {
             return mServiceInterface.search(
                     API_KEY,
                     OUTPUT,
@@ -43,15 +43,15 @@ public class PetfinderService {
         } else {
             return mServiceInterface.search(
                     API_KEY,
-                    mPreference.getAnimalEnum().toUrlFormatString(),
+                    mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
                     OUTPUT,
                     FORMAT
             );
         }
     }
 
-    public void setPreference(Preference preference) {
-        mPreference = preference;
+    public void setPetfinderPreference(PetfinderPreference petfinderPreference) {
+        mPetfinderPreference = petfinderPreference;
     }
 
 }

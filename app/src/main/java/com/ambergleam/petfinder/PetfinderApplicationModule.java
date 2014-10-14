@@ -6,7 +6,6 @@ import com.ambergleam.petfinder.controller.MainActivity;
 import com.ambergleam.petfinder.controller.MainFragment;
 import com.ambergleam.petfinder.controller.SettingsActivity;
 import com.ambergleam.petfinder.controller.SettingsFragment;
-import com.ambergleam.petfinder.model.Preference;
 import com.ambergleam.petfinder.service.PetfinderService;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
 
@@ -36,7 +35,7 @@ public class PetfinderApplicationModule {
     @Provides
     @Singleton
     public PetfinderServiceManager providePetfinderServiceManager() {
-        return new PetfinderServiceManager(PetfinderService.newInstance(), new Preference());
+        return new PetfinderServiceManager(PetfinderService.newInstance(), new PetfinderPreference());
     }
 
 }

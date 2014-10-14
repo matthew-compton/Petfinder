@@ -18,14 +18,4 @@
     <string name="pet_email">Email:</string>
     <string name="pet_address">Address:</string>
 
-    <string name="type_all">All</string>
-    <string name="type_barnyard">Barnyard</string>
-    <string name="type_bird">Bird</string>
-    <string name="type_cat">Cat</string>
-    <string name="type_dog">Dog</string>
-    <string name="type_horse">Horse</string>
-    <string name="type_pig">Pig</string>
-    <string name="type_reptile">Reptile</string>
-    <string name="type_small_and_furry">Small and Furry</string>
-
 </resources>

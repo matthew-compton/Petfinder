@@ -68,7 +68,7 @@ public class MainFragment extends BaseFragment {
             mImageIndex = savedInstanceState.getInt(STATE_INDEX);
             mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
         }
-        mPetfinderServiceManager.getPreference().loadPreference(getActivity());
+        mPetfinderServiceManager.getPetfinderPreference().loadPreference(getActivity());
 
         setHasOptionsMenu(true);
         return layout;
