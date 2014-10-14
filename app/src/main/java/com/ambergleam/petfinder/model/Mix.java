@@ -18,6 +18,9 @@ public class Mix implements Serializable {
         ANY, YES, NO;
 
         public String toUrlFormatString() {
+            if (this == ANY) {
+                return "";
+            }
             return this.name().toLowerCase();
         }
 

@@ -18,6 +18,9 @@ public class Size implements Serializable {
         ANY, S, M, L, XL;
 
         public String toUrlFormatString() {
+            if (this == ANY) {
+                return "";
+            }
             return this.name();
         }
 

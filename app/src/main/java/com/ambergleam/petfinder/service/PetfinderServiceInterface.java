@@ -12,15 +12,10 @@ public interface PetfinderServiceInterface {
     public Observable<SearchResponse> search(
             @Query("key") String key,
             @Query("output") String output,
-            @Query("format") String format
-    );
-
-    @GET("/pet.getRandom")
-    public Observable<SearchResponse> search(
-            @Query("key") String key,
+            @Query("format") String format,
             @Query("animal") String animal,
-            @Query("output") String output,
-            @Query("format") String format
+            @Query("sex") String gender,
+            @Query("size") String size
     );
 
 }

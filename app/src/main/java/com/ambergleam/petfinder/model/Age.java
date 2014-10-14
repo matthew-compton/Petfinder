@@ -18,6 +18,9 @@ public class Age implements Serializable {
         ANY, BABY, YOUNG, ADULT, SENIOR;
 
         public String toUrlFormatString() {
+            if (this == ANY) {
+                return "";
+            }
             return this.toString();
         }
 

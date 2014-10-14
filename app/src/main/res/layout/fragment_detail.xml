@@ -78,6 +78,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_size"
+            style="@style/DetailLayoutHorizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_size"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/pet_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:gravity="right"
+                tools:text="Small"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_mix"
             style="@style/DetailLayoutHorizontal">
 
@@ -116,27 +137,6 @@
                 android:textSize="@dimen/text_normal"
                 android:gravity="right"
                 tools:text="Young"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_size"
-            style="@style/DetailLayoutHorizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pet_size"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/pet_size"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
-                android:gravity="right"
-                tools:text="Small"/>
 
         </LinearLayout>
 

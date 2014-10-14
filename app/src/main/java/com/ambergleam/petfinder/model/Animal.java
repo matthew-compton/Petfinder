@@ -18,6 +18,9 @@ public class Animal implements Serializable {
         ALL, BARNYARD, BIRD, CAT, DOG, HORSE, PIG, REPTILE, SMALLFURRY;
 
         public String toUrlFormatString() {
+            if (this == ALL) {
+                return "";
+            }
             return this.name().toLowerCase();
         }
 

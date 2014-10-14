@@ -1,6 +1,5 @@
 package com.ambergleam.petfinder.service;
 
-import com.ambergleam.petfinder.model.Animal;
 import com.ambergleam.petfinder.PetfinderPreference;
 import com.ambergleam.petfinder.model.SearchResponse;
 
@@ -33,25 +32,19 @@ public class PetfinderService {
         mServiceInterface = serviceInterface;
     }
 
-    public Observable<SearchResponse> search() {
-        if (mPetfinderPreference.getAnimalEnum() == Animal.AnimalEnum.ALL) {
-            return mServiceInterface.search(
-                    API_KEY,
-                    OUTPUT,
-                    FORMAT
-            );
-        } else {
-            return mServiceInterface.search(
-                    API_KEY,
-                    mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
-                    OUTPUT,
-                    FORMAT
-            );
-        }
-    }
-
     public void setPetfinderPreference(PetfinderPreference petfinderPreference) {
         mPetfinderPreference = petfinderPreference;
+    }
+
+    public Observable<SearchResponse> search() {
+        return mServiceInterface.search(
+                API_KEY,
+                OUTPUT,
+                FORMAT,
+                mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
+                mPetfinderPreference.getGenderEnum().toUrlFormatString(),
+                mPetfinderPreference.getSizeEnum().toUrlFormatString()
+        );
     }
 
 }

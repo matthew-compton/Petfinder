@@ -18,6 +18,9 @@ public class Gender implements Serializable {
         ANY, M, F, U;
 
         public String toUrlFormatString() {
+            if (this == ANY) {
+                return "";
+            }
             return this.name();
         }
 
