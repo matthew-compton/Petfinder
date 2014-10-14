@@ -48,6 +48,7 @@ public class MainFragment extends BaseFragment {
 
     @InjectView(R.id.previous) ImageButton mPreviousImageButton;
     @InjectView(R.id.next) ImageButton mNextImageButton;
+    @InjectView(R.id.divider) View mDivider;
 
     @InjectView(R.id.name) TextView mNameTextView;
 
@@ -172,6 +173,7 @@ public class MainFragment extends BaseFragment {
 
     private void updateUI() {
         mNameTextView.setText(mPet.mName.mString);
+        mDivider.setVisibility(View.VISIBLE);
         updateImageButtons();
         updateImageView();
     }

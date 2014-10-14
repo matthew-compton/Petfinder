@@ -11,6 +11,6 @@ Libraries
 - [Gson](https://code.google.com/p/google-gson/)
 - [Picasso](https://github.com/square/picasso)
 - [Dagger](https://square.github.io/dagger/)
-- [Butterknife](https://jakewharton.github.io/butterknife/)
+- [Butter Knife](https://jakewharton.github.io/butterknife/)
 - [Retrolambda](https://github.com/orfjackal/retrolambda)
 - [Crittercism](http://www.crittercism.com/)
