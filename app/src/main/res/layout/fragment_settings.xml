@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/black"
-        android:layout_marginBottom="@dimen/padding_small"/>
+        android:layout_marginBottom="@dimen/padding_normal"/>
 
     <RadioGroup
         android:layout_width="match_parent"

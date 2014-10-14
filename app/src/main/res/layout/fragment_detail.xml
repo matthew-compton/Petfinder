@@ -16,16 +16,14 @@
 
         <LinearLayout
             android:id="@+id/layout_name"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutHorizontal">
 
             <TextView
-                android:id="@+id/label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_name"/>
+                android:text="@string/pet_name"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_name"
@@ -39,16 +37,14 @@
 
         <LinearLayout
             android:id="@+id/layout_animal"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutHorizontal">
 
             <TextView
-                android:id="@+id/label_animal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_animal"/>
+                android:text="@string/pet_animal"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_animal"
@@ -62,16 +58,14 @@
 
         <LinearLayout
             android:id="@+id/layout_mix"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutHorizontal">
 
             <TextView
-                android:id="@+id/label_mix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_mix"/>
+                android:text="@string/pet_mix"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_mix"
@@ -85,16 +79,14 @@
 
         <LinearLayout
             android:id="@+id/layout_age"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutHorizontal">
 
             <TextView
-                android:id="@+id/label_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_age"/>
+                android:text="@string/pet_age"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_age"
@@ -102,22 +94,20 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
                 android:gravity="right"
-                tools:text="22"/>
+                tools:text="Young"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_size"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutHorizontal">
 
             <TextView
-                android:id="@+id/label_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_size"/>
+                android:text="@string/pet_size"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_size"
@@ -125,108 +115,89 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
                 android:gravity="right"
-                tools:text="Large"/>
+                tools:text="Small"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_description"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/label_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
-                android:text="@string/pet_description"/>
-
-            <TextView
-                android:id="@+id/pet_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
-                android:gravity="right"
-                tools:text="A really cute dog with a great attitude!"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_margin="@dimen/padding_small"/>
+        <View style="@style/Divider"/>
 
         <LinearLayout
             android:id="@+id/layout_phone"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutVertical">
 
             <TextView
-                android:id="@+id/label_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_phone"/>
+                android:text="@string/pet_phone"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:gravity="right"
+                android:phoneNumber="true"
+                android:singleLine="true"
                 tools:text="404-421-5787"/>
 
         </LinearLayout>
-        
+
         <LinearLayout
             android:id="@+id/layout_email"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutVertical">
 
             <TextView
-                android:id="@+id/label_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_email"/>
+                android:text="@string/pet_email"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:gravity="right"
+                android:singleLine="true"
                 tools:text="ambergleam@gmail.com"/>
 
         </LinearLayout>
-        
+
         <LinearLayout
             android:id="@+id/layout_address"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/DetailLayoutVertical">
 
             <TextView
-                android:id="@+id/label_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:text="@string/pet_address"/>
+                android:text="@string/pet_address"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:gravity="right"
-                tools:text="845 Spring St. NW #126 Atlanta, GA 30308"/>
+                tools:text="845 Spring St. NW #126\nAtlanta, GA 30308"/>
 
         </LinearLayout>
 
+        <View style="@style/Divider"/>
+
+        <LinearLayout
+            android:id="@+id/layout_description"
+            style="@style/DetailLayout">
+
+            <TextView
+                android:id="@+id/pet_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                tools:text="A really cute dog with a great attitude!"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

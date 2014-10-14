@@ -52,10 +52,7 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"
-        android:layout_margin="@dimen/padding_small"
+        style="@style/Divider"
         android:visibility="invisible"
         tools:visibility="visible"/>
 
