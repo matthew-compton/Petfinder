@@ -11,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
 import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
-import com.ambergleam.petfinder.utils.DialogUtils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -43,6 +44,8 @@ public class MainFragment extends BaseFragment {
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
     @InjectView(R.id.image) ImageView mPetPictureImageView;
+    @InjectView(R.id.loading) ProgressBar mLoadingProgressBar;
+
     @InjectView(R.id.previous) ImageButton mPreviousImageButton;
     @InjectView(R.id.next) ImageButton mNextImageButton;
 
@@ -69,7 +72,6 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPet() {
-        DialogUtils.showLoadingDialog(getActivity().getSupportFragmentManager(), false);
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Petfinder> successAction = petfinder -> {
@@ -105,11 +107,11 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        if (mPet == null) {
-//            findPet();
-//        } else {
-//            updateUI();
-//        }
+        if (mPet == null) {
+            findPet();
+        } else {
+            updateUI();
+        }
     }
 
     @Override
@@ -171,10 +173,7 @@ public class MainFragment extends BaseFragment {
     private void updateUI() {
         mNameTextView.setText(mPet.mName.mString);
         updateImageButtons();
-        Picasso.with(getActivity())
-                .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
-                .into(mPetPictureImageView);
-        DialogUtils.hideLoadingDialog(getActivity().getSupportFragmentManager());
+        updateImageView();
     }
 
     private void updateImageButtons() {
@@ -188,6 +187,27 @@ public class MainFragment extends BaseFragment {
         } else {
             mNextImageButton.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void updateImageView() {
+        mPetPictureImageView.setVisibility(View.GONE);
+        mLoadingProgressBar.setVisibility(View.VISIBLE);
+        Picasso.with(getActivity())
+                .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
+                .into(mPetPictureImageView,
+                        new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                mLoadingProgressBar.setVisibility(View.GONE);
+                                mPetPictureImageView.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onError() {
+                                mLoadingProgressBar.setVisibility(View.GONE);
+                                mPetPictureImageView.setVisibility(View.VISIBLE);
+                            }
+                        });
     }
 
 }
