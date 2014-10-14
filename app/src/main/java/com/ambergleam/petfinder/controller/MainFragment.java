@@ -56,7 +56,7 @@ public class MainFragment extends BaseFragment {
     private int mImageIndex;
     private int mImageIndexLength;
 
-    private boolean isLoading = false;
+    private boolean isLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +66,9 @@ public class MainFragment extends BaseFragment {
         if (savedInstanceState != null) {
             mPet = (Pet) savedInstanceState.getSerializable(STATE_PET);
             mImageIndex = savedInstanceState.getInt(STATE_INDEX);
-            mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
+            if (mPet != null) {
+                mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
+            }
         }
         mPetfinderServiceManager.getPetfinderPreference().loadPreference(getActivity());
 
@@ -115,6 +117,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        isLoading = false;
         if (mPet == null) {
             findPet();
         } else {
