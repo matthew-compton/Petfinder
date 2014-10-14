@@ -15,7 +15,7 @@ public class Gender implements Serializable {
 
     public enum GenderEnum {
 
-        M, F, U, NONE;
+        ANY, M, F, U;
 
         public String toUrlFormatString() {
             return this.name();
@@ -27,7 +27,7 @@ public class Gender implements Serializable {
                     return type;
                 }
             }
-            return NONE;
+            return ANY;
         }
 
         @Override
@@ -39,11 +39,12 @@ public class Gender implements Serializable {
                     return "Female";
                 case U:
                     return "Unknown";
-                case NONE:
+                case ANY:
                 default:
-                    return "";
+                    return "Any";
             }
         }
+
     }
 
 }

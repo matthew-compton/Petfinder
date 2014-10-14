@@ -164,7 +164,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateAnimal() {
-        if (mPet.mAnimal.mString != null) {
+        if (mPet.mAnimal.mString != null && !mPet.mAnimal.toString().equals("Any")) {
             mAnimalLayout.setVisibility(View.VISIBLE);
             mAnimalTextView.setText(mPet.mAnimal.toString());
         } else {
@@ -173,7 +173,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateGender() {
-        if (mPet.mGender.mString != null && !mPet.mGender.toString().equals("")) {
+        if (mPet.mGender.mString != null && !mPet.mGender.toString().equals("Any")) {
             mGenderLayout.setVisibility(View.VISIBLE);
             mGenderTextView.setText(mPet.mGender.toString());
         } else {
@@ -182,7 +182,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateMix() {
-        if (mPet.mMix.mString != null && !mPet.mMix.toString().equals("")) {
+        if (mPet.mMix.mString != null && !mPet.mMix.toString().equals("Any")) {
             mMixLayout.setVisibility(View.VISIBLE);
             mMixTextView.setText(mPet.mMix.toString());
         } else {
@@ -191,7 +191,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateAge() {
-        if (mPet.mAge.mString != null && !mPet.mAge.toString().equals("")) {
+        if (mPet.mAge.mString != null && !mPet.mAge.toString().equals("Any")) {
             mAgeLayout.setVisibility(View.VISIBLE);
             mAgeTextView.setText(mPet.mAge.toString());
         } else {
@@ -200,7 +200,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateSize() {
-        if (mPet.mSize.mString != null && !mPet.mSize.toString().equals("")) {
+        if (mPet.mSize.mString != null && !mPet.mSize.toString().equals("Any")) {
             mSizeLayout.setVisibility(View.VISIBLE);
             mSizeTextView.setText(mPet.mSize.toString());
         } else {

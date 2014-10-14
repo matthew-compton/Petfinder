@@ -15,7 +15,7 @@ public class Size implements Serializable {
 
     public enum SizeEnum {
 
-        S, M, L, XL, NONE;
+        ANY, S, M, L, XL;
 
         public String toUrlFormatString() {
             return this.name();
@@ -27,7 +27,7 @@ public class Size implements Serializable {
                     return type;
                 }
             }
-            return NONE;
+            return ANY;
         }
 
         @Override
@@ -41,9 +41,9 @@ public class Size implements Serializable {
                     return "Large";
                 case XL:
                     return "Extra-Large";
-                case NONE:
+                case ANY:
                 default:
-                    return "";
+                    return "Any";
             }
         }
 

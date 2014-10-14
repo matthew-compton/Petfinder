@@ -15,7 +15,7 @@ public class Mix implements Serializable {
 
     public enum MixEnum {
 
-        YES, NO, NONE;
+        ANY, YES, NO;
 
         public String toUrlFormatString() {
             return this.name().toLowerCase();
@@ -27,7 +27,7 @@ public class Mix implements Serializable {
                     return type;
                 }
             }
-            return NONE;
+            return ANY;
         }
 
         @Override
@@ -37,11 +37,12 @@ public class Mix implements Serializable {
                     return "Yes";
                 case NO:
                     return "No";
-                case NONE:
+                case ANY:
                 default:
-                    return "";
+                    return "Any";
             }
         }
+
     }
 
 }

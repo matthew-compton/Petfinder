@@ -15,9 +15,6 @@ public class Contact implements Serializable {
     @SerializedName("city")
     public City mCity;
 
-    @SerializedName("fax")
-    public Fax mFax;
-
     @SerializedName("address1")
     public Address mAddress;
 

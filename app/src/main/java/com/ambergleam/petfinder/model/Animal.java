@@ -15,9 +15,7 @@ public class Animal implements Serializable {
 
     public enum AnimalEnum {
 
-        BARNYARD, BIRD, CAT, DOG, HORSE, PIG, REPTILE, SMALLFURRY, ALL;
-
-        private static final AnimalEnum DEFAULT = ALL;
+        ALL, BARNYARD, BIRD, CAT, DOG, HORSE, PIG, REPTILE, SMALLFURRY;
 
         public String toUrlFormatString() {
             return this.name().toLowerCase();
@@ -29,7 +27,7 @@ public class Animal implements Serializable {
                     return type;
                 }
             }
-            return DEFAULT;
+            return ALL;
         }
 
         @Override
@@ -52,9 +50,8 @@ public class Animal implements Serializable {
                 case SMALLFURRY:
                     return "Small and Furry";
                 case ALL:
-                    return "All";
                 default:
-                    return DEFAULT.toString();
+                    return "Any";
             }
         }
 

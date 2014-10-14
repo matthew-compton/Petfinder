@@ -15,7 +15,7 @@ public class Age implements Serializable {
 
     public enum AgeEnum {
 
-        BABY, YOUNG, ADULT, SENIOR, NONE;
+        ANY, BABY, YOUNG, ADULT, SENIOR;
 
         public String toUrlFormatString() {
             return this.toString();
@@ -27,12 +27,13 @@ public class Age implements Serializable {
                     return type;
                 }
             }
-            return NONE;
+            return ANY;
         }
 
         @Override
         public String toString() {
             switch (this) {
+
                 case BABY:
                     return "Baby";
                 case YOUNG:
@@ -41,9 +42,9 @@ public class Age implements Serializable {
                     return "Adult";
                 case SENIOR:
                     return "Senior";
-                case NONE:
+                case ANY:
                 default:
-                    return "";
+                    return "Any";
             }
         }
 

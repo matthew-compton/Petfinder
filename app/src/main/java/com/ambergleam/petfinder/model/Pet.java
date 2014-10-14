@@ -6,15 +6,6 @@ import java.io.Serializable;
 
 public class Pet implements Serializable {
 
-    @SerializedName("id")
-    public Id mId;
-
-    @SerializedName("shelterPetId")
-    public ShelterPetId mShelterPetId;
-
-    @SerializedName("shelterId")
-    public ShelterId mShelterId;
-
     @SerializedName("status")
     public Status mStatus;
 
@@ -42,22 +33,12 @@ public class Pet implements Serializable {
     @SerializedName("media")
     public Media mMedia;
 
-//    @SerializedName("options")
-//    public Options mOptions;
-
-//    @SerializedName("breeds")
-//    public Breeds mBreeds;
-
     @SerializedName("contact")
     public Contact mContact;
-
-    @SerializedName("lastUpdate")
-    public LastUpdate mLastUpdate;
 
     public String toString() {
         return new StringBuilder()
                 .append(mName.mString).append(", ")
-                .append(mId.mString).append(", ")
                 .append(mAnimal.mString)
                 .toString();
     }
