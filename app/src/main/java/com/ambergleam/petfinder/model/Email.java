@@ -9,4 +9,8 @@ public class Email implements Serializable {
     @SerializedName("$t")
     public String mString;
 
+    public String toString() {
+        return mString;
+    }
+
 }

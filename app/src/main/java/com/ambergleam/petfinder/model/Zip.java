@@ -9,4 +9,8 @@ public class Zip implements Serializable {
     @SerializedName("$t")
     public String mString;
 
+    public String toString() {
+        return mString;
+    }
+
 }

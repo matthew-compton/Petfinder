@@ -9,4 +9,8 @@ public class Address implements Serializable {
     @SerializedName("$t")
     public String mString;
 
+    public String toString() {
+        return mString;
+    }
+
 }

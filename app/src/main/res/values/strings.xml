@@ -13,6 +13,9 @@
     <string name="pet_age">Age:</string>
     <string name="pet_size">Size:</string>
     <string name="pet_description">Description:</string>
+    <string name="pet_phone">Phone:</string>
+    <string name="pet_email">Email:</string>
+    <string name="pet_address">Address:</string>
 
     <string name="type_all">All</string>
     <string name="type_barnyard">Barnyard</string>

@@ -34,6 +34,12 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.pet_size) TextView mSizeTextView;
     @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
     @InjectView(R.id.pet_description) TextView mDescriptionTextView;
+    @InjectView(R.id.layout_phone) LinearLayout mPhoneLayout;
+    @InjectView(R.id.pet_phone) TextView mPhoneTextView;
+    @InjectView(R.id.layout_email) LinearLayout mEmailLayout;
+    @InjectView(R.id.pet_email) TextView mEmailTextView;
+    @InjectView(R.id.layout_address) LinearLayout mAddressLayout;
+    @InjectView(R.id.pet_address) TextView mAddressTextView;
 
     private Pet mPet;
 
@@ -85,6 +91,9 @@ public class DetailFragment extends BaseFragment {
         updateAge();
         updateSize();
         updateDescription();
+        updatePhone();
+        updateEmail();
+        updateAddress();
     }
 
     private void updateName() {
@@ -92,7 +101,7 @@ public class DetailFragment extends BaseFragment {
             mNameLayout.setVisibility(View.VISIBLE);
             mNameTextView.setText(mPet.mName.mString);
         } else {
-            mNameLayout.setVisibility(View.INVISIBLE);
+            mNameLayout.setVisibility(View.GONE);
         }
     }
 
@@ -101,7 +110,7 @@ public class DetailFragment extends BaseFragment {
             mAnimalLayout.setVisibility(View.VISIBLE);
             mAnimalTextView.setText(mPet.mAnimal.mString);
         } else {
-            mAnimalLayout.setVisibility(View.INVISIBLE);
+            mAnimalLayout.setVisibility(View.GONE);
         }
     }
 
@@ -110,7 +119,7 @@ public class DetailFragment extends BaseFragment {
             mMixLayout.setVisibility(View.VISIBLE);
             mMixTextView.setText(mPet.mMix.mString);
         } else {
-            mMixLayout.setVisibility(View.INVISIBLE);
+            mMixLayout.setVisibility(View.GONE);
         }
     }
 
@@ -119,7 +128,7 @@ public class DetailFragment extends BaseFragment {
             mAgeLayout.setVisibility(View.VISIBLE);
             mAgeTextView.setText(mPet.mAge.mString);
         } else {
-            mAgeLayout.setVisibility(View.INVISIBLE);
+            mAgeLayout.setVisibility(View.GONE);
         }
     }
 
@@ -128,7 +137,7 @@ public class DetailFragment extends BaseFragment {
             mSizeLayout.setVisibility(View.VISIBLE);
             mSizeTextView.setText(mPet.mSize.mString);
         } else {
-            mSizeLayout.setVisibility(View.INVISIBLE);
+            mSizeLayout.setVisibility(View.GONE);
         }
     }
 
@@ -137,7 +146,34 @@ public class DetailFragment extends BaseFragment {
             mDescriptionLayout.setVisibility(View.VISIBLE);
             mDescriptionTextView.setText(mPet.mDescription.mString);
         } else {
-            mDescriptionLayout.setVisibility(View.INVISIBLE);
+            mDescriptionLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updatePhone() {
+        if (mPet.mContact.mPhone.mString != null && !mPet.mContact.mPhone.mString.equals("")) {
+            mPhoneLayout.setVisibility(View.VISIBLE);
+            mPhoneTextView.setText(mPet.mContact.mPhone.mString);
+        } else {
+            mPhoneLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateEmail() {
+        if (mPet.mContact.mEmail.mString != null && !mPet.mContact.mEmail.mString.equals("")) {
+            mEmailLayout.setVisibility(View.VISIBLE);
+            mEmailTextView.setText(mPet.mContact.mEmail.mString);
+        } else {
+            mEmailLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateAddress() {
+        if (mPet.mContact != null && mPet.mContact.isAddressValid()) {
+            mAddressLayout.setVisibility(View.VISIBLE);
+            mAddressTextView.setText(mPet.mContact.getAddressString());
+        } else {
+            mAddressLayout.setVisibility(View.GONE);
         }
     }
 

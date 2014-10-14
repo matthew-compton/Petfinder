@@ -27,4 +27,15 @@ public class Contact implements Serializable {
     @SerializedName("state")
     public State mState;
 
+    public String getAddressString() {
+        return new StringBuilder()
+                .append(mAddress).append("\n")
+                .append(mCity).append(", ").append(mState).append(" ").append(mZip)
+                .toString();
+    }
+
+    public boolean isAddressValid() {
+        return mAddress.mString != null && mCity.mString != null && mState.mString != null && mZip.mString != null;
+    }
+
 }
