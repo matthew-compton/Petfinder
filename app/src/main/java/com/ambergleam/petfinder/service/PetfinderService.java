@@ -42,7 +42,6 @@ public class PetfinderService {
                 OUTPUT,
                 FORMAT,
                 mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
-                mPetfinderPreference.getGenderEnum().toUrlFormatString(),
                 mPetfinderPreference.getSizeEnum().toUrlFormatString()
         );
     }

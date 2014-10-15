@@ -14,7 +14,6 @@ public interface PetfinderServiceInterface {
             @Query("output") String output,
             @Query("format") String format,
             @Query("animal") String animal,
-            @Query("sex") String gender,
             @Query("size") String size
     );
 
