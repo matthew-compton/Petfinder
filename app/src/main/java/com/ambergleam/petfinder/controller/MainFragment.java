@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
@@ -43,10 +44,9 @@ public class MainFragment extends BaseFragment {
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
+    @InjectView(R.id.container) LinearLayout mContainer;
     @InjectView(R.id.previous) ImageButton mPreviousImageButton;
     @InjectView(R.id.next) ImageButton mNextImageButton;
-    @InjectView(R.id.divider) View mDivider;
-
     @InjectView(R.id.name) TextView mNameTextView;
     @InjectView(R.id.image) ImageView mPetPictureImageView;
     @InjectView(R.id.index) TextView mIndexTextView;
@@ -74,7 +74,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPet() {
-        DialogUtils.showLoadingDialog(this.getChildFragmentManager(), false);
+        startLoading();
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<Petfinder> successAction = petfinder -> {
@@ -175,11 +175,14 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateUI() {
-        mNameTextView.setText(mPet.mName.mString);
+        updateNameView();
         updateIndexView();
-        mDivider.setVisibility(View.VISIBLE);
         updateImageButtons();
         updateImageView();
+    }
+
+    private void updateNameView() {
+        mNameTextView.setText(mPet.mName.mString);
     }
 
     private void updateIndexView() {
@@ -213,26 +216,30 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateImageView() {
-        mPetPictureImageView.setVisibility(View.INVISIBLE);
         Picasso.with(getActivity())
                 .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
                 .into(mPetPictureImageView,
                         new Callback() {
                             @Override
                             public void onSuccess() {
-                                onImageLoadFinish();
+                                finishLoading();
                             }
 
                             @Override
                             public void onError() {
-                                onImageLoadFinish();
+                                finishLoading();
                             }
                         });
     }
 
-    private void onImageLoadFinish() {
-        mPetPictureImageView.setVisibility(View.VISIBLE);
+    private void startLoading() {
+        mContainer.setVisibility(View.INVISIBLE);
+        DialogUtils.showLoadingDialog(this.getChildFragmentManager(), false);
+    }
+
+    private void finishLoading() {
         DialogUtils.hideLoadingDialog(this.getChildFragmentManager());
+        mContainer.setVisibility(View.VISIBLE);
     }
 
 }
