@@ -51,6 +51,7 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.divider) View mDivider;
 
     @InjectView(R.id.name) TextView mNameTextView;
+    @InjectView(R.id.index) TextView mIndexTextView;
 
     private Pet mPet;
     private int mImageIndex;
@@ -183,9 +184,27 @@ public class MainFragment extends BaseFragment {
 
     private void updateUI() {
         mNameTextView.setText(mPet.mName.mString);
+        updateIndexView();
         mDivider.setVisibility(View.VISIBLE);
         updateImageButtons();
         updateImageView();
+    }
+
+    private void updateIndexView() {
+        int imageIndex = (mImageIndex / INDEX_DELTA) + 1;
+        int imageIndexLength = mImageIndexLength / INDEX_DELTA;
+        if (imageIndexLength > 1) {
+            String index = new StringBuilder()
+                    .append("( ")
+                    .append(imageIndex)
+                    .append(" / ")
+                    .append(imageIndexLength)
+                    .append(" )").toString();
+            mIndexTextView.setText(index);
+            mIndexTextView.setVisibility(View.VISIBLE);
+        } else {
+            mIndexTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void updateImageButtons() {
