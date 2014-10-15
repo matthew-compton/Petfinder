@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
@@ -45,15 +44,15 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.layout_size) LinearLayout mSizeLayout;
     @InjectView(R.id.pet_size) TextView mSizeTextView;
 
-    @InjectView(R.id.layout_phone) RelativeLayout mPhoneLayout;
+    @InjectView(R.id.layout_phone) LinearLayout mPhoneLayout;
     @InjectView(R.id.pet_phone) TextView mPhoneTextView;
     @InjectView(R.id.image_phone) ImageView mPhoneImageView;
 
-    @InjectView(R.id.layout_email) RelativeLayout mEmailLayout;
+    @InjectView(R.id.layout_email) LinearLayout mEmailLayout;
     @InjectView(R.id.pet_email) TextView mEmailTextView;
     @InjectView(R.id.image_email) ImageView mEmailImageView;
 
-    @InjectView(R.id.layout_address) RelativeLayout mAddressLayout;
+    @InjectView(R.id.layout_address) LinearLayout mAddressLayout;
     @InjectView(R.id.pet_address) TextView mAddressTextView;
     @InjectView(R.id.image_phone) ImageView mAddressImageView;
 
