@@ -37,7 +37,7 @@ public class MainFragment extends BaseFragment {
     private static final String STATE_PET = TAG + "STATE_PET";
     private static final String STATE_INDEX = TAG + "STATE_INDEX";
 
-    private static final int INDEX_INITIAL = 3;
+    private static final int INDEX_INITIAL = 2;
     private static final int INDEX_DELTA = 5;
 
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
@@ -63,9 +63,8 @@ public class MainFragment extends BaseFragment {
         if (savedInstanceState != null) {
             mPet = (Pet) savedInstanceState.getSerializable(STATE_PET);
             mImageIndex = savedInstanceState.getInt(STATE_INDEX);
-            if (mPet != null) {
-                mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
-            }
+            mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
+            updateUI();
         }
         mPetfinderServiceManager.getPetfinderPreference().loadPreference(getActivity());
 
@@ -105,7 +104,7 @@ public class MainFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(STATE_PET, mPet);
-        outState.getInt(STATE_INDEX, mImageIndex);
+        outState.putInt(STATE_INDEX, mImageIndex);
     }
 
     @Override

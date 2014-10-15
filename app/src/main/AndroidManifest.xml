@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name="com.ambergleam.petfinder.controller.DetailActivity"
-            android:label="@string/settings">
+            android:label="@string/details">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".controller.MainActivity"/>
