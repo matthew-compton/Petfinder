@@ -61,6 +61,9 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
     @InjectView(R.id.pet_description) TextView mDescriptionTextView;
 
+    @InjectView(R.id.layout_last_updated) LinearLayout mLastUpdatedLayout;
+    @InjectView(R.id.pet_last_updated) TextView mLastUpdatedTextView;
+
     private Pet mPet;
 
     public static DetailFragment newInstance(Pet pet) {
@@ -152,6 +155,7 @@ public class DetailFragment extends BaseFragment {
         updateEmail();
         updateAddress();
         updateDescription();
+        updateLastUpdated();
     }
 
     private void updateName() {
@@ -243,6 +247,15 @@ public class DetailFragment extends BaseFragment {
         } else {
             mDividerLower.setVisibility(View.GONE);
             mDescriptionLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateLastUpdated() {
+        if (mPet.mLastUpdate.mString != null) {
+            mLastUpdatedLayout.setVisibility(View.VISIBLE);
+            mLastUpdatedTextView.setText(mPet.mLastUpdate.toString());
+        } else {
+            mLastUpdatedLayout.setVisibility(View.GONE);
         }
     }
 

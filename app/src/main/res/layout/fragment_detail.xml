@@ -242,7 +242,14 @@
 
         <LinearLayout
             android:id="@+id/layout_description"
-            style="@style/DetailLayout">
+            style="@style/DetailLayoutVertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_description"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/pet_description"
@@ -250,6 +257,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 tools:text="A really cute dog with a great attitude!"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_last_updated"
+            style="@style/DetailLayoutHorizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_updated"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/pet_last_updated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:gravity="right"
+                tools:text="Young"/>
 
         </LinearLayout>
 

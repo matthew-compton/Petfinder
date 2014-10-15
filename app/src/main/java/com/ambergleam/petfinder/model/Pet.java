@@ -36,6 +36,9 @@ public class Pet implements Serializable {
     @SerializedName("contact")
     public Contact mContact;
 
+    @SerializedName("lastUpdate")
+    public LastUpdate mLastUpdate;
+
     public String toString() {
         return new StringBuilder()
                 .append(mName.mString).append(", ")

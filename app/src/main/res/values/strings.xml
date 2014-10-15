@@ -15,6 +15,7 @@
     <string name="pet_mix">Mix:</string>
     <string name="pet_status">Status:</string>
     <string name="pet_description">Description:</string>
+    <string name="pet_updated">Last Updated:</string>
     <string name="pet_phone">Phone:</string>
     <string name="pet_email">Email:</string>
     <string name="pet_address">Address:</string>
