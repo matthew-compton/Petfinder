@@ -36,8 +36,8 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.layout_gender) LinearLayout mGenderLayout;
     @InjectView(R.id.pet_gender) TextView mGenderTextView;
 
-    @InjectView(R.id.layout_mix) LinearLayout mMixLayout;
-    @InjectView(R.id.pet_mix) TextView mMixTextView;
+    @InjectView(R.id.layout_status) LinearLayout mStatusLayout;
+    @InjectView(R.id.pet_status) TextView mStatusTextView;
 
     @InjectView(R.id.layout_age) LinearLayout mAgeLayout;
     @InjectView(R.id.pet_age) TextView mAgeTextView;
@@ -145,7 +145,7 @@ public class DetailFragment extends BaseFragment {
         updateName();
         updateAnimal();
         updateGender();
-        updateMix();
+        updateStatus();
         updateAge();
         updateSize();
         updatePhone();
@@ -181,12 +181,12 @@ public class DetailFragment extends BaseFragment {
         }
     }
 
-    private void updateMix() {
-        if (mPet.mMix.mString != null && !mPet.mMix.toString().equals("Any")) {
-            mMixLayout.setVisibility(View.VISIBLE);
-            mMixTextView.setText(mPet.mMix.toString());
+    private void updateStatus() {
+        if (mPet.mStatus.mString != null && !mPet.mStatus.toString().equals("Any")) {
+            mStatusLayout.setVisibility(View.VISIBLE);
+            mStatusTextView.setText(mPet.mStatus.toString());
         } else {
-            mMixLayout.setVisibility(View.GONE);
+            mStatusLayout.setVisibility(View.GONE);
         }
     }
 

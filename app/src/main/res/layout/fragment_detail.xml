@@ -99,27 +99,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_mix"
-            style="@style/DetailLayoutHorizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pet_mix"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/pet_mix"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
-                android:gravity="right"
-                tools:text="Mutt"/>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/layout_age"
             style="@style/DetailLayoutHorizontal">
 
@@ -137,6 +116,27 @@
                 android:textSize="@dimen/text_normal"
                 android:gravity="right"
                 tools:text="Young"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_status"
+            style="@style/DetailLayoutHorizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_status"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/pet_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:gravity="right"
+                tools:text="Adopted"/>
 
         </LinearLayout>
 

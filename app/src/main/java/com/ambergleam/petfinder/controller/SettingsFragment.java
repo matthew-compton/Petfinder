@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.ambergleam.petfinder.PetfinderPreference;
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Animal;
-import com.ambergleam.petfinder.PetfinderPreference;
-import com.ambergleam.petfinder.model.Gender;
 import com.ambergleam.petfinder.model.Size;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
 
@@ -33,9 +32,6 @@ public class SettingsFragment extends BaseFragment {
     @InjectView(R.id.spinner_animal) Spinner mAnimalSpinner;
     private ArrayAdapter<Animal.AnimalEnum> mAnimalArrayAdapter;
 
-    @InjectView(R.id.spinner_gender) Spinner mGenderSpinner;
-    private ArrayAdapter<Gender.GenderEnum> mGenderArrayAdapter;
-
     @InjectView(R.id.spinner_size) Spinner mSizeSpinner;
     private ArrayAdapter<Size.SizeEnum> mSizeArrayAdapter;
 
@@ -48,10 +44,6 @@ public class SettingsFragment extends BaseFragment {
         mAnimalArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Animal.AnimalEnum.values());
         mAnimalArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAnimalSpinner.setAdapter(mAnimalArrayAdapter);
-
-        mGenderArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Gender.GenderEnum.values());
-        mGenderArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mGenderSpinner.setAdapter(mGenderArrayAdapter);
 
         mSizeArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Size.SizeEnum.values());
         mSizeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -91,13 +83,11 @@ public class SettingsFragment extends BaseFragment {
 
     private void updateUI() {
         mAnimalSpinner.setSelection(mAnimalArrayAdapter.getPosition(mPetfinderPreference.getAnimalEnum()));
-        mGenderSpinner.setSelection(mGenderArrayAdapter.getPosition(mPetfinderPreference.getGenderEnum()));
         mSizeSpinner.setSelection(mSizeArrayAdapter.getPosition(mPetfinderPreference.getSizeEnum()));
     }
 
     private void clear() {
         mAnimalSpinner.setSelection(0);
-        mGenderSpinner.setSelection(0);
         mSizeSpinner.setSelection(0);
     }
 
@@ -113,12 +103,6 @@ public class SettingsFragment extends BaseFragment {
     public void onItemSelectedAnimal() {
         Animal.AnimalEnum animal = (Animal.AnimalEnum) mAnimalSpinner.getSelectedItem();
         mPetfinderPreference.setAnimalEnum(animal);
-    }
-
-    @OnItemSelected(R.id.spinner_gender)
-    public void onItemSelectedGender() {
-        Gender.GenderEnum gender = (Gender.GenderEnum) mGenderSpinner.getSelectedItem();
-        mPetfinderPreference.setGenderEnum(gender);
     }
 
     @OnItemSelected(R.id.spinner_size)
