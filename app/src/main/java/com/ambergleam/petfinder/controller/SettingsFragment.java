@@ -41,12 +41,12 @@ public class SettingsFragment extends BaseFragment {
         ButterKnife.inject(this, layout);
         setHasOptionsMenu(true);
 
-        mAnimalArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Animal.AnimalEnum.values());
-        mAnimalArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAnimalArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, Animal.AnimalEnum.values());
+        mAnimalArrayAdapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
         mAnimalSpinner.setAdapter(mAnimalArrayAdapter);
 
-        mSizeArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, Size.SizeEnum.values());
-        mSizeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSizeArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, Size.SizeEnum.values());
+        mSizeArrayAdapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
         mSizeSpinner.setAdapter(mSizeArrayAdapter);
 
         return layout;
