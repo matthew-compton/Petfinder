@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
 import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
+import com.ambergleam.petfinder.utils.DialogUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -43,21 +43,17 @@ public class MainFragment extends BaseFragment {
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
-    @InjectView(R.id.image) ImageView mPetPictureImageView;
-    @InjectView(R.id.loading) ProgressBar mLoadingProgressBar;
-
     @InjectView(R.id.previous) ImageButton mPreviousImageButton;
     @InjectView(R.id.next) ImageButton mNextImageButton;
     @InjectView(R.id.divider) View mDivider;
 
     @InjectView(R.id.name) TextView mNameTextView;
+    @InjectView(R.id.image) ImageView mPetPictureImageView;
     @InjectView(R.id.index) TextView mIndexTextView;
 
     private Pet mPet;
     private int mImageIndex;
     private int mImageIndexLength;
-
-    private boolean isLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,21 +74,19 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPet() {
-        if (!isLoading) {
-            isLoading = true;
-            mCompositeSubscription = new CompositeSubscription();
+        DialogUtils.showLoadingDialog(this.getChildFragmentManager(), false);
+        mCompositeSubscription = new CompositeSubscription();
 
-            Action1<Petfinder> successAction = petfinder -> {
-                updatePet(petfinder.mPet);
-            };
+        Action1<Petfinder> successAction = petfinder -> {
+            updatePet(petfinder.mPet);
+        };
 
-            Action1<Throwable> failureAction = throwable -> {
-                Log.e(TAG, throwable.getMessage().toString());
-                isLoading = false;
-            };
+        Action1<Throwable> failureAction = throwable -> {
+            Log.e(TAG, throwable.getMessage().toString());
+            findPet();
+        };
 
-            mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
-        }
+        mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
     }
 
     private void updatePet(Pet pet) {
@@ -103,7 +97,6 @@ public class MainFragment extends BaseFragment {
             updateUI();
         } else {
             Log.e(TAG, "Pet is invalid.");
-            isLoading = false;
             findPet();
         }
     }
@@ -118,7 +111,6 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        isLoading = false;
         if (mPet == null) {
             findPet();
         } else {
@@ -145,12 +137,10 @@ public class MainFragment extends BaseFragment {
             case R.id.search:
                 findPet();
                 break;
-            case R.id.info:
-                if (mPet != null) {
-                    Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
-                    intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
-                    startActivity(intentDetail);
-                }
+            case R.id.details:
+                Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
+                intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
+                startActivity(intentDetail);
                 break;
             case R.id.settings:
                 Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
@@ -223,8 +213,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateImageView() {
-        mPetPictureImageView.setVisibility(View.GONE);
-        mLoadingProgressBar.setVisibility(View.VISIBLE);
+        mPetPictureImageView.setVisibility(View.INVISIBLE);
         Picasso.with(getActivity())
                 .load(mPet.mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
                 .into(mPetPictureImageView,
@@ -242,9 +231,8 @@ public class MainFragment extends BaseFragment {
     }
 
     private void onImageLoadFinish() {
-        mLoadingProgressBar.setVisibility(View.GONE);
         mPetPictureImageView.setVisibility(View.VISIBLE);
-        isLoading = false;
+        DialogUtils.hideLoadingDialog(this.getChildFragmentManager());
     }
 
 }

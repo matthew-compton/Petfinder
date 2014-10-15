@@ -8,8 +8,8 @@
         android:showAsAction="ifRoom|withText"/>
 
     <item
-        android:id="@+id/info"
-        android:title="@string/info"
+        android:id="@+id/details"
+        android:title="@string/details"
         android:icon="@android:drawable/ic_menu_info_details"
         android:showAsAction="ifRoom|withText"/>
 

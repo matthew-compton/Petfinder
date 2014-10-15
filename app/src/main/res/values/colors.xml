@@ -2,5 +2,6 @@
 <resources>
 
     <color name="background_detail">#F2E9E1</color>
+    <color name="translucent_white">#B2FFFFFF</color>
 
 </resources>
