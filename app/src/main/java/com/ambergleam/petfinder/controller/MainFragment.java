@@ -16,17 +16,19 @@ import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
-import com.ambergleam.petfinder.model.Petfinder;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
 import com.ambergleam.petfinder.utils.DialogUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -37,16 +39,21 @@ public class MainFragment extends BaseFragment {
     private static final String STATE_PET = TAG + "STATE_PET";
     private static final String STATE_INDEX = TAG + "STATE_INDEX";
 
-    private static final int INDEX_INITIAL = 2;
-    private static final int INDEX_DELTA = 5;
+    private static final int IMAGE_INDEX_INITIAL = 2;
+    private static final int IMAGE_INDEX_DELTA = 5;
 
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
     @InjectView(R.id.container) LinearLayout mContainer;
-    @InjectView(R.id.previous) ImageButton mPreviousImageButton;
-    @InjectView(R.id.next) ImageButton mNextImageButton;
+
+    @InjectView(R.id.image_previous) ImageButton mPreviousImageButton;
+    @InjectView(R.id.image_next) ImageButton mNextImageButton;
+
+    @InjectView(R.id.pet_previous) ImageButton mPreviousPetButton;
+    @InjectView(R.id.pet_next) ImageButton mNextPetButton;
+
     @InjectView(R.id.name) TextView mNameTextView;
     @InjectView(R.id.image) ImageView mPetPictureImageView;
     @InjectView(R.id.index) TextView mIndexTextView;
@@ -76,8 +83,8 @@ public class MainFragment extends BaseFragment {
         startLoading();
         mCompositeSubscription = new CompositeSubscription();
 
-        Action1<Petfinder> successAction = petfinder -> {
-            updatePet(petfinder.mPet);
+        Action1<List<Pet>> successAction = petList -> {
+            updatePet(petList.get(0));
         };
 
         Action1<Throwable> failureAction = throwable -> {
@@ -85,13 +92,16 @@ public class MainFragment extends BaseFragment {
             findPet();
         };
 
-        mCompositeSubscription.add(mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction));
+        Subscription subscription = mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()
+                ? mPetfinderServiceManager.performSearchWithLocation(0).subscribe(successAction, failureAction)
+                : mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction);
+        mCompositeSubscription.add(subscription);
     }
 
     private void updatePet(Pet pet) {
         if (pet != null && pet.mMedia.mPhotos != null) {
             mPet = pet;
-            mImageIndex = INDEX_INITIAL;
+            mImageIndex = IMAGE_INDEX_INITIAL;
             mImageIndexLength = mPet.mMedia.mPhotos.mPhotos.length;
             updateUI();
         } else {
@@ -133,9 +143,6 @@ public class MainFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.search:
-                findPet();
-                break;
             case R.id.details:
                 Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
                 intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
@@ -149,18 +156,18 @@ public class MainFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.previous)
-    public void onClickPrevious() {
+    @OnClick(R.id.image_previous)
+    public void onClickPreviousImage() {
         getPreviousImage();
     }
 
-    @OnClick(R.id.next)
-    public void onClickNext() {
+    @OnClick(R.id.image_next)
+    public void onClickNextImage() {
         getNextImage();
     }
 
     private void getPreviousImage() {
-        mImageIndex -= INDEX_DELTA;
+        mImageIndex -= IMAGE_INDEX_DELTA;
         if (mImageIndex < 0) {
             mImageIndex = mImageIndexLength + mImageIndex;
         }
@@ -168,9 +175,27 @@ public class MainFragment extends BaseFragment {
     }
 
     private void getNextImage() {
-        mImageIndex += INDEX_DELTA;
+        mImageIndex += IMAGE_INDEX_DELTA;
         mImageIndex %= mImageIndexLength;
         updateUI();
+    }
+
+    @OnClick(R.id.pet_previous)
+    public void onClickPreviousPet() {
+        getPreviousPet();
+    }
+
+    @OnClick(R.id.pet_next)
+    public void onClickNextPet() {
+        getNextPet();
+    }
+
+    private void getPreviousPet() {
+
+    }
+
+    private void getNextPet() {
+
     }
 
     private void updateUI() {
@@ -185,8 +210,8 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateIndexView() {
-        int imageIndex = (mImageIndex / INDEX_DELTA) + 1;
-        int imageIndexLength = mImageIndexLength / INDEX_DELTA;
+        int imageIndex = (mImageIndex / IMAGE_INDEX_DELTA) + 1;
+        int imageIndexLength = mImageIndexLength / IMAGE_INDEX_DELTA;
         if (imageIndexLength > 1) {
             String index = new StringBuilder()
                     .append("( ")
@@ -202,12 +227,12 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updateImageButtons() {
-        if (mImageIndex - INDEX_DELTA < 0) {
+        if (mImageIndex - IMAGE_INDEX_DELTA < 0) {
             mPreviousImageButton.setVisibility(View.INVISIBLE);
         } else {
             mPreviousImageButton.setVisibility(View.VISIBLE);
         }
-        if (mImageIndex + INDEX_DELTA > mImageIndexLength) {
+        if (mImageIndex + IMAGE_INDEX_DELTA > mImageIndexLength) {
             mNextImageButton.setVisibility(View.INVISIBLE);
         } else {
             mNextImageButton.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.ambergleam.petfinder.service;
 
 import com.ambergleam.petfinder.PetfinderPreference;
 import com.ambergleam.petfinder.model.SearchResponse;
+import com.ambergleam.petfinder.model.SearchResponseLocation;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -15,6 +16,7 @@ public class PetfinderService {
     private static final String API_KEY = "afc53e5040ea9a794a49b92de329d138";
     private static final String OUTPUT = "full";
     private static final String FORMAT = "json";
+    private static final String COUNT = "10";
 
     private final PetfinderServiceInterface mServiceInterface;
     private PetfinderPreference mPetfinderPreference;
@@ -36,11 +38,25 @@ public class PetfinderService {
         mPetfinderPreference = petfinderPreference;
     }
 
-    public Observable<SearchResponse> search() {
+    public Observable<SearchResponse> searchWithLocation(int offset) {
+        return mServiceInterface.searchWithLocation(
+                API_KEY,
+                OUTPUT,
+                FORMAT,
+                COUNT,
+                mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
+                mPetfinderPreference.getSizeEnum().toUrlFormatString(),
+                mPetfinderPreference.getLocation(),
+                offset
+        );
+    }
+
+    public Observable<SearchResponseLocation> search() {
         return mServiceInterface.search(
                 API_KEY,
                 OUTPUT,
                 FORMAT,
+                COUNT,
                 mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
                 mPetfinderPreference.getSizeEnum().toUrlFormatString()
         );
