@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:id="@+id/layout_name"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
 
         <LinearLayout
             android:id="@+id/layout_animal"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
 
         <LinearLayout
             android:id="@+id/layout_gender"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
 
         <LinearLayout
             android:id="@+id/layout_size"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
 
         <LinearLayout
             android:id="@+id/layout_age"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
 
         <LinearLayout
             android:id="@+id/layout_status"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -144,7 +144,7 @@
 
         <LinearLayout
             android:id="@+id/layout_phone"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -183,7 +183,7 @@
 
         <LinearLayout
             android:id="@+id/layout_email"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -220,7 +220,7 @@
 
         <LinearLayout
             android:id="@+id/layout_address"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -261,7 +261,7 @@
 
         <LinearLayout
             android:id="@+id/layout_description"
-            style="@style/DetailLayoutVertical">
+            style="@style/DetailFrameVertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -281,7 +281,7 @@
 
         <LinearLayout
             android:id="@+id/layout_last_updated"
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"

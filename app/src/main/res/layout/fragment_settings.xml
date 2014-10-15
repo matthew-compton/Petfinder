@@ -15,7 +15,7 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <LinearLayout
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -34,7 +34,7 @@
         </LinearLayout>
 
         <LinearLayout
-            style="@style/DetailLayoutHorizontal">
+            style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="0dp"
