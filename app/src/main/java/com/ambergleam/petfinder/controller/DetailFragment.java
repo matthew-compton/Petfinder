@@ -250,7 +250,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateLastUpdated() {
-        if (mPet.mLastUpdate.mString != null) {
+        if (mPet.mLastUpdate.mString != null && !mPet.mLastUpdate.toString().equals("")) {
             mLastUpdatedLayout.setVisibility(View.VISIBLE);
             mLastUpdatedTextView.setText(mPet.mLastUpdate.toString());
         } else {
