@@ -146,9 +146,11 @@ public class MainFragment extends BaseFragment {
                 findPet();
                 break;
             case R.id.info:
-                Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
-                intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
-                startActivity(intentDetail);
+                if (mPet != null) {
+                    Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
+                    intentDetail.putExtra(DetailFragment.EXTRA_PET, mPet);
+                    startActivity(intentDetail);
+                }
                 break;
             case R.id.settings:
                 Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
