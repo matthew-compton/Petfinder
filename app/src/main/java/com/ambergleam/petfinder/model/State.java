@@ -13,4 +13,30 @@ public class State implements Serializable {
         return mString;
     }
 
+    public enum StateEnum {
+
+        UNSPECIFIED,
+        AL,
+        GA;
+
+        public String toUrlFormatString() {
+            return this.name();
+        }
+
+        public static StateEnum fromUrlFormatString(String str) {
+            for (StateEnum type : StateEnum.values()) {
+                if (type.toUrlFormatString().equals(str)) {
+                    return type;
+                }
+            }
+            return UNSPECIFIED;
+        }
+
+        @Override
+        public String toString() {
+            return this.name().toString();
+        }
+
+    }
+
 }

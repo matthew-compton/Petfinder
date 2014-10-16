@@ -20,4 +20,8 @@
     <string name="pet_email">Email:</string>
     <string name="pet_address">Address:</string>
 
+    <string name="pet_location">Location:</string>
+    <string name="pet_state">State:</string>
+    <string name="pet_zip">Zip Code:</string>
+
 </resources>

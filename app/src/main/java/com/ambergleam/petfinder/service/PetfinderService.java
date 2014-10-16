@@ -46,7 +46,7 @@ public class PetfinderService {
                 COUNT,
                 mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
                 mPetfinderPreference.getSizeEnum().toUrlFormatString(),
-                mPetfinderPreference.getLocationString(),
+                mPetfinderPreference.getLocationUrlFormatString(),
                 offset
         );
     }
