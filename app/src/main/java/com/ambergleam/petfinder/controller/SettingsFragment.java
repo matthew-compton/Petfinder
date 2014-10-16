@@ -1,5 +1,7 @@
 package com.ambergleam.petfinder.controller;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,8 @@ import butterknife.OnItemSelected;
 public class SettingsFragment extends BaseFragment {
 
     private static final String TAG = SettingsFragment.class.getSimpleName();
+
+    public static final String EXTRA_CHANGED = "EXTRA_CHANGED";
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
     private PetfinderPreference mPetfinderPreference;
@@ -77,7 +81,7 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public void onPause() {
-        super.onStop();
+        super.onPause();
         savePreference();
     }
 
@@ -86,29 +90,50 @@ public class SettingsFragment extends BaseFragment {
         mSizeSpinner.setSelection(mSizeArrayAdapter.getPosition(mPetfinderPreference.getSizeEnum()));
     }
 
-    private void clear() {
-        mAnimalSpinner.setSelection(0);
-        mSizeSpinner.setSelection(0);
-    }
-
     private void loadPreference() {
-        mPetfinderPreference = mPetfinderServiceManager.getPetfinderPreference();
+        mPetfinderPreference = new PetfinderPreference();
+        mPetfinderPreference.setAnimalEnum(mPetfinderServiceManager.getPetfinderPreference().getAnimalEnum());
+        mPetfinderPreference.setSizeEnum(mPetfinderServiceManager.getPetfinderPreference().getSizeEnum());
+        mPetfinderPreference.setLocationString(mPetfinderServiceManager.getPetfinderPreference().getLocationString());
     }
 
     private void savePreference() {
-        mPetfinderPreference.savePreference(getActivity());
+        boolean hasChanged = mPetfinderPreference.isDifferentFrom(mPetfinderServiceManager.getPetfinderPreference());
+        if (hasChanged) {
+            mPetfinderServiceManager.setPetfinderPreference(mPetfinderPreference);
+            mPetfinderPreference.savePreference(getActivity());
+        }
+    }
+
+    private void updatePreference() {
+        boolean hasChanged = mPetfinderPreference.isDifferentFrom(mPetfinderServiceManager.getPetfinderPreference());
+        if (hasChanged) {
+            Intent i = new Intent();
+            i.putExtra(EXTRA_CHANGED, hasChanged);
+            getActivity().setResult(Activity.RESULT_OK, i);
+        } else {
+            getActivity().setResult(Activity.RESULT_CANCELED);
+        }
+    }
+
+    private void clear() {
+        mAnimalSpinner.setSelection(0);
+        mSizeSpinner.setSelection(0);
+        updatePreference();
     }
 
     @OnItemSelected(R.id.spinner_animal)
     public void onItemSelectedAnimal() {
         Animal.AnimalEnum animal = (Animal.AnimalEnum) mAnimalSpinner.getSelectedItem();
         mPetfinderPreference.setAnimalEnum(animal);
+        updatePreference();
     }
 
     @OnItemSelected(R.id.spinner_size)
     public void onItemSelectedSize() {
         Size.SizeEnum animal = (Size.SizeEnum) mSizeSpinner.getSelectedItem();
         mPetfinderPreference.setSizeEnum(animal);
+        updatePreference();
     }
 
 }

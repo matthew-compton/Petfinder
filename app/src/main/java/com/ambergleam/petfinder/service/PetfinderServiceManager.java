@@ -26,6 +26,7 @@ public class PetfinderServiceManager {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPets.mPets))
+                .filter(pet -> pet.mMedia.mPhotos != null)
                 .toList();
     }
 
@@ -34,6 +35,7 @@ public class PetfinderServiceManager {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPets))
+                .filter(pet -> pet.mMedia.mPhotos != null)
                 .toList();
     }
 

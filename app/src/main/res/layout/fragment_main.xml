@@ -13,9 +13,7 @@
               android:visibility="invisible"
               tools:visibility="visible">
 
-    <LinearLayout
-        android:id="@+id/toolbar_top"
-        style="@style/DetailFrameHorizontal">
+    <LinearLayout style="@style/DetailFrameHorizontal">
 
         <ImageButton
             android:id="@+id/pet_previous"
@@ -28,7 +26,7 @@
             tools:visibility="visible"/>
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/pet_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -44,9 +42,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_next"
-            android:visibility="invisible"
-            tools:visibility="visible"/>
+            android:src="@android:drawable/ic_media_next"/>
 
     </LinearLayout>
 
@@ -59,11 +55,7 @@
         tools:src="@drawable/paw"
         style="@style/DetailFrame"/>
 
-    <LinearLayout
-        android:id="@+id/toolbar_bottom"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        style="@style/DetailFrameHorizontal">
+    <LinearLayout style="@style/DetailFrameHorizontal">
 
         <ImageButton
             android:id="@+id/image_previous"
@@ -76,7 +68,7 @@
             tools:visibility="visible"/>
 
         <TextView
-            android:id="@+id/index"
+            android:id="@+id/image_index"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="4"

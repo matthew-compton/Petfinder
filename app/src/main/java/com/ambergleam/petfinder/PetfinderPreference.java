@@ -15,12 +15,12 @@ public class PetfinderPreference {
 
     private Animal.AnimalEnum mAnimalEnum;
     private Size.SizeEnum mSizeEnum;
-    private String mLocation;
+    private String mLocationString;
 
     public PetfinderPreference() {
         mAnimalEnum = Animal.AnimalEnum.ALL;
         mSizeEnum = Size.SizeEnum.ANY;
-        mLocation = "";
+        mLocationString = "";
     }
 
     public void loadPreference(Context context) {
@@ -32,7 +32,7 @@ public class PetfinderPreference {
         String size = preferences.getString(PREF_SIZE, Size.SizeEnum.ANY.toUrlFormatString());
         mSizeEnum = Size.SizeEnum.fromUrlFormatString(size);
 
-        mLocation = preferences.getString(PREF_LOCATION, "");
+        mLocationString = preferences.getString(PREF_LOCATION, "");
     }
 
     public void savePreference(Context context) {
@@ -40,19 +40,23 @@ public class PetfinderPreference {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_ANIMAL, mAnimalEnum.toUrlFormatString());
         editor.putString(PREF_SIZE, mSizeEnum.toUrlFormatString());
-        editor.putString(PREF_LOCATION, mLocation);
+        editor.putString(PREF_LOCATION, mLocationString);
         editor.apply();
     }
 
     public boolean isLocationSearch() {
-        if (mLocation == null || mLocation.equals("")) {
+        if (mLocationString == null || mLocationString.equals("")) {
             return false;
         }
         return true;
     }
 
-    public String getLocation() {
-        return mLocation;
+    public String getLocationString() {
+        return mLocationString;
+    }
+
+    public void setLocationString(String locationString) {
+        mLocationString = locationString;
     }
 
     public Animal.AnimalEnum getAnimalEnum() {
@@ -69,6 +73,13 @@ public class PetfinderPreference {
 
     public void setSizeEnum(Size.SizeEnum sizeEnum) {
         mSizeEnum = sizeEnum;
+    }
+
+    public boolean isDifferentFrom(PetfinderPreference pref) {
+        if (mAnimalEnum != pref.getAnimalEnum() || mSizeEnum != pref.getSizeEnum() || !mLocationString.equals(pref.getLocationString())) {
+            return true;
+        }
+        return false;
     }
 
 }
