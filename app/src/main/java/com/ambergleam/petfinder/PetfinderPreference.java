@@ -27,8 +27,8 @@ public class PetfinderPreference {
     public PetfinderPreference() {
         mAnimalEnum = Animal.AnimalEnum.ALL;
         mSizeEnum = Size.SizeEnum.ANY;
-        mLocationEnum = Location.LocationEnum.UNSPECIFIED;
-        mStateEnum = State.StateEnum.UNSPECIFIED;
+        mLocationEnum = Location.LocationEnum.ANY;
+        mStateEnum = State.StateEnum.ANY;
         mZipString = Zip.DEFAULT;
     }
 
@@ -41,10 +41,10 @@ public class PetfinderPreference {
         String size = preferences.getString(PREF_SIZE, Size.SizeEnum.ANY.toUrlFormatString());
         mSizeEnum = Size.SizeEnum.fromUrlFormatString(size);
 
-        String location = preferences.getString(PREF_LOCATION, Location.LocationEnum.UNSPECIFIED.toUrlFormatString());
+        String location = preferences.getString(PREF_LOCATION, Location.LocationEnum.ANY.toUrlFormatString());
         mLocationEnum = Location.LocationEnum.fromUrlFormatString(location);
 
-        String state = preferences.getString(PREF_STATE, State.StateEnum.UNSPECIFIED.toUrlFormatString());
+        String state = preferences.getString(PREF_STATE, State.StateEnum.ANY.toUrlFormatString());
         mStateEnum = State.StateEnum.fromUrlFormatString(state);
 
         mZipString = preferences.getString(PREF_ZIP, Zip.DEFAULT);
@@ -64,7 +64,7 @@ public class PetfinderPreference {
     public boolean isLocationSearch() {
         switch (mLocationEnum) {
             case STATE:
-                if (mStateEnum != State.StateEnum.UNSPECIFIED) {
+                if (mStateEnum != State.StateEnum.ANY) {
                     return true;
                 }
                 return false;
@@ -73,7 +73,7 @@ public class PetfinderPreference {
                     return true;
                 }
                 return false;
-            case UNSPECIFIED:
+            case ANY:
             default:
                 return false;
         }
@@ -85,7 +85,7 @@ public class PetfinderPreference {
                 return mStateEnum.toUrlFormatString();
             case ZIP:
                 return mZipString;
-            case UNSPECIFIED:
+            case ANY:
             default:
                 return "";
         }

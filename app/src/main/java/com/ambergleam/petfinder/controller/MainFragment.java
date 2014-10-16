@@ -169,6 +169,8 @@ public class MainFragment extends BaseFragment {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
             boolean hasChanged = data.getBooleanExtra(SettingsFragment.EXTRA_CHANGED, false);
             if (hasChanged) {
+                mPetIndex = 0;
+                mPetOffset = 0;
                 findPets();
             }
         }

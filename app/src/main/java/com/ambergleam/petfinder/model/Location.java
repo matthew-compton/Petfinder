@@ -6,7 +6,7 @@ public class Location implements Serializable {
 
     public enum LocationEnum {
 
-        UNSPECIFIED, STATE, ZIP;
+        ANY, STATE, ZIP;
 
         public String toUrlFormatString() {
             return this.name();
@@ -18,7 +18,7 @@ public class Location implements Serializable {
                     return type;
                 }
             }
-            return UNSPECIFIED;
+            return ANY;
         }
 
         @Override
@@ -28,9 +28,9 @@ public class Location implements Serializable {
                     return "State";
                 case ZIP:
                     return "Zip Code";
-                case UNSPECIFIED:
+                case ANY:
                 default:
-                    return "Unspecified";
+                    return "Any";
             }
         }
 

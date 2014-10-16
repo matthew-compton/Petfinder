@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ambergleam.petfinder.PetfinderPreference;
@@ -47,11 +46,9 @@ public class SettingsFragment extends BaseFragment {
     @InjectView(R.id.spinner_location) Spinner mLocationSpinner;
     private ArrayAdapter<Location.LocationEnum> mLocationArrayAdapter;
 
-    @InjectView(R.id.layout_state) LinearLayout mStateLayout;
     @InjectView(R.id.spinner_state) Spinner mStateSpinner;
     private ArrayAdapter<State.StateEnum> mStateArrayAdapter;
 
-    @InjectView(R.id.layout_zip) LinearLayout mZipLayout;
     @InjectView(R.id.edittext_zip) EditText mZipEditText;
 
     @Override
@@ -114,23 +111,23 @@ public class SettingsFragment extends BaseFragment {
         mLocationSpinner.setSelection(mLocationArrayAdapter.getPosition(mPetfinderPreference.getLocationEnum()));
         mStateSpinner.setSelection(mStateArrayAdapter.getPosition(mPetfinderPreference.getStateEnum()));
         mZipEditText.setText(mPetfinderPreference.getZipString());
-        updateVisibility();
+        updateEnabledStatus();
     }
 
-    private void updateVisibility() {
+    private void updateEnabledStatus() {
         switch (mPetfinderPreference.getLocationEnum()) {
             case STATE:
-                mStateLayout.setVisibility(View.VISIBLE);
-                mZipLayout.setVisibility(View.GONE);
+                mStateSpinner.setEnabled(true);
+                mZipEditText.setEnabled(false);
                 break;
             case ZIP:
-                mStateLayout.setVisibility(View.GONE);
-                mZipLayout.setVisibility(View.VISIBLE);
+                mStateSpinner.setEnabled(false);
+                mZipEditText.setEnabled(true);
                 break;
-            case UNSPECIFIED:
+            case ANY:
             default:
-                mStateLayout.setVisibility(View.GONE);
-                mZipLayout.setVisibility(View.GONE);
+                mStateSpinner.setEnabled(false);
+                mZipEditText.setEnabled(false);
                 break;
         }
     }
@@ -191,7 +188,7 @@ public class SettingsFragment extends BaseFragment {
         Location.LocationEnum locationEnum = (Location.LocationEnum) mLocationSpinner.getSelectedItem();
         mPetfinderPreference.setLocationEnum(locationEnum);
         updatePreference();
-        updateVisibility();
+        updateEnabledStatus();
     }
 
     @OnItemSelected(R.id.spinner_state)
