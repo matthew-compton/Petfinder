@@ -3,6 +3,8 @@ Petfinder
 
 An Android application for finding adoptable animals.
 
+Acknowledgements
+---
 The data is provided by the [Petfinder API](https://www.petfinder.com/developers/api-docs).
 
 Requirements
