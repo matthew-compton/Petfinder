@@ -5,6 +5,11 @@ An Android application for finding adoptable animals.
 
 The data is provided by the [Petfinder API](https://www.petfinder.com/developers/api-docs).
 
+Requirements
+---
+- [Android SDK](https://developer.android.com/sdk/index.html)
+- [Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
 Libraries
 ---
 - [RxJava](https://github.com/ReactiveX/RxJava)
