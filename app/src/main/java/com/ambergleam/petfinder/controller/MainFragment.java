@@ -22,6 +22,7 @@ import com.ambergleam.petfinder.utils.DialogUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,6 +42,7 @@ public class MainFragment extends BaseFragment {
 
     private static final String STATE_PETS = TAG + "STATE_PETS";
     private static final String STATE_PETS_SIZE = TAG + "STATE_PETS_SIZE";
+    private static final String STATE_PETS_SIZE_UNFILTERED = TAG + "STATE_PETS_SIZE_UNFILTERED";
     private static final String STATE_PETS_INDEX = TAG + "STATE_PETS_INDEX";
     private static final String STATE_PETS_OFFSET = TAG + "STATE_PETS_OFFSET";
     private static final String STATE_IMAGE_INDEX = TAG + "STATE_IMAGE_INDEX";
@@ -63,8 +65,12 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.image_index) TextView mIndexTextView;
     @InjectView(R.id.image_next) ImageButton mNextImageButton;
 
+    @InjectView(R.id.error) TextView mError;
+    private boolean isError = false;
+
     private List<Pet> mPets;
     private int mPetSize;
+    private int mPetSizeUnfiltered;
     private int mPetIndex;
     private int mPetOffset;
     private int mImageIndex;
@@ -76,10 +82,11 @@ public class MainFragment extends BaseFragment {
 
         if (savedInstanceState != null) {
             mPetSize = savedInstanceState.getInt(STATE_PETS_SIZE);
+            mPetSizeUnfiltered = savedInstanceState.getInt(STATE_PETS_SIZE_UNFILTERED);
             mPetIndex = savedInstanceState.getInt(STATE_PETS_INDEX);
             mPetOffset = savedInstanceState.getInt(STATE_PETS_OFFSET);
             mImageIndex = savedInstanceState.getInt(STATE_IMAGE_INDEX);
-            mPets.clear();
+            mPets = new ArrayList<>();
             for (int i = 0; i < mPetSize; i++) {
                 mPets.add((Pet) savedInstanceState.getSerializable(STATE_PETS + "_" + i));
             }
@@ -96,13 +103,17 @@ public class MainFragment extends BaseFragment {
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<List<Pet>> successAction = petList -> {
-            mPets = petList;
+            mPets = filterPets(petList);
+            mPetSize = mPets.size();
+            mPetSizeUnfiltered = petList.size();
             mImageIndex = IMAGE_INDEX_INITIAL;
             updateUI();
         };
 
         Action1<Throwable> failureAction = throwable -> {
             Log.e(TAG, throwable.getMessage().toString());
+            finishLoading();
+            showError();
         };
 
         Subscription subscription = mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()
@@ -115,6 +126,7 @@ public class MainFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_PETS_SIZE, mPetSize);
+        outState.putInt(STATE_PETS_SIZE_UNFILTERED, mPetSizeUnfiltered);
         outState.putInt(STATE_PETS_INDEX, mPetIndex);
         outState.putInt(STATE_PETS_OFFSET, mPetOffset);
         outState.putInt(STATE_IMAGE_INDEX, mImageIndex);
@@ -144,11 +156,26 @@ public class MainFragment extends BaseFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
+        MenuItem itemRefresh = menu.findItem(R.id.refresh);
+        MenuItem itemDetails = menu.findItem(R.id.details);
+        if (isError) {
+            itemRefresh.setVisible(true);
+            itemDetails.setVisible(false);
+        } else {
+            itemRefresh.setVisible(false);
+            itemDetails.setVisible(true);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.refresh:
+                hideError();
+                mPetIndex = 0;
+                mPetOffset = 0;
+                findPets();
+                break;
             case R.id.details:
                 Pet pet = mPets.get(mPetIndex);
                 Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
@@ -176,6 +203,23 @@ public class MainFragment extends BaseFragment {
         }
     }
 
+    private List<Pet> filterPets(List<Pet> unfiltered) {
+        List<Pet> filtered = new ArrayList<>();
+        for (Pet pet : unfiltered) {
+            if (isValidPet(pet)) {
+                filtered.add(pet);
+            }
+        }
+        return filtered;
+    }
+
+    private boolean isValidPet(Pet pet) {
+        if (pet != null && pet.mMedia != null && pet.mMedia.mPhotos != null) {
+            return true;
+        }
+        return false;
+    }
+
     @OnClick(R.id.image_previous)
     public void onClickPreviousImage() {
         int imageIndexLength = mPets.get(mPetIndex).mMedia.mPhotos.mPhotos.length;
@@ -199,8 +243,8 @@ public class MainFragment extends BaseFragment {
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex--;
         if (mPetIndex < 0) {
-            mPetIndex += mPets.size();
-            mPetOffset -= mPets.size();
+            mPetIndex += mPetSize;
+            mPetOffset -= mPetfinderServiceManager.getCount();
             findPets();
         } else {
             updateUI();
@@ -211,9 +255,9 @@ public class MainFragment extends BaseFragment {
     public void onClickNextPet() {
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex++;
-        if (mPetIndex >= mPets.size()) {
-            mPetIndex %= mPets.size();
-            mPetOffset += mPets.size();
+        if (mPetIndex >= mPetSize) {
+            mPetIndex %= mPetSize;
+            mPetOffset += mPetfinderServiceManager.getCount();
             findPets();
         } else {
             updateUI();
@@ -241,10 +285,15 @@ public class MainFragment extends BaseFragment {
     }
 
     private void updatePetNavButtons() {
-        if (mPetIndex + mPetOffset - 1 < 0) {
+        if (mPetIndex + mPetOffset - 1 < 0 || !mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()) {
             mPreviousPetButton.setVisibility(View.INVISIBLE);
         } else {
             mPreviousPetButton.setVisibility(View.VISIBLE);
+        }
+        if (mPetIndex + 1 >= mPetSize && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
+            mNextPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextPetButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -291,13 +340,27 @@ public class MainFragment extends BaseFragment {
     }
 
     private void startLoading() {
-        mContainer.setVisibility(View.INVISIBLE);
+        mContainer.setVisibility(View.GONE);
         DialogUtils.showLoadingDialog(this.getChildFragmentManager(), false);
     }
 
     private void finishLoading() {
         DialogUtils.hideLoadingDialog(this.getChildFragmentManager());
         mContainer.setVisibility(View.VISIBLE);
+    }
+
+    private void showError() {
+        mContainer.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+        isError = true;
+        getActivity().invalidateOptionsMenu();
+    }
+
+    private void hideError() {
+        mError.setVisibility(View.GONE);
+        mContainer.setVisibility(View.VISIBLE);
+        isError = false;
+        getActivity().invalidateOptionsMenu();
     }
 
 }

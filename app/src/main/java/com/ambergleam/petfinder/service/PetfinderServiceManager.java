@@ -25,8 +25,9 @@ public class PetfinderServiceManager {
         return mPetfinderService.searchWithLocation(offset)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(searchResponse -> Observable.from(searchResponse))
+                .filter(searchResponse -> searchResponse != null && searchResponse.mPetfinder != null && searchResponse.mPetfinder.mPets != null && searchResponse.mPetfinder.mPets.mPets != null)
                 .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPets.mPets))
-                .filter(pet -> pet.mMedia.mPhotos != null)
                 .toList();
     }
 
@@ -34,9 +35,14 @@ public class PetfinderServiceManager {
         return mPetfinderService.search()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(searchResponse -> Observable.from(searchResponse))
+                .filter(searchResponse -> searchResponse != null && searchResponse.mPetfinder != null && searchResponse.mPetfinder.mPets != null)
                 .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPets))
-                .filter(pet -> pet.mMedia.mPhotos != null)
                 .toList();
+    }
+
+    public int getCount() {
+        return Integer.valueOf(mPetfinderService.COUNT);
     }
 
     public PetfinderPreference getPetfinderPreference() {

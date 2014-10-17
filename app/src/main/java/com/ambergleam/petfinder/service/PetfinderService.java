@@ -12,11 +12,11 @@ public class PetfinderService {
 
     private static final String TAG = PetfinderService.class.getSimpleName();
 
-    private static final String ENDPOINT = "http://api.petfinder.com";
-    private static final String API_KEY = "afc53e5040ea9a794a49b92de329d138";
-    private static final String OUTPUT = "full";
-    private static final String FORMAT = "json";
-    private static final String COUNT = "5";
+    public static final String ENDPOINT = "http://api.petfinder.com";
+    public static final String API_KEY = "afc53e5040ea9a794a49b92de329d138";
+    public static final String OUTPUT = "full";
+    public static final String FORMAT = "json";
+    public static final String COUNT = "10";
 
     private final PetfinderServiceInterface mServiceInterface;
     private PetfinderPreference mPetfinderPreference;

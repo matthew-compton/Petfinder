@@ -2,7 +2,7 @@
 
     <string name="app_name">Petfinder</string>
 
-    <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
     <string name="details">Details</string>
     <string name="settings">Settings</string>
     <string name="clear">Clear</string>
