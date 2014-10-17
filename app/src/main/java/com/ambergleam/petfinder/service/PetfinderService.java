@@ -38,7 +38,7 @@ public class PetfinderService {
         mPetfinderPreference = petfinderPreference;
     }
 
-    public Observable<SearchResponse> searchWithLocation(int offset) {
+    public Observable<SearchResponseLocation> searchWithLocation(int offset) {
         return mServiceInterface.searchWithLocation(
                 API_KEY,
                 OUTPUT,
@@ -51,7 +51,7 @@ public class PetfinderService {
         );
     }
 
-    public Observable<SearchResponseLocation> search() {
+    public Observable<SearchResponse> search() {
         return mServiceInterface.search(
                 API_KEY,
                 OUTPUT,

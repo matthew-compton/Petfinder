@@ -24,4 +24,6 @@
     <string name="pet_state">State:</string>
     <string name="pet_zip">Zip Code:</string>
 
+    <string name="error">Error.\nTry again.</string>
+
 </resources>
