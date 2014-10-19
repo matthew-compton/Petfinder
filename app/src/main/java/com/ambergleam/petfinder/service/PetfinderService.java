@@ -12,10 +12,14 @@ public class PetfinderService {
 
     private static final String TAG = PetfinderService.class.getSimpleName();
 
-    public static final String ENDPOINT = "http://api.petfinder.com";
     public static final String API_KEY = "afc53e5040ea9a794a49b92de329d138";
-    public static final String OUTPUT = "full";
-    public static final String FORMAT = "json";
+
+    public static final String ENDPOINT = "http://api.petfinder.com";
+    private static final String FUNCTION_SEARCH_WITH_LOCATION = "find";
+    private static final String FUNCTION_SEARCH = "getRandom";
+
+    private static final String OUTPUT = "full";
+    private static final String FORMAT = "json";
     public static final String COUNT = "10";
 
     private final PetfinderServiceInterface mServiceInterface;
@@ -40,6 +44,7 @@ public class PetfinderService {
 
     public Observable<SearchResponseLocation> searchWithLocation(int offset) {
         return mServiceInterface.searchWithLocation(
+                FUNCTION_SEARCH_WITH_LOCATION,
                 API_KEY,
                 OUTPUT,
                 FORMAT,
@@ -53,6 +58,7 @@ public class PetfinderService {
 
     public Observable<SearchResponse> search() {
         return mServiceInterface.search(
+                FUNCTION_SEARCH,
                 API_KEY,
                 OUTPUT,
                 FORMAT,

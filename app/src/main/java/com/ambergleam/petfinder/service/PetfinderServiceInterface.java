@@ -4,13 +4,15 @@ import com.ambergleam.petfinder.model.SearchResponse;
 import com.ambergleam.petfinder.model.SearchResponseLocation;
 
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
 public interface PetfinderServiceInterface {
 
-    @GET("/pet.find")
+    @GET("/pet.{function}")
     public Observable<SearchResponseLocation> searchWithLocation(
+            @Path("function") String function,
             @Query("key") String key,
             @Query("output") String output,
             @Query("format") String format,
@@ -21,8 +23,9 @@ public interface PetfinderServiceInterface {
             @Query("offset") int offset
     );
 
-    @GET("/pet.getRandom")
+    @GET("/pet.{function}")
     public Observable<SearchResponse> search(
+            @Path("function") String function,
             @Query("key") String key,
             @Query("output") String output,
             @Query("format") String format,
