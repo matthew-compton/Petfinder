@@ -9,14 +9,16 @@ import dagger.ObjectGraph;
 
 public class PetfinderApplication extends Application {
 
-    private static final String CRITTERCISM_APP_ID = "5436a312b573f14f10000006";
+    private static final String CRITTERCISM_APP_ID = BuildConfig.CRITTERCISM_APP_ID;
 
     private ObjectGraph mObjectGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Crittercism.initialize(getApplicationContext(), CRITTERCISM_APP_ID);
+        if (BuildConfig.ENABLE_CRITTERCISM) {
+            Crittercism.initialize(getApplicationContext(), CRITTERCISM_APP_ID);
+        }
         mObjectGraph = ObjectGraph.create(new PetfinderApplicationModule(this));
     }
 

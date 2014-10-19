@@ -10,17 +10,26 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "PETFINDER_API_KEY", "\"afc53e5040ea9a794a49b92de329d138\""
+        buildConfigField "String", "CRITTERCISM_APP_ID", "\"5436a312b573f14f10000006\""
     }
+
     buildTypes {
+        debug {
+            buildConfigField "boolean", "ENABLE_CRITTERCISM", "false"
+        }
         release {
+            buildConfigField "boolean", "ENABLE_CRITTERCISM", "true"
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     productFlavors {
     }
 }

@@ -1,5 +1,6 @@
 package com.ambergleam.petfinder.service;
 
+import com.ambergleam.petfinder.BuildConfig;
 import com.ambergleam.petfinder.PetfinderPreference;
 import com.ambergleam.petfinder.model.SearchResponse;
 import com.ambergleam.petfinder.model.SearchResponseLocation;
@@ -12,7 +13,7 @@ public class PetfinderService {
 
     private static final String TAG = PetfinderService.class.getSimpleName();
 
-    public static final String API_KEY = "afc53e5040ea9a794a49b92de329d138";
+    public static final String PETFINDER_API_KEY = BuildConfig.PETFINDER_API_KEY;
 
     public static final String ENDPOINT = "http://api.petfinder.com";
     private static final String FUNCTION_SEARCH_WITH_LOCATION = "find";
@@ -45,7 +46,7 @@ public class PetfinderService {
     public Observable<SearchResponseLocation> searchWithLocation(int offset) {
         return mServiceInterface.searchWithLocation(
                 FUNCTION_SEARCH_WITH_LOCATION,
-                API_KEY,
+                PETFINDER_API_KEY,
                 OUTPUT,
                 FORMAT,
                 COUNT,
@@ -59,7 +60,7 @@ public class PetfinderService {
     public Observable<SearchResponse> search() {
         return mServiceInterface.search(
                 FUNCTION_SEARCH,
-                API_KEY,
+                PETFINDER_API_KEY,
                 OUTPUT,
                 FORMAT,
                 COUNT,
