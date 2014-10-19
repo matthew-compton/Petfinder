@@ -41,7 +41,6 @@ public class MainFragment extends BaseFragment {
     private static final int REQUEST_CODE_SETTINGS = 0;
 
     private static final String STATE_PETS = TAG + "STATE_PETS";
-    private static final String STATE_PETS_SIZE = TAG + "STATE_PETS_SIZE";
     private static final String STATE_PETS_SIZE_UNFILTERED = TAG + "STATE_PETS_SIZE_UNFILTERED";
     private static final String STATE_PETS_INDEX = TAG + "STATE_PETS_INDEX";
     private static final String STATE_PETS_OFFSET = TAG + "STATE_PETS_OFFSET";
@@ -68,8 +67,7 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.error) TextView mError;
     private boolean isError = false;
 
-    private List<Pet> mPets;
-    private int mPetSize;
+    private ArrayList<Pet> mPets;
     private int mPetSizeUnfiltered;
     private int mPetIndex;
     private int mPetOffset;
@@ -81,15 +79,11 @@ public class MainFragment extends BaseFragment {
         ButterKnife.inject(this, layout);
 
         if (savedInstanceState != null) {
-            mPetSize = savedInstanceState.getInt(STATE_PETS_SIZE);
+            mPets = (ArrayList<Pet>) savedInstanceState.getSerializable(STATE_PETS);
             mPetSizeUnfiltered = savedInstanceState.getInt(STATE_PETS_SIZE_UNFILTERED);
             mPetIndex = savedInstanceState.getInt(STATE_PETS_INDEX);
             mPetOffset = savedInstanceState.getInt(STATE_PETS_OFFSET);
             mImageIndex = savedInstanceState.getInt(STATE_IMAGE_INDEX);
-            mPets = new ArrayList<>();
-            for (int i = 0; i < mPetSize; i++) {
-                mPets.add((Pet) savedInstanceState.getSerializable(STATE_PETS + "_" + i));
-            }
             updateUI();
         }
         mPetfinderServiceManager.getPetfinderPreference().loadPreference(getActivity());
@@ -104,7 +98,6 @@ public class MainFragment extends BaseFragment {
 
         Action1<List<Pet>> successAction = petList -> {
             mPets = filterPets(petList);
-            mPetSize = mPets.size();
             mPetSizeUnfiltered = petList.size();
             mImageIndex = IMAGE_INDEX_INITIAL;
             updateUI();
@@ -125,14 +118,11 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_PETS_SIZE, mPetSize);
+        outState.putSerializable(STATE_PETS, mPets);
         outState.putInt(STATE_PETS_SIZE_UNFILTERED, mPetSizeUnfiltered);
         outState.putInt(STATE_PETS_INDEX, mPetIndex);
         outState.putInt(STATE_PETS_OFFSET, mPetOffset);
         outState.putInt(STATE_IMAGE_INDEX, mImageIndex);
-        for (int i = 0; i < mPetSize; i++) {
-            outState.putSerializable(STATE_PETS + "_" + i, mPets.get(i));
-        }
     }
 
     @Override
@@ -203,8 +193,8 @@ public class MainFragment extends BaseFragment {
         }
     }
 
-    private List<Pet> filterPets(List<Pet> unfiltered) {
-        List<Pet> filtered = new ArrayList<>();
+    private ArrayList<Pet> filterPets(List<Pet> unfiltered) {
+        ArrayList<Pet> filtered = new ArrayList<>();
         for (Pet pet : unfiltered) {
             if (isValidPet(pet)) {
                 filtered.add(pet);
@@ -243,7 +233,7 @@ public class MainFragment extends BaseFragment {
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex--;
         if (mPetIndex < 0) {
-            mPetIndex += mPetSize;
+            mPetIndex += mPets.size();
             mPetOffset -= mPetfinderServiceManager.getCount();
             findPets();
         } else {
@@ -255,8 +245,8 @@ public class MainFragment extends BaseFragment {
     public void onClickNextPet() {
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex++;
-        if (mPetIndex >= mPetSize) {
-            mPetIndex %= mPetSize;
+        if (mPetIndex >= mPets.size()) {
+            mPetIndex %= mPets.size();
             mPetOffset += mPetfinderServiceManager.getCount();
             findPets();
         } else {
@@ -290,7 +280,7 @@ public class MainFragment extends BaseFragment {
         } else {
             mPreviousPetButton.setVisibility(View.VISIBLE);
         }
-        if (mPetIndex + 1 >= mPetSize && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
+        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
             mNextPetButton.setVisibility(View.INVISIBLE);
         } else {
             mNextPetButton.setVisibility(View.VISIBLE);

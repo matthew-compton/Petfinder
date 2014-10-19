@@ -38,5 +38,4 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.crittercism:crittercism-android-agent:+'
     compile 'com.squareup.dagger:dagger:1.2.2'
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 }
