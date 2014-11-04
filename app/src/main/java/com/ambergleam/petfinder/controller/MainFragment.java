@@ -46,8 +46,8 @@ public class MainFragment extends BaseFragment {
     private static final String STATE_PETS_OFFSET = TAG + "STATE_PETS_OFFSET";
     private static final String STATE_IMAGE_INDEX = TAG + "STATE_IMAGE_INDEX";
 
-    private static final int IMAGE_INDEX_INITIAL = 2;
-    private static final int IMAGE_INDEX_DELTA = 5;
+    public static final int IMAGE_INDEX_INITIAL = 2;
+    public static final int IMAGE_INDEX_DELTA = 5;
 
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 

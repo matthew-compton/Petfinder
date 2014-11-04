@@ -119,12 +119,7 @@ public class DetailFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.share:
-                String shareBody = mPet.toString();
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_using)));
+                share();
                 break;
             case R.id.favorite:
                 favorite();
@@ -134,6 +129,14 @@ public class DetailFragment extends BaseFragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void share() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/html");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Adopt a Homeless Pet!");
+        intent.putExtra(Intent.EXTRA_TEXT, mPet.toHtml());
+        startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_using)));
     }
 
     private boolean isFavorite() {
