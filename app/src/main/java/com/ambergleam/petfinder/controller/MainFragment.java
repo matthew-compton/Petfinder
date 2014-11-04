@@ -176,6 +176,10 @@ public class MainFragment extends BaseFragment {
                 Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
                 startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS);
                 break;
+            case R.id.favorites:
+                Intent intentFavorites = new Intent(getActivity(), FavoritesActivity.class);
+                startActivity(intentFavorites);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

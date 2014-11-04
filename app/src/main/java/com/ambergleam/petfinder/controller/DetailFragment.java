@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
+import com.ambergleam.petfinder.service.PetfinderServiceManager;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -63,6 +66,8 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.layout_last_updated) LinearLayout mLastUpdatedLayout;
     @InjectView(R.id.pet_last_updated) TextView mLastUpdatedTextView;
 
+    @Inject PetfinderServiceManager mPetfinderServiceManager;
+
     private Pet mPet;
 
     public static DetailFragment newInstance(Pet pet) {
@@ -90,20 +95,61 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_detail, menu);
+        MenuItem itemFavorite = menu.findItem(R.id.favorite);
+        MenuItem itemUnfavorite = menu.findItem(R.id.unfavorite);
+        if (isFavorite()) {
+            itemFavorite.setVisible(false);
+            itemUnfavorite.setVisible(true);
+        } else {
+            itemFavorite.setVisible(true);
+            itemUnfavorite.setVisible(false);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.share:
+                String shareBody = mPet.toString();
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_using)));
+                break;
+            case R.id.favorite:
+                favorite();
+                break;
+            case R.id.unfavorite:
+                unfavorite();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
+    private boolean isFavorite() {
+        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPet.mId.toString());
+    }
+
+    private void favorite() {
+        mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
+        mPetfinderServiceManager.getPetfinderPreference().addFavorite(mPet.mId.toString());
+        getActivity().invalidateOptionsMenu();
+    }
+
+    private void unfavorite() {
+        mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
+        mPetfinderServiceManager.getPetfinderPreference().removeFavorite(mPet.mId.toString());
+        getActivity().invalidateOptionsMenu();
     }
 
     @OnClick(R.id.image_phone)

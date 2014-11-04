@@ -34,4 +34,12 @@ public interface PetfinderServiceInterface {
             @Query("size") String size
     );
 
+    @GET("/pet.{function}")
+    public Observable<SearchResponse> searchById(
+            @Path("function") String function,
+            @Query("key") String key,
+            @Query("format") String format,
+            @Query("id") String id
+    );
+
 }

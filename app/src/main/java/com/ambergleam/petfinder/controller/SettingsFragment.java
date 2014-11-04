@@ -34,9 +34,6 @@ public class SettingsFragment extends BaseFragment {
 
     public static final String EXTRA_CHANGED = "EXTRA_CHANGED";
 
-    @Inject PetfinderServiceManager mPetfinderServiceManager;
-    private PetfinderPreference mPetfinderPreference;
-
     @InjectView(R.id.spinner_animal) Spinner mAnimalSpinner;
     private ArrayAdapter<Animal.AnimalEnum> mAnimalArrayAdapter;
 
@@ -50,6 +47,9 @@ public class SettingsFragment extends BaseFragment {
     private ArrayAdapter<State.StateEnum> mStateArrayAdapter;
 
     @InjectView(R.id.edittext_zip) EditText mZipEditText;
+
+    @Inject PetfinderServiceManager mPetfinderServiceManager;
+    private PetfinderPreference mPetfinderPreference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -18,6 +18,7 @@ public class PetfinderService {
     public static final String ENDPOINT = "http://api.petfinder.com";
     private static final String FUNCTION_SEARCH_WITH_LOCATION = "find";
     private static final String FUNCTION_SEARCH = "getRandom";
+    private static final String FUNCTION_SEARCH_BY_ID = "get";
 
     private static final String OUTPUT = "full";
     private static final String FORMAT = "json";
@@ -66,6 +67,15 @@ public class PetfinderService {
                 COUNT,
                 mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
                 mPetfinderPreference.getSizeEnum().toUrlFormatString()
+        );
+    }
+
+    public Observable<SearchResponse> searchById(String id) {
+        return mServiceInterface.searchById(
+                FUNCTION_SEARCH_BY_ID,
+                PETFINDER_API_KEY,
+                FORMAT,
+                id
         );
     }
 

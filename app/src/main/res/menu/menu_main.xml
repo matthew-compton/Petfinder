@@ -21,4 +21,10 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/favorites"
+        android:title="@string/favorites"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:showAsAction="ifRoom|withText"/>
+
 </menu>

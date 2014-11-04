@@ -6,6 +6,12 @@
     <string name="details">Details</string>
     <string name="settings">Settings</string>
     <string name="clear">Clear</string>
+    <string name="share">Share</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorite">Favorite</string>
+    <string name="unfavorite">Unfavorite</string>
+
+    <string name="share_using">Share Using:</string>
 
     <string name="pet_name">Name:</string>
     <string name="pet_animal">Animal:</string>

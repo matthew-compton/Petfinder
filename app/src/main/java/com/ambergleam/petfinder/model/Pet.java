@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class Pet implements Serializable {
 
+    @SerializedName("id")
+    public Id mId;
+
     @SerializedName("status")
     public Status mStatus;
 

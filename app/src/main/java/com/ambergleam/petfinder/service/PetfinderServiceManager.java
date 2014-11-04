@@ -41,6 +41,16 @@ public class PetfinderServiceManager {
                 .toList();
     }
 
+    public Observable<List<Pet>> performSearchById(String id) {
+        return mPetfinderService.searchById(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(searchResponse -> Observable.from(searchResponse))
+                .filter(searchResponse -> searchResponse != null && searchResponse.mPetfinder != null && searchResponse.mPetfinder.mPets != null)
+                .flatMap(searchResponse -> Observable.from(searchResponse.mPetfinder.mPets))
+                .toList();
+    }
+
     public int getCount() {
         return Integer.valueOf(mPetfinderService.COUNT);
     }

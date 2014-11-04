@@ -2,6 +2,8 @@ package com.ambergleam.petfinder;
 
 import com.ambergleam.petfinder.controller.DetailActivity;
 import com.ambergleam.petfinder.controller.DetailFragment;
+import com.ambergleam.petfinder.controller.FavoritesActivity;
+import com.ambergleam.petfinder.controller.FavoritesFragment;
 import com.ambergleam.petfinder.controller.MainActivity;
 import com.ambergleam.petfinder.controller.MainFragment;
 import com.ambergleam.petfinder.controller.SettingsActivity;
@@ -21,7 +23,9 @@ import dagger.Provides;
                 DetailActivity.class,
                 DetailFragment.class,
                 SettingsActivity.class,
-                SettingsFragment.class
+                SettingsFragment.class,
+                FavoritesActivity.class,
+                FavoritesFragment.class
         },
         complete = true)
 public class PetfinderApplicationModule {

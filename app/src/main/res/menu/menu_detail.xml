@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/favorite"
+        android:title="@string/favorite"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="always"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/unfavorite"
+        android:title="@string/unfavorite"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:showAsAction="always"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/share"
+        android:title="@string/share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:showAsAction="always"/>
+
 </menu>
