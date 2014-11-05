@@ -103,15 +103,11 @@ public class DetailFragment extends BaseFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_detail, menu);
+        boolean isFavorite = isFavorite();
         MenuItem itemFavorite = menu.findItem(R.id.favorite);
+        itemFavorite.setVisible(!isFavorite);
         MenuItem itemUnfavorite = menu.findItem(R.id.unfavorite);
-        if (isFavorite()) {
-            itemFavorite.setVisible(false);
-            itemUnfavorite.setVisible(true);
-        } else {
-            itemFavorite.setVisible(true);
-            itemUnfavorite.setVisible(false);
-        }
+        itemUnfavorite.setVisible(isFavorite);
     }
 
     @Override

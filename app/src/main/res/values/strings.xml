@@ -4,10 +4,10 @@
 
     <string name="refresh">Refresh</string>
     <string name="details">Details</string>
-    <string name="settings">Settings</string>
-    <string name="clear">Clear</string>
+    <string name="settings">Search Settings</string>
+    <string name="reset">Reset</string>
     <string name="share">Share</string>
-    <string name="favorites">Favorites</string>
+    <string name="favorites">Favorite Pets</string>
     <string name="favorite">Favorite</string>
     <string name="unfavorite">Unfavorite</string>
 
@@ -31,5 +31,7 @@
     <string name="pet_zip">Zip Code:</string>
 
     <string name="error">Error.\nTry again.</string>
+    <string name="empty_favorites">You have no favorite pets!</string>
+    <string name="reset_search_settings">Reset Search Settings</string>
 
 </resources>

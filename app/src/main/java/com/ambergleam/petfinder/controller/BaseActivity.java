@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewConfiguration;
 
 import com.ambergleam.petfinder.PetfinderApplication;
 import com.ambergleam.petfinder.R;
+
+import java.lang.reflect.Field;
 
 public abstract class BaseActivity extends FragmentActivity {
 
@@ -22,8 +25,8 @@ public abstract class BaseActivity extends FragmentActivity {
         PetfinderApplication.get(BaseActivity.this).inject(this);
 
         setContentView(R.layout.activity_fragment);
-        if (NavUtils.getParentActivityName(this) != null) {
-            this.getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (!(this instanceof MainActivity)) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         FragmentManager fm = getSupportFragmentManager();
@@ -32,15 +35,26 @@ public abstract class BaseActivity extends FragmentActivity {
             fragment = createFragment();
             fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
         }
+
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class
+                    .getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "Error with displaying overflow menu.", e);
+        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (NavUtils.getParentActivityName(this) != null) {
-                    NavUtils.navigateUpFromSameTask(this);
-                }
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

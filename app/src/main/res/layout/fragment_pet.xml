@@ -27,6 +27,7 @@
             android:textSize="@dimen/text_normal"
             android:gravity="center"
             android:singleLine="true"
+            android:clickable="true"
             tools:text="Cleo"/>
 
         <ImageButton
@@ -36,27 +37,46 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_next"/>
+            android:src="@android:drawable/ic_media_next"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:layout_gravity="center"/>
+        android:visibility="visible"/>
 
-    <TextView
+    <RelativeLayout
         android:id="@+id/error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/error"
-        android:textSize="@dimen/text_large"
-        android:visibility="gone"/>
+        android:clickable="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_normal"
+            android:text="@string/error"
+            android:textSize="@dimen/text_large"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/error_text"
+            android:layout_centerHorizontal="true"
+            android:src="@android:drawable/ic_menu_revert"/>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress"
@@ -64,6 +84,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="@string/empty_favorites"
+        android:textSize="@dimen/text_large"
         android:visibility="gone"/>
 
     <LinearLayout

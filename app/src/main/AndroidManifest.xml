@@ -25,23 +25,14 @@
         <activity
             android:name="com.ambergleam.petfinder.controller.DetailActivity"
             android:label="@string/details">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".controller.MainActivity"/>
         </activity>
         <activity
             android:name="com.ambergleam.petfinder.controller.SettingsActivity"
             android:label="@string/settings">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".controller.MainActivity"/>
         </activity>
         <activity
             android:name="com.ambergleam.petfinder.controller.FavoritesActivity"
             android:label="@string/favorites">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".controller.MainActivity"/>
         </activity>
     </application>
 

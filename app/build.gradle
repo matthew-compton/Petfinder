@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.0.0"
     defaultConfig {
         applicationId 'com.ambergleam.petfinder'
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

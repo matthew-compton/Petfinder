@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
 
@@ -50,6 +52,7 @@ public class SettingsFragment extends BaseFragment {
 
     @InjectView(R.id.layout_zip) LinearLayout mZipLayout;
     @InjectView(R.id.edittext_zip) EditText mZipEditText;
+    @InjectView(R.id.button_reset) Button mResetButton;
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
     private PetfinderPreference mPetfinderPreference;
@@ -87,11 +90,6 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clear:
-                clear();
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -170,6 +168,11 @@ public class SettingsFragment extends BaseFragment {
         mStateSpinner.setSelection(0);
         mZipEditText.setText("");
         updatePreference();
+    }
+
+    @OnClick(R.id.button_reset)
+    public void onClickReset() {
+        clear();
     }
 
     @OnItemSelected(R.id.spinner_animal)
