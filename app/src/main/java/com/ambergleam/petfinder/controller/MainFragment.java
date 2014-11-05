@@ -12,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
-import com.ambergleam.petfinder.utils.DialogUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -53,9 +52,6 @@ public class MainFragment extends BaseFragment {
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
-    @InjectView(R.id.container) LinearLayout mContainer;
-    @InjectView(R.id.image) ImageView mPetPictureImageView;
-
     @InjectView(R.id.pet_previous) ImageButton mPreviousPetButton;
     @InjectView(R.id.pet_name) TextView mNameTextView;
     @InjectView(R.id.pet_next) ImageButton mNextPetButton;
@@ -64,6 +60,8 @@ public class MainFragment extends BaseFragment {
     @InjectView(R.id.image_index) TextView mIndexTextView;
     @InjectView(R.id.image_next) ImageButton mNextImageButton;
 
+    @InjectView(R.id.image) ImageView mImage;
+    @InjectView(R.id.progress) ProgressBar mProgressBar;
     @InjectView(R.id.error) TextView mError;
     private boolean isError = false;
 
@@ -93,7 +91,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void findPets() {
-        startLoading();
+        startPetLoading();
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<List<Pet>> successAction = petList -> {
@@ -216,6 +214,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick(R.id.image_previous)
     public void onClickPreviousImage() {
+        startImageLoading();
         int imageIndexLength = mPets.get(mPetIndex).mMedia.mPhotos.mPhotos.length;
         mImageIndex -= IMAGE_INDEX_DELTA;
         if (mImageIndex < 0) {
@@ -226,6 +225,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick(R.id.image_next)
     public void onClickNextImage() {
+        startImageLoading();
         int imageIndexLength = mPets.get(mPetIndex).mMedia.mPhotos.mPhotos.length;
         mImageIndex += IMAGE_INDEX_DELTA;
         mImageIndex %= imageIndexLength;
@@ -234,6 +234,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick(R.id.pet_previous)
     public void onClickPreviousPet() {
+        startPetLoading();
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex--;
         if (mPetIndex < 0) {
@@ -247,6 +248,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick(R.id.pet_next)
     public void onClickNextPet() {
+        startPetLoading();
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex++;
         if (mPetIndex >= mPets.size()) {
@@ -319,7 +321,7 @@ public class MainFragment extends BaseFragment {
     private void updateImageView() {
         Picasso.with(getActivity())
                 .load(mPets.get(mPetIndex).mMedia.mPhotos.mPhotos[mImageIndex].mPhotoUrl)
-                .into(mPetPictureImageView,
+                .into(mImage,
                         new Callback() {
                             @Override
                             public void onSuccess() {
@@ -333,18 +335,27 @@ public class MainFragment extends BaseFragment {
                         });
     }
 
-    private void startLoading() {
-        mContainer.setVisibility(View.GONE);
-        DialogUtils.showLoadingDialog(this.getChildFragmentManager(), false);
+    private void startPetLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mNameTextView.setVisibility(View.INVISIBLE);
+        mIndexTextView.setVisibility(View.INVISIBLE);
+        mImage.setVisibility(View.GONE);
+    }
+
+    private void startImageLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mImage.setVisibility(View.GONE);
     }
 
     private void finishLoading() {
-        DialogUtils.hideLoadingDialog(this.getChildFragmentManager());
-        mContainer.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
+        mNameTextView.setVisibility(View.VISIBLE);
+        mIndexTextView.setVisibility(View.VISIBLE);
+        mImage.setVisibility(View.VISIBLE);
     }
 
     private void showError() {
-        mContainer.setVisibility(View.GONE);
+        mImage.setVisibility(View.GONE);
         mError.setVisibility(View.VISIBLE);
         isError = true;
         getActivity().invalidateOptionsMenu();
@@ -352,7 +363,7 @@ public class MainFragment extends BaseFragment {
 
     private void hideError() {
         mError.setVisibility(View.GONE);
-        mContainer.setVisibility(View.VISIBLE);
+        mImage.setVisibility(View.VISIBLE);
         isError = false;
         getActivity().invalidateOptionsMenu();
     }

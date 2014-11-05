@@ -59,7 +59,6 @@ public class DetailFragment extends BaseFragment {
     @InjectView(R.id.pet_address) TextView mAddressTextView;
     @InjectView(R.id.image_phone) ImageView mAddressImageView;
 
-    @InjectView(R.id.divider_lower) View mDividerLower;
     @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
     @InjectView(R.id.pet_description) TextView mDescriptionTextView;
 
@@ -289,11 +288,9 @@ public class DetailFragment extends BaseFragment {
 
     private void updateDescription() {
         if (mPet.mDescription.mString != null && !mPet.mDescription.mString.equals("")) {
-            mDividerLower.setVisibility(View.VISIBLE);
             mDescriptionLayout.setVisibility(View.VISIBLE);
             mDescriptionTextView.setText(mPet.mDescription.mString);
         } else {
-            mDividerLower.setVisibility(View.GONE);
             mDescriptionLayout.setVisibility(View.GONE);
         }
     }

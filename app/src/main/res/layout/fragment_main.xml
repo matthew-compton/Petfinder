@@ -4,106 +4,101 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
               tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/container"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
+        style="@style/DetailFrameHorizontal">
 
-        <LinearLayout style="@style/DetailFrameHorizontal">
-
-            <ImageButton
-                android:id="@+id/pet_previous"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_media_previous"
-                android:visibility="invisible"
-                tools:visibility="visible"/>
-
-            <TextView
-                android:id="@+id/pet_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:textSize="@dimen/text_normal"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="Cleo"/>
-
-            <ImageButton
-                android:id="@+id/pet_next"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_media_next"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/pet_previous"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_previous"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/pet_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:textSize="@dimen/text_normal"
+            android:gravity="center"
+            android:singleLine="true"
+            tools:text="Cleo"/>
+
+        <ImageButton
+            android:id="@+id/pet_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            tools:src="@drawable/paw"
-            style="@style/DetailFrame"/>
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_next"/>
 
-        <LinearLayout style="@style/DetailFrameHorizontal">
-
-            <ImageButton
-                android:id="@+id/image_previous"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_media_previous"
-                android:visibility="invisible"
-                tools:visibility="visible"/>
-
-            <TextView
-                android:id="@+id/image_index"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:textSize="@dimen/text_small"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="( 1 / 3 )"/>
-
-            <ImageButton
-                android:id="@+id/image_next"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_media_next"
-                android:visibility="invisible"
-                tools:visibility="visible"/>
-
-        </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/error"
         android:textSize="@dimen/text_large"
-        style="@style/DetailFrame"
-        android:visibility="gone"
-        tools:visibility="gone"/>
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        style="@style/DetailFrameHorizontal">
+
+        <ImageButton
+            android:id="@+id/image_previous"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_previous"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/image_index"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:textSize="@dimen/text_small"
+            android:gravity="center"
+            android:singleLine="true"
+            tools:text="( 1 / 3 )"/>
+
+        <ImageButton
+            android:id="@+id/image_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_next"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
 
 </LinearLayout>

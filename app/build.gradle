@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'retrolambda'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.0.0"
     defaultConfig {
         applicationId 'com.ambergleam.petfinder'
-        minSdkVersion 15
-        targetSdkVersion 19
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "PETFINDER_API_KEY", "\"afc53e5040ea9a794a49b92de329d138\""
@@ -36,8 +36,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.google.code.gson:gson:1.7.2'
+    compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.google.code.gson:gson:2.3'
     compile 'com.netflix.rxjava:rxjava-android:0.20.4'
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'net.orfjackal.retrolambda:retrolambda:1.6.1'
@@ -45,7 +45,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.picasso:picasso:2.3.4'
-    compile 'com.crittercism:crittercism-android-agent:+'
+    compile 'com.crittercism:crittercism-android-agent:5.0.3'
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ambergleam.petfinder.PetfinderPreference;
@@ -43,9 +44,11 @@ public class SettingsFragment extends BaseFragment {
     @InjectView(R.id.spinner_location) Spinner mLocationSpinner;
     private ArrayAdapter<Location.LocationEnum> mLocationArrayAdapter;
 
+    @InjectView(R.id.layout_state) LinearLayout mStateLayout;
     @InjectView(R.id.spinner_state) Spinner mStateSpinner;
     private ArrayAdapter<State.StateEnum> mStateArrayAdapter;
 
+    @InjectView(R.id.layout_zip) LinearLayout mZipLayout;
     @InjectView(R.id.edittext_zip) EditText mZipEditText;
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
@@ -117,17 +120,17 @@ public class SettingsFragment extends BaseFragment {
     private void updateEnabledStatus() {
         switch (mPetfinderPreference.getLocationEnum()) {
             case STATE:
-                mStateSpinner.setEnabled(true);
-                mZipEditText.setEnabled(false);
+                mStateLayout.setVisibility(View.VISIBLE);
+                mZipLayout.setVisibility(View.GONE);
                 break;
             case ZIP:
-                mStateSpinner.setEnabled(false);
-                mZipEditText.setEnabled(true);
+                mStateLayout.setVisibility(View.GONE);
+                mZipLayout.setVisibility(View.VISIBLE);
                 break;
             case ANY:
             default:
-                mStateSpinner.setEnabled(false);
-                mZipEditText.setEnabled(false);
+                mStateLayout.setVisibility(View.GONE);
+                mZipLayout.setVisibility(View.GONE);
                 break;
         }
     }

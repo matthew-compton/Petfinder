@@ -8,11 +8,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/layout_name"
@@ -140,8 +136,6 @@
 
         </LinearLayout>
 
-        <View style="@style/Divider"/>
-
         <LinearLayout
             android:id="@+id/layout_phone"
             style="@style/DetailFrameHorizontal">
@@ -255,10 +249,6 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/divider_lower"
-            style="@style/Divider"/>
-
         <LinearLayout
             android:id="@+id/layout_description"
             style="@style/DetailFrameVertical">
@@ -296,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
                 android:gravity="right"
-                tools:text="Young"/>
+                tools:text="07/09/1990"/>
 
         </LinearLayout>
 
