@@ -103,7 +103,7 @@ public abstract class PetListFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart() {
+    public void onResume() {
         super.onResume();
         if (mPets == null || mPets.size() == 0) {
             findPets();
@@ -300,6 +300,8 @@ public abstract class PetListFragment extends BaseFragment {
     public void showEmpty() {
         hideAll();
         mEmpty.setVisibility(View.VISIBLE);
+        mPreviousImageButton.setVisibility(View.INVISIBLE);
+        mNextImageButton.setVisibility(View.INVISIBLE);
         getActivity().invalidateOptionsMenu();
     }
 

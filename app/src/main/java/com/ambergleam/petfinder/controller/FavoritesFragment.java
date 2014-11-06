@@ -18,22 +18,36 @@ import rx.subscriptions.CompositeSubscription;
 public class FavoritesFragment extends PetListFragment {
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mPets != null && mPets.size() != 0) {
+            if (!isCurrentPetFavorited()) {
+                startPetLoading();
+                mPets.remove(mPetIndex);
+                if (mPetIndex != 0) {
+                    mPetIndex--;
+                }
+                mPetSizeUnfiltered = mPets.size();
+                mImageIndex = IMAGE_INDEX_INITIAL;
+                if (mPets.size() == 0) {
+                    showEmpty();
+                } else {
+                    updateUI();
+                }
+            }
+        }
+    }
+
+    private boolean isCurrentPetFavorited() {
+        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPets.get(mPetIndex).mId.toString());
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_favorites, menu);
-
-        if (mPets == null || mPets.size() == 0) {
-            return;
-        }
-
         MenuItem itemDetail = menu.findItem(R.id.details);
-        itemDetail.setVisible(true);
-
-        boolean isFavorite = isFavorite();
-        MenuItem itemFavorite = menu.findItem(R.id.favorite);
-        itemFavorite.setVisible(!isFavorite);
-        MenuItem itemUnfavorite = menu.findItem(R.id.unfavorite);
-        itemUnfavorite.setVisible(isFavorite);
+        itemDetail.setVisible((mPets != null && mPets.size() != 0));
     }
 
     @Override
@@ -42,28 +56,8 @@ public class FavoritesFragment extends PetListFragment {
             case R.id.details:
                 startDetailActivity();
                 break;
-            case R.id.favorite:
-                favorite();
-                break;
-            case R.id.unfavorite:
-                unfavorite();
-                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private boolean isFavorite() {
-        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPets.get(mPetIndex).mId.toString());
-    }
-
-    private void favorite() {
-        mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
-        mPetfinderServiceManager.getPetfinderPreference().addFavorite(mPets.get(mPetIndex).mId.toString());
-    }
-
-    private void unfavorite() {
-        mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
-        mPetfinderServiceManager.getPetfinderPreference().removeFavorite(mPets.get(mPetIndex).mId.toString());
     }
 
     @Override
@@ -75,10 +69,17 @@ public class FavoritesFragment extends PetListFragment {
             if (mPets == null) {
                 mPets = new ArrayList<>();
             }
-            ArrayList<Pet> tmp = filterPets(petList);
-            mPets.addAll(tmp);
+            if (petList.size() != 0) {
+                mPets.addAll(filterPets(petList));
+            }
             mPetSizeUnfiltered = mPets.size();
             mImageIndex = IMAGE_INDEX_INITIAL;
+            finishLoading();
+            if (mPets == null || mPets.size() == 0) {
+                showEmpty();
+            } else {
+                updateUI();
+            }
         };
 
         Action1<Throwable> failureAction = throwable -> {
@@ -92,10 +93,6 @@ public class FavoritesFragment extends PetListFragment {
         for (String id : ids) {
             Subscription subscription = mPetfinderServiceManager.performSearchById(id).subscribe(successAction, failureAction);
             mCompositeSubscription.add(subscription);
-        }
-        if (ids.size() == 0) {
-            finishLoading();
-            showEmpty();
         }
     }
 

@@ -8,18 +8,4 @@
         android:showAsAction="always|withText"
         android:visible="false"/>
 
-    <item
-        android:id="@+id/favorite"
-        android:title="@string/favorite"
-        android:icon="@android:drawable/ic_menu_save"
-        android:showAsAction="always"
-        android:visible="false"/>
-
-    <item
-        android:id="@+id/unfavorite"
-        android:title="@string/unfavorite"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:showAsAction="always"
-        android:visible="false"/>
-
 </menu>
