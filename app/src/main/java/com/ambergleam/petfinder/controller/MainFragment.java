@@ -67,6 +67,7 @@ public class MainFragment extends PetListFragment {
         Action1<List<Pet>> successAction = petList -> {
             mPets = filterPets(petList);
             mPetSizeUnfiltered = petList.size();
+            checkPetIndex();
             mImageIndex = IMAGE_INDEX_INITIAL;
             updateUI();
         };

@@ -168,13 +168,19 @@ public abstract class PetListFragment extends BaseFragment {
         updateUI();
     }
 
+    public void checkPetIndex() {
+        if (mPetIndex == -1) {
+            mPetIndex = mPets.size() - 1;
+        }
+    }
+
     @OnClick(R.id.pet_previous)
     public void onClickPreviousPet() {
         startPetLoading();
         mImageIndex = IMAGE_INDEX_INITIAL;
         mPetIndex--;
         if (mPetIndex < 0) {
-            mPetIndex += mPets.size();
+            mPetIndex = -1;
             mPetOffset -= mPetfinderServiceManager.getCount();
             findPets();
         } else {
@@ -273,9 +279,13 @@ public abstract class PetListFragment extends BaseFragment {
 
     public void startPetLoading() {
         hideAll();
+
         mProgressBar.setVisibility(View.VISIBLE);
         mNameTextView.setVisibility(View.INVISIBLE);
+
+        mPreviousImageButton.setVisibility(View.INVISIBLE);
         mIndexTextView.setVisibility(View.INVISIBLE);
+        mNextImageButton.setVisibility(View.INVISIBLE);
     }
 
     public void startImageLoading() {

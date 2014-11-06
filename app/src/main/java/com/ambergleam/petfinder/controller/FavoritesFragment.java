@@ -73,6 +73,7 @@ public class FavoritesFragment extends PetListFragment {
                 mPets.addAll(filterPets(petList));
             }
             mPetSizeUnfiltered = mPets.size();
+            checkPetIndex();
             mImageIndex = IMAGE_INDEX_INITIAL;
             finishLoading();
             if (mPets == null || mPets.size() == 0) {
