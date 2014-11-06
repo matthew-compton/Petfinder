@@ -76,7 +76,6 @@ public abstract class PetListFragment extends BaseFragment {
             mPetIndex = savedInstanceState.getInt(STATE_PETS_INDEX);
             mPetOffset = savedInstanceState.getInt(STATE_PETS_OFFSET);
             mImageIndex = savedInstanceState.getInt(STATE_IMAGE_INDEX);
-            updateUI();
         }
         mPetfinderServiceManager.getPetfinderPreference().loadPreference(getActivity());
 
