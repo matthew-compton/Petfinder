@@ -32,6 +32,7 @@
 
     <string name="error">Error.\nTry again.</string>
     <string name="empty_favorites">You have no favorite pets!</string>
-    <string name="reset_search_settings">Reset Search Settings</string>
+    <string name="reset_settings">Clear Settings</string>
+    <string name="use_my_location">Use My Location</string>
 
 </resources>

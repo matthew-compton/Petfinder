@@ -2,8 +2,8 @@ package com.ambergleam.petfinder.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
@@ -13,7 +13,7 @@ import com.ambergleam.petfinder.R;
 
 import java.lang.reflect.Field;
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends ActionBarActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -26,7 +26,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_fragment);
         if (!(this instanceof MainActivity)) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         FragmentManager fm = getSupportFragmentManager();

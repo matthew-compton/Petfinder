@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -22,12 +21,12 @@ import com.ambergleam.petfinder.model.Location;
 import com.ambergleam.petfinder.model.Size;
 import com.ambergleam.petfinder.model.State;
 import com.ambergleam.petfinder.service.PetfinderServiceManager;
+import com.ambergleam.petfinder.utils.LocationUtils;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
 
@@ -52,7 +51,6 @@ public class SettingsFragment extends BaseFragment {
 
     @InjectView(R.id.layout_zip) LinearLayout mZipLayout;
     @InjectView(R.id.edittext_zip) EditText mZipEditText;
-    @InjectView(R.id.button_reset) Button mResetButton;
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
     private PetfinderPreference mPetfinderPreference;
@@ -90,6 +88,14 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reset:
+                reset();
+                break;
+            case R.id.location:
+                useMyLocation();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -161,7 +167,7 @@ public class SettingsFragment extends BaseFragment {
         }
     }
 
-    private void clear() {
+    private void reset() {
         mAnimalSpinner.setSelection(0);
         mSizeSpinner.setSelection(0);
         mLocationSpinner.setSelection(0);
@@ -170,9 +176,13 @@ public class SettingsFragment extends BaseFragment {
         updatePreference();
     }
 
-    @OnClick(R.id.button_reset)
-    public void onClickReset() {
-        clear();
+    public void useMyLocation() {
+        android.location.Location location = LocationUtils.getLocation(getActivity());
+        String zip = LocationUtils.getZipCodeString(getActivity(), location);
+        String state = LocationUtils.getStateString(getActivity(), location);
+        int selection = State.StateEnum.fromUrlFormatString(state).ordinal();
+        mZipEditText.setText(zip);
+        mStateSpinner.setSelection(selection);
     }
 
     @OnItemSelected(R.id.spinner_animal)

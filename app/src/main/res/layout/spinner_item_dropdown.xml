@@ -11,5 +11,6 @@
                  android:paddingTop="@dimen/padding_small"
                  android:paddingBottom="@dimen/padding_small"
                  android:gravity="right"
+                 android:background="@color/primary"
                  style="?android:attr/spinnerDropDownItemStyle"
                  tools:text="Cats"/>
