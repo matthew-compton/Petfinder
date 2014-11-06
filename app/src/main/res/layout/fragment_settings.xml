@@ -86,7 +86,9 @@
 
         <LinearLayout
             android:id="@+id/layout_zip"
-            style="@style/DetailFrameHorizontal">
+            style="@style/DetailFrameHorizontal"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:layout_width="0dp"
@@ -108,12 +110,17 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/reset_search_settings"/>
+        <FrameLayout
+            style="@style/DetailFrameLight">
+
+            <Button
+                android:id="@+id/button_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/reset_search_settings"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 

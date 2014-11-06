@@ -206,9 +206,11 @@ public class SettingsFragment extends BaseFragment {
 
     @OnTextChanged(R.id.edittext_zip)
     public void onTextChangedZip() {
-        String zipString = mZipEditText.getText().toString();
-        mPetfinderPreference.setZipString(zipString);
-        updatePreference();
+        if (mPetfinderPreference != null) {
+            String zipString = mZipEditText.getText().toString();
+            mPetfinderPreference.setZipString(zipString);
+            updatePreference();
+        }
     }
 
 }
