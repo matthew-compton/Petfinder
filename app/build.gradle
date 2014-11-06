@@ -3,7 +3,7 @@ apply plugin: 'retrolambda'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.0"
+    buildToolsVersion "21.1.0"
     defaultConfig {
         applicationId 'com.ambergleam.petfinder'
         minSdkVersion 15
@@ -17,9 +17,11 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "ENABLE_CRITTERCISM", "false"
+            buildConfigField "boolean", "ENABLE_RATING", "false"
         }
         release {
             buildConfigField "boolean", "ENABLE_CRITTERCISM", "true"
+            buildConfigField "boolean", "ENABLE_RATING", "true"
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -47,6 +49,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.crittercism:crittercism-android-agent:5.0.3'
+    compile 'com.github.codechimp-org.apprater:library:1.0.20'
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 }

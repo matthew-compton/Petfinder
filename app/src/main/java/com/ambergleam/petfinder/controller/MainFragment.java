@@ -2,13 +2,17 @@ package com.ambergleam.petfinder.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.ambergleam.petfinder.BuildConfig;
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
+
+import org.codechimp.apprater.AppRater;
 
 import java.util.List;
 
@@ -19,6 +23,14 @@ import rx.subscriptions.CompositeSubscription;
 public class MainFragment extends PetListFragment {
 
     private static final int REQUEST_CODE_SETTINGS = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (BuildConfig.ENABLE_RATING) {
+            AppRater.app_launched(getActivity());
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
