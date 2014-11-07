@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/padding_small"
-                android:src="@android:drawable/ic_dialog_dialer"
+                android:src="@drawable/button_phone"
                 android:clickable="true"/>
 
         </LinearLayout>
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/padding_small"
-                android:src="@android:drawable/ic_dialog_email"
+                android:src="@drawable/button_email"
                 android:clickable="true"/>
 
         </LinearLayout>
@@ -244,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/padding_small"
-                android:src="@android:drawable/ic_dialog_map"
+                android:src="@drawable/button_map"
                 android:clickable="true"/>
 
         </LinearLayout>

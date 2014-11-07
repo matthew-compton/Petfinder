@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_previous"
+            android:src="@drawable/button_arrow_left"
             android:visibility="invisible"
             tools:visibility="visible"/>
 
@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_next"
+            android:src="@drawable/button_arrow_right"
             android:visibility="invisible"
             tools:visibility="visible"/>
 
@@ -74,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/error_text"
             android:layout_centerHorizontal="true"
-            android:src="@android:drawable/ic_menu_revert"/>
+            android:src="@drawable/button_refresh"
+            android:tint="@android:color/white"/>
 
     </RelativeLayout>
 
@@ -106,7 +107,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_previous"
+            android:src="@drawable/button_arrow_left"
             android:visibility="invisible"
             tools:visibility="visible"/>
 
@@ -126,7 +127,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_media_next"
+            android:src="@drawable/button_arrow_right"
             android:visibility="invisible"
             tools:visibility="visible"/>
 

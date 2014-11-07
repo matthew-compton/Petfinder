@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
@@ -25,8 +26,12 @@ public abstract class BaseActivity extends ActionBarActivity {
         PetfinderApplication.get(BaseActivity.this).inject(this);
 
         setContentView(R.layout.activity_fragment);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         if (!(this instanceof MainActivity)) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationIcon(R.drawable.button_back);
         }
 
         FragmentManager fm = getSupportFragmentManager();
