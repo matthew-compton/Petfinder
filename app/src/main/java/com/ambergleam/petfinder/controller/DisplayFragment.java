@@ -27,9 +27,9 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class PetListFragment extends BaseFragment {
+public abstract class DisplayFragment extends BaseFragment {
 
-    public static final String TAG = PetListFragment.class.getSimpleName();
+    public static final String TAG = DisplayFragment.class.getSimpleName();
 
     public static final String STATE_PETS = TAG + "STATE_PETS";
     public static final String STATE_PETS_SIZE_UNFILTERED = TAG + "STATE_PETS_SIZE_UNFILTERED";
@@ -44,18 +44,18 @@ public abstract class PetListFragment extends BaseFragment {
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
-    @InjectView(R.id.pet_previous) ImageButton mPreviousPetButton;
-    @InjectView(R.id.fragment_details_name_text) TextView mNameTextView;
-    @InjectView(R.id.pet_next) ImageButton mNextPetButton;
+    @InjectView(R.id.fragment_display_previous_pet_button) ImageButton mPreviousPetButton;
+    @InjectView(R.id.fragment_display_name_text) TextView mNameTextView;
+    @InjectView(R.id.fragment_display_next_pet_button) ImageButton mNextPetButton;
 
-    @InjectView(R.id.image_previous) ImageButton mPreviousImageButton;
-    @InjectView(R.id.image_index) TextView mIndexTextView;
-    @InjectView(R.id.image_next) ImageButton mNextImageButton;
+    @InjectView(R.id.fragment_display_previous_image_button) ImageButton mPreviousImageButton;
+    @InjectView(R.id.fragment_display_index_text) TextView mIndexTextView;
+    @InjectView(R.id.fragment_display_next_image_button) ImageButton mNextImageButton;
 
-    @InjectView(R.id.image) ImageView mImage;
-    @InjectView(R.id.progress) ProgressBar mProgressBar;
-    @InjectView(R.id.error) RelativeLayout mError;
-    @InjectView(R.id.empty) TextView mEmpty;
+    @InjectView(R.id.fragment_display_image) ImageView mImage;
+    @InjectView(R.id.fragment_display_progress) ProgressBar mProgressBar;
+    @InjectView(R.id.fragment_display_error) RelativeLayout mError;
+    @InjectView(R.id.fragment_display_empty) TextView mEmpty;
 
     public ArrayList<Pet> mPets;
     public int mPetSizeUnfiltered;
@@ -135,7 +135,7 @@ public abstract class PetListFragment extends BaseFragment {
         return false;
     }
 
-    @OnClick(R.id.fragment_details_name_text)
+    @OnClick(R.id.fragment_display_name_text)
     public void onClickPetName() {
         startDetailActivity();
     }
@@ -147,7 +147,7 @@ public abstract class PetListFragment extends BaseFragment {
         startActivity(intentDetail);
     }
 
-    @OnClick(R.id.image_previous)
+    @OnClick(R.id.fragment_display_previous_image_button)
     public void onClickPreviousImage() {
         startImageLoading();
         int imageIndexLength = mPets.get(mPetIndex).mMedia.mPhotos.mPhotos.length;
@@ -158,7 +158,7 @@ public abstract class PetListFragment extends BaseFragment {
         updateUI();
     }
 
-    @OnClick(R.id.image_next)
+    @OnClick(R.id.fragment_display_next_image_button)
     public void onClickNextImage() {
         startImageLoading();
         int imageIndexLength = mPets.get(mPetIndex).mMedia.mPhotos.mPhotos.length;
@@ -173,7 +173,7 @@ public abstract class PetListFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.pet_previous)
+    @OnClick(R.id.fragment_display_previous_pet_button)
     public void onClickPreviousPet() {
         startPetLoading();
         mImageIndex = IMAGE_INDEX_INITIAL;
@@ -187,7 +187,7 @@ public abstract class PetListFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.pet_next)
+    @OnClick(R.id.fragment_display_next_pet_button)
     public void onClickNextPet() {
         startPetLoading();
         mImageIndex = IMAGE_INDEX_INITIAL;

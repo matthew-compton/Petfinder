@@ -17,7 +17,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
-public class FavoritesFragment extends PetListFragment {
+public class FavoritesFragment extends DisplayFragment {
 
     @Override
     public void onResume() {
@@ -38,42 +38,6 @@ public class FavoritesFragment extends PetListFragment {
                 }
             }
         }
-    }
-
-    @Override
-    protected void updatePetNavButtons() {
-        if (mPetIndex + mPetOffset - 1 < 0) {
-            mPreviousPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mPreviousPetButton.setVisibility(View.VISIBLE);
-        }
-        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
-            mNextPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mNextPetButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private boolean isCurrentPetFavorited() {
-        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPets.get(mPetIndex).mId.toString());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_favorites, menu);
-        MenuItem itemDetail = menu.findItem(R.id.menu_favorites_details);
-        itemDetail.setVisible((mPets != null && mPets.size() != 0));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_favorites_details:
-                startDetailActivity();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -108,10 +72,51 @@ public class FavoritesFragment extends PetListFragment {
 
         ArrayList<String> ids = new ArrayList<>();
         ids.addAll(mPetfinderServiceManager.getPetfinderPreference().getFavorites());
-        for (String id : ids) {
-            Subscription subscription = mPetfinderServiceManager.performSearchById(id).subscribe(successAction, failureAction);
-            mCompositeSubscription.add(subscription);
+        if (ids.size() > 0) {
+            for (String id : ids) {
+                Subscription subscription = mPetfinderServiceManager.performSearchById(id).subscribe(successAction, failureAction);
+                mCompositeSubscription.add(subscription);
+            }
+        } else {
+            finishLoading();
+            showEmpty();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_favorites, menu);
+        MenuItem itemDetail = menu.findItem(R.id.menu_favorites_details);
+        itemDetail.setVisible((mPets != null && mPets.size() != 0));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_favorites_details:
+                startDetailActivity();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void updatePetNavButtons() {
+        if (mPetIndex + mPetOffset - 1 < 0) {
+            mPreviousPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mPreviousPetButton.setVisibility(View.VISIBLE);
+        }
+        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
+            mNextPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextPetButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean isCurrentPetFavorited() {
+        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPets.get(mPetIndex).mId.toString());
     }
 
 }

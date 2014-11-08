@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,15 +49,15 @@ public class DetailsFragment extends BaseFragment {
 
     @InjectView(R.id.fragment_details_phone_layout) LinearLayout mPhoneLayout;
     @InjectView(R.id.fragment_details_phone_text) TextView mPhoneTextView;
-    @InjectView(R.id.fragment_details_phone_image) ImageView mPhoneImageView;
+    @InjectView(R.id.fragment_details_phone_image) ImageButton mPhoneImageButton;
 
     @InjectView(R.id.fragment_details_email_layout) LinearLayout mEmailLayout;
     @InjectView(R.id.fragment_details_email_text) TextView mEmailTextView;
-    @InjectView(R.id.fragment_details_email_image) ImageView mEmailImageView;
+    @InjectView(R.id.fragment_details_email_image) ImageButton mEmailImageButton;
 
     @InjectView(R.id.fragment_details_address_layout) LinearLayout mAddressLayout;
     @InjectView(R.id.fragment_details_address_text) TextView mAddressTextView;
-    @InjectView(R.id.fragment_details_address_image) ImageView mAddressImageView;
+    @InjectView(R.id.fragment_details_address_image) ImageButton mAddressImageButton;
 
     @InjectView(R.id.fragment_details_description_layout) LinearLayout mDescriptionLayout;
     @InjectView(R.id.fragment_details_description_text) TextView mDescriptionTextView;

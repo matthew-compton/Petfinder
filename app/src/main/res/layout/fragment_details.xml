@@ -18,14 +18,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_name"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_name_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="Cleo"/>
 
@@ -39,14 +38,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_animal"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_animal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="Dog"/>
 
@@ -60,14 +58,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_gender"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_gender_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="F"/>
 
@@ -81,14 +78,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_size"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_size_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="Small"/>
 
@@ -102,14 +98,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_age"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_age_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="Young"/>
 
@@ -123,14 +118,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_status"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="Adopted"/>
 
@@ -151,27 +145,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_details_phone"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"/>
+                    style="@style/HeaderTextView"/>
 
                 <TextView
                     android:id="@+id/fragment_details_phone_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
+                    style="@style/StandardTextView"
                     android:phoneNumber="true"
                     tools:text="404-421-5787"/>
 
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/fragment_details_phone_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/padding_small"
                 android:src="@drawable/button_phone"
-                android:clickable="true"/>
+                style="@style/StandardImageButton"/>
 
         </LinearLayout>
 
@@ -189,26 +180,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_details_email"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"/>
+                    style="@style/HeaderTextView"/>
 
                 <TextView
                     android:id="@+id/fragment_details_email_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
+                    style="@style/StandardTextView"
                     tools:text="ambergleam@gmail.com"/>
 
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/fragment_details_email_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/padding_small"
                 android:src="@drawable/button_email"
-                android:clickable="true"/>
+                style="@style/StandardImageButton"/>
 
         </LinearLayout>
 
@@ -226,26 +214,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_details_address"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"/>
+                    style="@style/HeaderTextView"/>
 
                 <TextView
                     android:id="@+id/fragment_details_address_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_normal"
+                    style="@style/StandardTextView"
                     tools:text="845 Spring St. NW #126\nAtlanta, GA 30308"/>
 
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/fragment_details_address_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/padding_small"
                 android:src="@drawable/button_map"
-                android:clickable="true"/>
+                style="@style/StandardImageButton"/>
 
         </LinearLayout>
 
@@ -257,14 +242,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_description"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small"
+                style="@style/StandardTextView"
                 tools:text="A really cute dog with a great attitude!"/>
 
         </LinearLayout>
@@ -277,14 +261,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_details_updated"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <TextView
                 android:id="@+id/fragment_details_updated_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
+                style="@style/StandardTextView"
                 android:gravity="right"
                 tools:text="07/09/1990"/>
 

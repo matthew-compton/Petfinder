@@ -1,5 +1,6 @@
 <resources>
 
+    <!-- General -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -9,10 +10,12 @@
         <item name="actionOverflowButtonStyle">@style/OverflowMenuButton</item>
     </style>
 
+    <!-- ActionBar/Toolbar -->
     <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
         <item name="android:src">@drawable/button_overflow</item>
     </style>
 
+    <!-- Layouts -->
     <style name="DetailFrame">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -29,8 +32,26 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="DetailFrameLight" parent="DetailFrame">
-        <item name="android:background">@color/primary</item>
+    <!-- TextViews -->
+    <style name="StandardTextView">
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="HeaderTextView" parent="StandardTextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ClickableTextView" parent="StandardTextView">
+        <item name="android:clickable">true</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- ImageButtons -->
+    <style name="StandardImageButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">@dimen/padding_small</item>
     </style>
 
 </resources>

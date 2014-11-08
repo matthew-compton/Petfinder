@@ -21,7 +21,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
-public class MainFragment extends PetListFragment {
+public class MainFragment extends DisplayFragment {
 
     private static final int REQUEST_CODE_SETTINGS = 0;
 
@@ -31,6 +31,31 @@ public class MainFragment extends PetListFragment {
         if (BuildConfig.ENABLE_RATING) {
             AppRater.app_launched(getActivity());
         }
+    }
+
+    @Override
+    protected void findPets() {
+        startPetLoading();
+        mCompositeSubscription = new CompositeSubscription();
+
+        Action1<List<Pet>> successAction = petList -> {
+            mPets = filterPets(petList);
+            mPetSizeUnfiltered = petList.size();
+            checkPetIndex();
+            mImageIndex = IMAGE_INDEX_INITIAL;
+            updateUI();
+        };
+
+        Action1<Throwable> failureAction = throwable -> {
+            Log.e(TAG, throwable.getMessage().toString());
+            finishLoading();
+            showError();
+        };
+
+        Subscription subscription = mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()
+                ? mPetfinderServiceManager.performSearchWithLocation(mPetOffset).subscribe(successAction, failureAction)
+                : mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction);
+        mCompositeSubscription.add(subscription);
     }
 
     @Override
@@ -70,31 +95,6 @@ public class MainFragment extends PetListFragment {
                 findPets();
             }
         }
-    }
-
-    @Override
-    protected void findPets() {
-        startPetLoading();
-        mCompositeSubscription = new CompositeSubscription();
-
-        Action1<List<Pet>> successAction = petList -> {
-            mPets = filterPets(petList);
-            mPetSizeUnfiltered = petList.size();
-            checkPetIndex();
-            mImageIndex = IMAGE_INDEX_INITIAL;
-            updateUI();
-        };
-
-        Action1<Throwable> failureAction = throwable -> {
-            Log.e(TAG, throwable.getMessage().toString());
-            finishLoading();
-            showError();
-        };
-
-        Subscription subscription = mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()
-                ? mPetfinderServiceManager.performSearchWithLocation(mPetOffset).subscribe(successAction, failureAction)
-                : mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction);
-        mCompositeSubscription.add(subscription);
     }
 
     @Override

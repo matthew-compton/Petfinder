@@ -17,8 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_settings_animal"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <Spinner
                 android:id="@+id/fragment_settings_animal_spinner"
@@ -35,8 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_settings_size"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <Spinner
                 android:id="@+id/fragment_settings_size_spinner"
@@ -53,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_settings_location"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <Spinner
                 android:id="@+id/fragment_settings_location_spinner"
@@ -73,8 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_settings_state"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <Spinner
                 android:id="@+id/fragment_settings_state_spinner"
@@ -95,8 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_settings_zip"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="bold"/>
+                style="@style/HeaderTextView"/>
 
             <EditText
                 android:id="@+id/fragment_settings_zip_edittext"
