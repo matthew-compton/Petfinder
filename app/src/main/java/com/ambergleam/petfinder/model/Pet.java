@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Pet implements Serializable {
+public class Pet implements Serializable, Comparable {
 
     @SerializedName("id")
     public Id mId;
@@ -80,6 +80,15 @@ public class Pet implements Serializable {
                 .append(mContact.mPhone)
                 .append("</a>")
                 .toString());
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        if (!(another instanceof Pet)) {
+            return 1;
+        }
+        Pet pet = (Pet) another;
+        return this.mName.toString().compareToIgnoreCase(pet.mName.toString());
     }
 
 }

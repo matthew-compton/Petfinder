@@ -221,18 +221,7 @@ public abstract class PetListFragment extends BaseFragment {
         mNameTextView.setText(mPets.get(mPetIndex).mName.mString);
     }
 
-    private void updatePetNavButtons() {
-        if (mPetIndex + mPetOffset - 1 < 0 || !mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()) {
-            mPreviousPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mPreviousPetButton.setVisibility(View.VISIBLE);
-        }
-        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
-            mNextPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mNextPetButton.setVisibility(View.VISIBLE);
-        }
-    }
+    protected abstract void updatePetNavButtons();
 
     private void updateImageIndexView() {
         int imageIndex = (mImageIndex / IMAGE_INDEX_DELTA) + 1;

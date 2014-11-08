@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ambergleam.petfinder.BuildConfig;
 import com.ambergleam.petfinder.R;
@@ -94,6 +95,20 @@ public class MainFragment extends PetListFragment {
                 ? mPetfinderServiceManager.performSearchWithLocation(mPetOffset).subscribe(successAction, failureAction)
                 : mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction);
         mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    protected void updatePetNavButtons() {
+        if (mPetIndex + mPetOffset - 1 < 0 || !mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()) {
+            mPreviousPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mPreviousPetButton.setVisibility(View.VISIBLE);
+        }
+        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
+            mNextPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextPetButton.setVisibility(View.VISIBLE);
+        }
     }
 
 }

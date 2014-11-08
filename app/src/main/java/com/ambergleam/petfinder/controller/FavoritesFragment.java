@@ -4,11 +4,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import rx.Subscription;
@@ -35,6 +37,20 @@ public class FavoritesFragment extends PetListFragment {
                     updateUI();
                 }
             }
+        }
+    }
+
+    @Override
+    protected void updatePetNavButtons() {
+        if (mPetIndex + mPetOffset - 1 < 0) {
+            mPreviousPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mPreviousPetButton.setVisibility(View.VISIBLE);
+        }
+        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
+            mNextPetButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextPetButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -71,6 +87,7 @@ public class FavoritesFragment extends PetListFragment {
             }
             if (petList.size() != 0) {
                 mPets.addAll(filterPets(petList));
+                Collections.sort(mPets);
             }
             mPetSizeUnfiltered = mPets.size();
             checkPetIndex();
