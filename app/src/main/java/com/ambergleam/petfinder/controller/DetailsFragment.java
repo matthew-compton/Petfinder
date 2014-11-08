@@ -160,7 +160,7 @@ public class DetailsFragment extends BaseFragment {
         launchEmail();
     }
 
-    @OnClick(R.id.image_address)
+    @OnClick(R.id.fragment_details_address_image)
     public void onClickAddress() {
         launchMap();
     }
