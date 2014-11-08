@@ -67,7 +67,7 @@ public abstract class DisplayFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_pet, container, false);
+        View layout = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, layout);
 
         if (savedInstanceState != null) {
