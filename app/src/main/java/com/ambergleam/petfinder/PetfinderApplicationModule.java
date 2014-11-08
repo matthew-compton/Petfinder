@@ -1,7 +1,7 @@
 package com.ambergleam.petfinder;
 
-import com.ambergleam.petfinder.controller.DetailActivity;
-import com.ambergleam.petfinder.controller.DetailFragment;
+import com.ambergleam.petfinder.controller.DetailsActivity;
+import com.ambergleam.petfinder.controller.DetailsFragment;
 import com.ambergleam.petfinder.controller.FavoritesActivity;
 import com.ambergleam.petfinder.controller.FavoritesFragment;
 import com.ambergleam.petfinder.controller.MainActivity;
@@ -20,8 +20,8 @@ import dagger.Provides;
         injects = {
                 MainActivity.class,
                 MainFragment.class,
-                DetailActivity.class,
-                DetailFragment.class,
+                DetailsActivity.class,
+                DetailsFragment.class,
                 SettingsActivity.class,
                 SettingsFragment.class,
                 FavoritesActivity.class,

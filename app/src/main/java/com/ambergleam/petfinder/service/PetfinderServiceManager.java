@@ -52,7 +52,7 @@ public class PetfinderServiceManager {
     }
 
     public int getCount() {
-        return Integer.valueOf(mPetfinderService.COUNT);
+        return mPetfinderService.getCount();
     }
 
     public PetfinderPreference getPetfinderPreference() {

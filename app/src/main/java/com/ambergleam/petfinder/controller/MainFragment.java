@@ -37,21 +37,21 @@ public class MainFragment extends PetListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
-        MenuItem menuDetail = menu.findItem(R.id.details);
+        MenuItem menuDetail = menu.findItem(R.id.menu_main_details);
         menuDetail.setVisible((mPets == null || mPets.size() == 0) ? false : true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.details:
+            case R.id.menu_main_details:
                 startDetailActivity();
                 break;
-            case R.id.settings:
+            case R.id.menu_main_settings:
                 Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
                 startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS);
                 break;
-            case R.id.favorites:
+            case R.id.menu_main_favorites:
                 Intent intentFavorites = new Intent(getActivity(), FavoritesActivity.class);
                 startActivity(intentFavorites);
                 break;

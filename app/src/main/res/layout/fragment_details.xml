@@ -11,18 +11,18 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/layout_name"
+            android:id="@+id/fragment_details_name_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_name"
+                android:text="@string/fragment_details_name"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_name"
+                android:id="@+id/fragment_details_name_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -32,18 +32,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_animal"
+            android:id="@+id/fragment_details_animal_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_animal"
+                android:text="@string/fragment_details_animal"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_animal"
+                android:id="@+id/fragment_details_animal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -53,18 +53,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_gender"
+            android:id="@+id/fragment_details_gender_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_gender"
+                android:text="@string/fragment_details_gender"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_gender"
+                android:id="@+id/fragment_details_gender_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -74,18 +74,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_size"
+            android:id="@+id/fragment_details_size_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_size"
+                android:text="@string/fragment_details_size"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_size"
+                android:id="@+id/fragment_details_size_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -95,18 +95,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_age"
+            android:id="@+id/fragment_details_age_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_age"
+                android:text="@string/fragment_details_age"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_age"
+                android:id="@+id/fragment_details_age_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -116,18 +116,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_status"
+            android:id="@+id/fragment_details_status_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_status"
+                android:text="@string/fragment_details_status"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_status"
+                android:id="@+id/fragment_details_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -137,7 +137,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_phone"
+            android:id="@+id/fragment_details_phone_layout"
             style="@style/DetailFrameHorizontal">
 
             <LinearLayout
@@ -150,12 +150,12 @@
                     android:id="@+id/label_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pet_phone"
+                    android:text="@string/fragment_details_phone"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/pet_phone"
+                    android:id="@+id/fragment_details_phone_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_normal"
@@ -165,7 +165,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/image_phone"
+                android:id="@+id/fragment_details_phone_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -176,7 +176,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_email"
+            android:id="@+id/fragment_details_email_layout"
             style="@style/DetailFrameHorizontal">
 
             <LinearLayout
@@ -188,12 +188,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pet_email"
+                    android:text="@string/fragment_details_email"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/pet_email"
+                    android:id="@+id/fragment_details_email_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_normal"
@@ -202,7 +202,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/image_email"
+                android:id="@+id/fragment_details_email_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -213,7 +213,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_address"
+            android:id="@+id/fragment_details_address_layout"
             style="@style/DetailFrameHorizontal">
 
             <LinearLayout
@@ -225,12 +225,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pet_address"
+                    android:text="@string/fragment_details_address"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/pet_address"
+                    android:id="@+id/fragment_details_address_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_normal"
@@ -239,7 +239,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/image_address"
+                android:id="@+id/fragment_details_address_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -250,18 +250,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_description"
+            android:id="@+id/fragment_details_description_layout"
             style="@style/DetailFrameVertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_description"
+                android:text="@string/fragment_details_description"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_description"
+                android:id="@+id/fragment_details_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
@@ -270,18 +270,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_last_updated"
+            android:id="@+id/fragment_details_updated_layout"
             style="@style/DetailFrameHorizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pet_updated"
+                android:text="@string/fragment_details_updated"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/pet_last_updated"
+                android:id="@+id/fragment_details_updated_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"

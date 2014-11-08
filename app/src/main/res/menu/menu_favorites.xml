@@ -3,8 +3,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/details"
-        android:title="@string/details"
+        android:id="@+id/menu_favorites_details"
+        android:title="@string/menu_favorites_details"
         android:icon="@drawable/button_details"
         app:showAsAction="always|withText"
         android:visible="false"/>

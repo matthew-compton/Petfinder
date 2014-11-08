@@ -1,9 +1,11 @@
 <resources>
 
+    <!-- Font Sizes -->
     <dimen name="text_large">25sp</dimen>
     <dimen name="text_normal">20sp</dimen>
     <dimen name="text_small">15sp</dimen>
 
+    <!-- Padding Sizes -->
     <dimen name="padding_small">5dp</dimen>
     <dimen name="padding_normal">10dp</dimen>
     <dimen name="padding_large">20dp</dimen>

@@ -3,22 +3,22 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favorite"
-        android:title="@string/favorite"
+        android:id="@+id/menu_details_like"
+        android:title="@string/menu_details_like"
         android:icon="@drawable/button_heart_empty"
         app:showAsAction="always"
         android:visible="false"/>
 
     <item
-        android:id="@+id/unfavorite"
-        android:title="@string/unfavorite"
+        android:id="@+id/menu_details_dislike"
+        android:title="@string/menu_details_dislike"
         android:icon="@drawable/button_heart"
         app:showAsAction="always"
         android:visible="false"/>
 
     <item
-        android:id="@+id/share"
-        android:title="@string/share"
+        android:id="@+id/menu_details_share"
+        android:title="@string/menu_details_share"
         android:icon="@drawable/button_share"
         app:showAsAction="always"/>
 

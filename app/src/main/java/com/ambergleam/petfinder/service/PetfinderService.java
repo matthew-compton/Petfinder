@@ -33,13 +33,14 @@ public class PetfinderService {
     public static final String PETFINDER_API_KEY = BuildConfig.PETFINDER_API_KEY;
 
     public static final String ENDPOINT = "http://api.petfinder.com";
-    private static final String FUNCTION_SEARCH_WITH_LOCATION = "find";
+
     private static final String FUNCTION_SEARCH = "getRandom";
     private static final String FUNCTION_SEARCH_BY_ID = "get";
+    private static final String FUNCTION_SEARCH_WITH_LOCATION = "find";
 
     private static final String OUTPUT = "full";
     private static final String FORMAT = "json";
-    public static final String COUNT = "10";
+    private static final String COUNT = "10";
 
     private final PetfinderServiceInterface mServiceInterface;
     private PetfinderPreference mPetfinderPreference;
@@ -63,20 +64,6 @@ public class PetfinderService {
         mPetfinderPreference = petfinderPreference;
     }
 
-    public Observable<SearchResponseLocation> searchWithLocation(int offset) {
-        return mServiceInterface.searchWithLocation(
-                FUNCTION_SEARCH_WITH_LOCATION,
-                PETFINDER_API_KEY,
-                OUTPUT,
-                FORMAT,
-                COUNT,
-                mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
-                mPetfinderPreference.getSizeEnum().toUrlFormatString(),
-                mPetfinderPreference.getLocationUrlFormatString(),
-                offset
-        );
-    }
-
     public Observable<SearchResponse> search() {
         return mServiceInterface.search(
                 FUNCTION_SEARCH,
@@ -98,7 +85,30 @@ public class PetfinderService {
         );
     }
 
+    public Observable<SearchResponseLocation> searchWithLocation(int offset) {
+        return mServiceInterface.searchWithLocation(
+                FUNCTION_SEARCH_WITH_LOCATION,
+                PETFINDER_API_KEY,
+                OUTPUT,
+                FORMAT,
+                COUNT,
+                mPetfinderPreference.getAnimalEnum().toUrlFormatString(),
+                mPetfinderPreference.getSizeEnum().toUrlFormatString(),
+                mPetfinderPreference.getLocationUrlFormatString(),
+                offset
+        );
+    }
+
+    public int getCount() {
+        return Integer.valueOf(COUNT);
+    }
+
     private static class CustomGsonConverter extends GsonConverter {
+
+        private static final String JSON_START_PRE = "\"pet\":{";
+        private static final String JSON_START_POST = "\"pet\":[{";
+        private static final String JSON_END_PRE = "}},\"@xmlns:xsi\":\"http://www.w3.org/2001/XMLSchema-instance\",\"header\":{";
+        private static final String JSON_END_POST = "}}],\"header\":{";
 
         public CustomGsonConverter(Gson gson) {
             super(gson);
@@ -107,10 +117,8 @@ public class PetfinderService {
         @Override
         public Object fromBody(TypedInput body, Type type) throws ConversionException {
             String json = toString(body);
-            Log.i(TAG, "Original:\n" + json);
-            json = json.replace("\"pet\":{", "\"pet\":[{");
-            json = json.replace("}},\"@xmlns:xsi\":\"http://www.w3.org/2001/XMLSchema-instance\",\"header\":{", "}}],\"header\":{");
-            Log.i(TAG, "Converted:\n" + json);
+            json = json.replace(JSON_START_PRE, JSON_START_POST);
+            json = json.replace(JSON_END_PRE, JSON_END_POST);
             body = new JsonTypedInput(json.getBytes(Charset.forName(HTTP.UTF_8)));
             return super.fromBody(body, type);
         }
@@ -124,15 +132,14 @@ public class PetfinderService {
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
                 }
-
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Could not read JSON from byte array.", e);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e(TAG, "Could not read JSON from byte array.", e);
                     }
                 }
             }
@@ -143,15 +150,16 @@ public class PetfinderService {
 
     private static class JsonTypedInput implements TypedInput {
 
+        private static final String mMimeType = "application/json; charset=UTF-8";
         private final byte[] mBytes;
 
-        JsonTypedInput(byte[] bytes) {
+        public JsonTypedInput(byte[] bytes) {
             this.mBytes = bytes;
         }
 
         @Override
         public String mimeType() {
-            return "application/json; charset=UTF-8";
+            return mMimeType;
         }
 
         @Override

@@ -62,14 +62,14 @@ public class FavoritesFragment extends PetListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_favorites, menu);
-        MenuItem itemDetail = menu.findItem(R.id.details);
+        MenuItem itemDetail = menu.findItem(R.id.menu_main_details);
         itemDetail.setVisible((mPets != null && mPets.size() != 0));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.details:
+            case R.id.menu_main_details:
                 startDetailActivity();
                 break;
         }

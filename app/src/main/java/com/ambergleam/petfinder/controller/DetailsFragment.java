@@ -23,57 +23,57 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class DetailFragment extends BaseFragment {
+public class DetailsFragment extends BaseFragment {
 
-    private static final String TAG = DetailFragment.class.getSimpleName();
+    private static final String TAG = DetailsFragment.class.getSimpleName();
 
     public static final String EXTRA_PET = TAG + "EXTRA_PET";
 
-    @InjectView(R.id.layout_name) LinearLayout mNameLayout;
-    @InjectView(R.id.pet_name) TextView mNameTextView;
+    @InjectView(R.id.fragment_details_name_layout) LinearLayout mNameLayout;
+    @InjectView(R.id.fragment_details_name_text) TextView mNameTextView;
 
-    @InjectView(R.id.layout_animal) LinearLayout mAnimalLayout;
-    @InjectView(R.id.pet_animal) TextView mAnimalTextView;
+    @InjectView(R.id.fragment_details_animal_layout) LinearLayout mAnimalLayout;
+    @InjectView(R.id.fragment_details_animal_text) TextView mAnimalTextView;
 
-    @InjectView(R.id.layout_gender) LinearLayout mGenderLayout;
-    @InjectView(R.id.pet_gender) TextView mGenderTextView;
+    @InjectView(R.id.fragment_details_gender_layout) LinearLayout mGenderLayout;
+    @InjectView(R.id.fragment_details_gender_text) TextView mGenderTextView;
 
-    @InjectView(R.id.layout_status) LinearLayout mStatusLayout;
-    @InjectView(R.id.pet_status) TextView mStatusTextView;
+    @InjectView(R.id.fragment_details_status_layout) LinearLayout mStatusLayout;
+    @InjectView(R.id.fragment_details_status_text) TextView mStatusTextView;
 
-    @InjectView(R.id.layout_age) LinearLayout mAgeLayout;
-    @InjectView(R.id.pet_age) TextView mAgeTextView;
+    @InjectView(R.id.fragment_details_age_layout) LinearLayout mAgeLayout;
+    @InjectView(R.id.fragment_details_age_text) TextView mAgeTextView;
 
-    @InjectView(R.id.layout_size) LinearLayout mSizeLayout;
-    @InjectView(R.id.pet_size) TextView mSizeTextView;
+    @InjectView(R.id.fragment_details_size_layout) LinearLayout mSizeLayout;
+    @InjectView(R.id.fragment_details_size_text) TextView mSizeTextView;
 
-    @InjectView(R.id.layout_phone) LinearLayout mPhoneLayout;
-    @InjectView(R.id.pet_phone) TextView mPhoneTextView;
-    @InjectView(R.id.image_phone) ImageView mPhoneImageView;
+    @InjectView(R.id.fragment_details_phone_layout) LinearLayout mPhoneLayout;
+    @InjectView(R.id.fragment_details_phone_text) TextView mPhoneTextView;
+    @InjectView(R.id.fragment_details_phone_image) ImageView mPhoneImageView;
 
-    @InjectView(R.id.layout_email) LinearLayout mEmailLayout;
-    @InjectView(R.id.pet_email) TextView mEmailTextView;
-    @InjectView(R.id.image_email) ImageView mEmailImageView;
+    @InjectView(R.id.fragment_details_email_layout) LinearLayout mEmailLayout;
+    @InjectView(R.id.fragment_details_email_text) TextView mEmailTextView;
+    @InjectView(R.id.fragment_details_email_image) ImageView mEmailImageView;
 
-    @InjectView(R.id.layout_address) LinearLayout mAddressLayout;
-    @InjectView(R.id.pet_address) TextView mAddressTextView;
-    @InjectView(R.id.image_phone) ImageView mAddressImageView;
+    @InjectView(R.id.fragment_details_address_layout) LinearLayout mAddressLayout;
+    @InjectView(R.id.fragment_details_address_text) TextView mAddressTextView;
+    @InjectView(R.id.fragment_details_address_image) ImageView mAddressImageView;
 
-    @InjectView(R.id.layout_description) LinearLayout mDescriptionLayout;
-    @InjectView(R.id.pet_description) TextView mDescriptionTextView;
+    @InjectView(R.id.fragment_details_description_layout) LinearLayout mDescriptionLayout;
+    @InjectView(R.id.fragment_details_description_text) TextView mDescriptionTextView;
 
-    @InjectView(R.id.layout_last_updated) LinearLayout mLastUpdatedLayout;
-    @InjectView(R.id.pet_last_updated) TextView mLastUpdatedTextView;
+    @InjectView(R.id.fragment_details_updated_layout) LinearLayout mUpdatedLayout;
+    @InjectView(R.id.fragment_details_updated_text) TextView mUpdatedTextView;
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
     private Pet mPet;
 
-    public static DetailFragment newInstance(Pet pet) {
+    public static DetailsFragment newInstance(Pet pet) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_PET, pet);
 
-        DetailFragment fragment = new DetailFragment();
+        DetailsFragment fragment = new DetailsFragment();
         fragment.setArguments(args);
 
         return fragment;
@@ -87,7 +87,7 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_detail, container, false);
+        View layout = inflater.inflate(R.layout.fragment_details, container, false);
         ButterKnife.inject(this, layout);
         setHasOptionsMenu(true);
         return layout;
@@ -103,59 +103,59 @@ public class DetailFragment extends BaseFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_detail, menu);
-        boolean isFavorite = isFavorite();
-        MenuItem itemFavorite = menu.findItem(R.id.favorite);
-        itemFavorite.setVisible(!isFavorite);
-        MenuItem itemUnfavorite = menu.findItem(R.id.unfavorite);
-        itemUnfavorite.setVisible(isFavorite);
+        boolean isPetLiked = isPetLiked();
+        MenuItem itemLike = menu.findItem(R.id.menu_details_like);
+        itemLike.setVisible(!isPetLiked);
+        MenuItem itemDislike = menu.findItem(R.id.menu_details_dislike);
+        itemDislike.setVisible(isPetLiked);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.share:
-                share();
+            case R.id.menu_details_share:
+                sharePet();
                 break;
-            case R.id.favorite:
-                favorite();
+            case R.id.menu_details_like:
+                likePet();
                 break;
-            case R.id.unfavorite:
-                unfavorite();
+            case R.id.menu_details_dislike:
+                dislikePet();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void share() {
+    private void sharePet() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/html");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Adopt a Homeless Pet!");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.fragment_details_share_subject));
         intent.putExtra(Intent.EXTRA_TEXT, mPet.toHtml());
-        startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_using)));
+        startActivity(Intent.createChooser(intent, getResources().getString(R.string.fragment_details_share_using)));
     }
 
-    private boolean isFavorite() {
-        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPet.mId.toString());
-    }
-
-    private void favorite() {
+    private void likePet() {
         mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
         mPetfinderServiceManager.getPetfinderPreference().addFavorite(mPet.mId.toString());
         getActivity().invalidateOptionsMenu();
     }
 
-    private void unfavorite() {
+    private void dislikePet() {
         mPetfinderServiceManager.getPetfinderPreference().savePreference(getActivity());
         mPetfinderServiceManager.getPetfinderPreference().removeFavorite(mPet.mId.toString());
         getActivity().invalidateOptionsMenu();
     }
 
-    @OnClick(R.id.image_phone)
+    private boolean isPetLiked() {
+        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPet.mId.toString());
+    }
+
+    @OnClick(R.id.fragment_details_phone_image)
     public void onClickPhone() {
         launchPhone();
     }
 
-    @OnClick(R.id.image_email)
+    @OnClick(R.id.fragment_details_email_image)
     public void onClickEmail() {
         launchEmail();
     }
@@ -293,10 +293,10 @@ public class DetailFragment extends BaseFragment {
 
     private void updateLastUpdated() {
         if (mPet.mLastUpdate.mString != null && !mPet.mLastUpdate.toString().equals("")) {
-            mLastUpdatedLayout.setVisibility(View.VISIBLE);
-            mLastUpdatedTextView.setText(mPet.mLastUpdate.toString());
+            mUpdatedLayout.setVisibility(View.VISIBLE);
+            mUpdatedTextView.setText(mPet.mLastUpdate.toString());
         } else {
-            mLastUpdatedLayout.setVisibility(View.GONE);
+            mUpdatedLayout.setVisibility(View.GONE);
         }
     }
 

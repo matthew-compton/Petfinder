@@ -13,9 +13,10 @@
         android:logo="@drawable/paw"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <activity
             android:name="com.ambergleam.petfinder.controller.MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/activity_main_title"
             android:icon="@drawable/ic_launcher"
             android:launchMode="singleTop">
             <intent-filter>
@@ -24,17 +25,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ambergleam.petfinder.controller.DetailActivity"
-            android:label="@string/details">
-        </activity>
-        <activity
-            android:name="com.ambergleam.petfinder.controller.SettingsActivity"
-            android:label="@string/settings">
+            android:name=".controller.DetailsActivity"
+            android:label="@string/activity_details_title">
         </activity>
         <activity
             android:name="com.ambergleam.petfinder.controller.FavoritesActivity"
-            android:label="@string/favorites">
+            android:label="@string/activity_favorites_title">
         </activity>
+        <activity
+            android:name="com.ambergleam.petfinder.controller.SettingsActivity"
+            android:label="@string/activity_settings_title">
+        </activity>
+
     </application>
 
 </manifest>

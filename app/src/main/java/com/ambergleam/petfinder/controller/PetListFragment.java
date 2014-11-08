@@ -45,7 +45,7 @@ public abstract class PetListFragment extends BaseFragment {
     @Inject PetfinderServiceManager mPetfinderServiceManager;
 
     @InjectView(R.id.pet_previous) ImageButton mPreviousPetButton;
-    @InjectView(R.id.pet_name) TextView mNameTextView;
+    @InjectView(R.id.fragment_details_name_text) TextView mNameTextView;
     @InjectView(R.id.pet_next) ImageButton mNextPetButton;
 
     @InjectView(R.id.image_previous) ImageButton mPreviousImageButton;
@@ -135,15 +135,15 @@ public abstract class PetListFragment extends BaseFragment {
         return false;
     }
 
-    @OnClick(R.id.pet_name)
+    @OnClick(R.id.fragment_details_name_text)
     public void onClickPetName() {
         startDetailActivity();
     }
 
     public void startDetailActivity() {
         Pet pet = mPets.get(mPetIndex);
-        Intent intentDetail = new Intent(getActivity(), DetailActivity.class);
-        intentDetail.putExtra(DetailFragment.EXTRA_PET, pet);
+        Intent intentDetail = new Intent(getActivity(), DetailsActivity.class);
+        intentDetail.putExtra(DetailsFragment.EXTRA_PET, pet);
         startActivity(intentDetail);
     }
 

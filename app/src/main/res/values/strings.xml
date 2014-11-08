@@ -1,38 +1,50 @@
 <resources>
 
+    <!-- Application Name -->
     <string name="app_name">Animal Rescue</string>
 
-    <string name="refresh">Refresh</string>
-    <string name="details">Details</string>
-    <string name="settings">Search Settings</string>
-    <string name="reset">Reset</string>
-    <string name="share">Share</string>
-    <string name="favorites">Favorite Animals</string>
-    <string name="favorite">Favorite</string>
-    <string name="unfavorite">Unfavorite</string>
+    <!-- Activity Titles -->
+    <string name="activity_main_title">Animal Rescue</string>
+    <string name="activity_details_title">Details</string>
+    <string name="activity_favorites_title">Favorite Animals</string>
+    <string name="activity_settings_title">Search Settings</string>
 
-    <string name="share_using">Share Using:</string>
+    <!-- Menu Titles -->
+    <string name="menu_main_details">Details</string>
+    <string name="menu_main_favorites">Favorites Animals</string>
+    <string name="menu_main_settings">Search Settings</string>
+    <string name="menu_favorites_details">Details</string>
+    <string name="menu_details_like">Like</string>
+    <string name="menu_details_dislike">Dislike</string>
+    <string name="menu_details_share">Share</string>
+    <string name="menu_settings_clear">Clear Settings</string>
+    <string name="menu_settings_location">Use My Location</string>
 
-    <string name="pet_name">Name:</string>
-    <string name="pet_animal">Animal:</string>
-    <string name="pet_gender">Gender:</string>
-    <string name="pet_age">Age:</string>
-    <string name="pet_size">Size:</string>
-    <string name="pet_mix">Mix:</string>
-    <string name="pet_status">Status:</string>
-    <string name="pet_description">Description:</string>
-    <string name="pet_updated">Last Updated:</string>
-    <string name="pet_phone">Phone:</string>
-    <string name="pet_email">Email:</string>
-    <string name="pet_address">Address:</string>
+    <!--
+    Layout Strings
+    -->
 
-    <string name="pet_location">Location:</string>
-    <string name="pet_state">State:</string>
-    <string name="pet_zip">Zip Code:</string>
+    <string name="fragment_pet_error">Error.\nTry again.</string>
+    <string name="fragment_pet_empty">No favorite pets!</string>
 
-    <string name="error">Error.\nTry again.</string>
-    <string name="empty_favorites">You have no favorite pets!</string>
-    <string name="reset_settings">Clear Settings</string>
-    <string name="use_my_location">Use My Location</string>
+    <string name="fragment_details_name">Name:</string>
+    <string name="fragment_details_animal">Animal:</string>
+    <string name="fragment_details_gender">Gender:</string>
+    <string name="fragment_details_size">Size:</string>
+    <string name="fragment_details_age">Age:</string>
+    <string name="fragment_details_status">Status:</string>
+    <string name="fragment_details_phone">Phone:</string>
+    <string name="fragment_details_email">Email:</string>
+    <string name="fragment_details_address">Address:</string>
+    <string name="fragment_details_description">Description:</string>
+    <string name="fragment_details_updated">Last Updated:</string>
+    <string name="fragment_details_share_using">Share Using:</string>
+    <string name="fragment_details_share_subject">Adopt a Homeless Pet!</string>
+
+    <string name="fragment_settings_animal">Animal:</string>
+    <string name="fragment_settings_size">Size:</string>
+    <string name="fragment_settings_location">Location:</string>
+    <string name="fragment_settings_state">State:</string>
+    <string name="fragment_settings_zip">Zip Code:</string>
 
 </resources>

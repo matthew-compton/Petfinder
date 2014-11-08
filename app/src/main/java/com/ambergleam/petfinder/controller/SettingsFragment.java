@@ -36,21 +36,21 @@ public class SettingsFragment extends BaseFragment {
 
     public static final String EXTRA_CHANGED = "EXTRA_CHANGED";
 
-    @InjectView(R.id.spinner_animal) Spinner mAnimalSpinner;
+    @InjectView(R.id.fragment_settings_animal_spinner) Spinner mAnimalSpinner;
     private ArrayAdapter<Animal.AnimalEnum> mAnimalArrayAdapter;
 
-    @InjectView(R.id.spinner_size) Spinner mSizeSpinner;
+    @InjectView(R.id.fragment_settings_size_spinner) Spinner mSizeSpinner;
     private ArrayAdapter<Size.SizeEnum> mSizeArrayAdapter;
 
-    @InjectView(R.id.spinner_location) Spinner mLocationSpinner;
+    @InjectView(R.id.fragment_settings_location_spinner) Spinner mLocationSpinner;
     private ArrayAdapter<Location.LocationEnum> mLocationArrayAdapter;
 
-    @InjectView(R.id.layout_state) LinearLayout mStateLayout;
-    @InjectView(R.id.spinner_state) Spinner mStateSpinner;
+    @InjectView(R.id.fragment_settings_state_layout) LinearLayout mStateLayout;
+    @InjectView(R.id.fragment_settings_state_spinner) Spinner mStateSpinner;
     private ArrayAdapter<State.StateEnum> mStateArrayAdapter;
 
-    @InjectView(R.id.layout_zip) LinearLayout mZipLayout;
-    @InjectView(R.id.edittext_zip) EditText mZipEditText;
+    @InjectView(R.id.fragment_settings_zip_layout) LinearLayout mZipLayout;
+    @InjectView(R.id.fragment_settings_zip_edittext) EditText mZipEditText;
 
     @Inject PetfinderServiceManager mPetfinderServiceManager;
     private PetfinderPreference mPetfinderPreference;
@@ -89,14 +89,32 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.reset:
-                reset();
+            case R.id.menu_settings_clear:
+                clearSettings();
                 break;
-            case R.id.location:
+            case R.id.menu_settings_location:
                 useMyLocation();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearSettings() {
+        mAnimalSpinner.setSelection(0);
+        mSizeSpinner.setSelection(0);
+        mLocationSpinner.setSelection(0);
+        mStateSpinner.setSelection(0);
+        mZipEditText.setText("");
+        updatePreference();
+    }
+
+    public void useMyLocation() {
+        android.location.Location location = LocationUtils.getLocation(getActivity());
+        String zip = LocationUtils.getZipCodeString(getActivity(), location);
+        String state = LocationUtils.getStateString(getActivity(), location);
+        int selection = State.StateEnum.fromUrlFormatString(state).ordinal();
+        mZipEditText.setText(zip);
+        mStateSpinner.setSelection(selection);
     }
 
     @Override
@@ -113,15 +131,19 @@ public class SettingsFragment extends BaseFragment {
     }
 
     private void updateUI() {
+        updateViewData();
+        updateViewVisibility();
+    }
+
+    private void updateViewData() {
         mAnimalSpinner.setSelection(mAnimalArrayAdapter.getPosition(mPetfinderPreference.getAnimalEnum()));
         mSizeSpinner.setSelection(mSizeArrayAdapter.getPosition(mPetfinderPreference.getSizeEnum()));
         mLocationSpinner.setSelection(mLocationArrayAdapter.getPosition(mPetfinderPreference.getLocationEnum()));
         mStateSpinner.setSelection(mStateArrayAdapter.getPosition(mPetfinderPreference.getStateEnum()));
         mZipEditText.setText(mPetfinderPreference.getZipString());
-        updateEnabledStatus();
     }
 
-    private void updateEnabledStatus() {
+    private void updateViewVisibility() {
         switch (mPetfinderPreference.getLocationEnum()) {
             case STATE:
                 mStateLayout.setVisibility(View.VISIBLE);
@@ -167,54 +189,36 @@ public class SettingsFragment extends BaseFragment {
         }
     }
 
-    private void reset() {
-        mAnimalSpinner.setSelection(0);
-        mSizeSpinner.setSelection(0);
-        mLocationSpinner.setSelection(0);
-        mStateSpinner.setSelection(0);
-        mZipEditText.setText("");
-        updatePreference();
-    }
-
-    public void useMyLocation() {
-        android.location.Location location = LocationUtils.getLocation(getActivity());
-        String zip = LocationUtils.getZipCodeString(getActivity(), location);
-        String state = LocationUtils.getStateString(getActivity(), location);
-        int selection = State.StateEnum.fromUrlFormatString(state).ordinal();
-        mZipEditText.setText(zip);
-        mStateSpinner.setSelection(selection);
-    }
-
-    @OnItemSelected(R.id.spinner_animal)
+    @OnItemSelected(R.id.fragment_settings_animal_spinner)
     public void onItemSelectedAnimal() {
         Animal.AnimalEnum animal = (Animal.AnimalEnum) mAnimalSpinner.getSelectedItem();
         mPetfinderPreference.setAnimalEnum(animal);
         updatePreference();
     }
 
-    @OnItemSelected(R.id.spinner_size)
+    @OnItemSelected(R.id.fragment_settings_size_spinner)
     public void onItemSelectedSize() {
         Size.SizeEnum animal = (Size.SizeEnum) mSizeSpinner.getSelectedItem();
         mPetfinderPreference.setSizeEnum(animal);
         updatePreference();
     }
 
-    @OnItemSelected(R.id.spinner_location)
+    @OnItemSelected(R.id.fragment_settings_location_spinner)
     public void onItemSelectedLocation() {
         Location.LocationEnum locationEnum = (Location.LocationEnum) mLocationSpinner.getSelectedItem();
         mPetfinderPreference.setLocationEnum(locationEnum);
         updatePreference();
-        updateEnabledStatus();
+        updateViewVisibility();
     }
 
-    @OnItemSelected(R.id.spinner_state)
+    @OnItemSelected(R.id.fragment_settings_state_spinner)
     public void onItemSelectedState() {
         State.StateEnum stateEnum = (State.StateEnum) mStateSpinner.getSelectedItem();
         mPetfinderPreference.setStateEnum(stateEnum);
         updatePreference();
     }
 
-    @OnTextChanged(R.id.edittext_zip)
+    @OnTextChanged(R.id.fragment_settings_zip_edittext)
     public void onTextChangedZip() {
         if (mPetfinderPreference != null) {
             String zipString = mZipEditText.getText().toString();
