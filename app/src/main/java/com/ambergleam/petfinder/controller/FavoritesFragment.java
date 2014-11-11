@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.ambergleam.petfinder.R;
 import com.ambergleam.petfinder.model.Pet;
@@ -22,52 +21,45 @@ public class FavoritesFragment extends DisplayFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mPets != null && mPets.size() != 0) {
+        if (mPetList != null && mPetList.size() > 0) {
             if (!isCurrentPetFavorited()) {
-                startPetLoading();
-                mPets.remove(mPetIndex);
-                if (mPetIndex != 0) {
-                    mPetIndex--;
+                mState = STATE.LOADING;
+                removeCurrentPet();
+                if (mPetList.size() == 0) {
+                    mState = STATE.EMPTY;
                 }
-                mPetSizeUnfiltered = mPets.size();
-                mImageIndex = IMAGE_INDEX_INITIAL;
-                if (mPets.size() == 0) {
-                    showEmpty();
-                } else {
-                    updateUI();
-                }
+                updateUI();
             }
         }
     }
 
     @Override
-    protected void findPets() {
-        startPetLoading();
+    protected void search() {
+        mState = STATE.SEARCHING;
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<List<Pet>> successAction = petList -> {
-            if (mPets == null) {
-                mPets = new ArrayList<>();
+            mState = STATE.LOADING;
+            if (mPetList == null) {
+                mPetList = new ArrayList<>();
             }
-            if (petList.size() != 0) {
-                mPets.addAll(filterPets(petList));
-                Collections.sort(mPets);
+            if (petList.size() > 0) {
+                mPetList.addAll(filterPets(petList));
+                Collections.sort(mPetList);
             }
-            mPetSizeUnfiltered = mPets.size();
-            checkPetIndex();
+            mPetListSizeUnfiltered = petList.size();
+            mPetIndex = mPetIndex < 0 ? mPetList.size() - 1 : mPetIndex;
             mImageIndex = IMAGE_INDEX_INITIAL;
-            finishLoading();
-            if (mPets == null || mPets.size() == 0) {
-                showEmpty();
-            } else {
-                updateUI();
+            if (mPetList == null || mPetList.size() == 0) {
+                mState = STATE.EMPTY;
             }
+            updateUI();
         };
 
         Action1<Throwable> failureAction = throwable -> {
             Log.e(TAG, throwable.getMessage().toString());
-            finishLoading();
-            showError();
+            mState = STATE.ERROR;
+            updateUI();
         };
 
         ArrayList<String> ids = new ArrayList<>();
@@ -78,9 +70,10 @@ public class FavoritesFragment extends DisplayFragment {
                 mCompositeSubscription.add(subscription);
             }
         } else {
-            finishLoading();
-            showEmpty();
+            mState = STATE.EMPTY;
         }
+
+        updateUI();
     }
 
     @Override
@@ -88,7 +81,7 @@ public class FavoritesFragment extends DisplayFragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_favorites, menu);
         MenuItem itemDetail = menu.findItem(R.id.menu_favorites_details);
-        itemDetail.setVisible((mPets != null && mPets.size() != 0));
+        itemDetail.setVisible((mPetList != null && mPetList.size() != 0));
     }
 
     @Override
@@ -101,22 +94,17 @@ public class FavoritesFragment extends DisplayFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void updatePetNavButtons() {
-        if (mPetIndex + mPetOffset - 1 < 0) {
-            mPreviousPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mPreviousPetButton.setVisibility(View.VISIBLE);
-        }
-        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
-            mNextPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mNextPetButton.setVisibility(View.VISIBLE);
-        }
+    private boolean isCurrentPetFavorited() {
+        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPetList.get(mPetIndex).mId.toString());
     }
 
-    private boolean isCurrentPetFavorited() {
-        return mPetfinderServiceManager.getPetfinderPreference().isFavorite(mPets.get(mPetIndex).mId.toString());
+    private void removeCurrentPet() {
+        mPetList.remove(mPetIndex);
+        if (mPetIndex != 0) {
+            mPetIndex--;
+        }
+        mPetListSizeUnfiltered = mPetList.size();
+        mImageIndex = IMAGE_INDEX_INITIAL;
     }
 
 }

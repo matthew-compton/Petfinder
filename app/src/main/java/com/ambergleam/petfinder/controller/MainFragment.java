@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.ambergleam.petfinder.BuildConfig;
 import com.ambergleam.petfinder.R;
@@ -34,28 +33,31 @@ public class MainFragment extends DisplayFragment {
     }
 
     @Override
-    protected void findPets() {
-        startPetLoading();
+    protected void search() {
+        mState = STATE.SEARCHING;
         mCompositeSubscription = new CompositeSubscription();
 
         Action1<List<Pet>> successAction = petList -> {
-            mPets = filterPets(petList);
-            mPetSizeUnfiltered = petList.size();
-            checkPetIndex();
+            mState = STATE.LOADING;
+            mPetList = filterPets(petList);
+            mPetListSizeUnfiltered = petList.size();
+            mPetIndex = mPetIndex < 0 ? mPetList.size() - 1 : mPetIndex;
             mImageIndex = IMAGE_INDEX_INITIAL;
             updateUI();
         };
 
         Action1<Throwable> failureAction = throwable -> {
+            mState = STATE.ERROR;
             Log.e(TAG, throwable.getMessage().toString());
-            finishLoading();
-            showError();
+            updateUI();
         };
 
         Subscription subscription = mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()
                 ? mPetfinderServiceManager.performSearchWithLocation(mPetOffset).subscribe(successAction, failureAction)
                 : mPetfinderServiceManager.performSearch().subscribe(successAction, failureAction);
         mCompositeSubscription.add(subscription);
+
+        updateUI();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class MainFragment extends DisplayFragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
         MenuItem menuDetail = menu.findItem(R.id.menu_main_details);
-        menuDetail.setVisible((mPets == null || mPets.size() == 0) ? false : true);
+        menuDetail.setVisible((mPetList == null || mPetList.size() == 0) ? false : true);
     }
 
     @Override
@@ -72,13 +74,13 @@ public class MainFragment extends DisplayFragment {
             case R.id.menu_main_details:
                 startDetailActivity();
                 break;
-            case R.id.menu_main_settings:
-                Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
-                startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS);
-                break;
             case R.id.menu_main_favorites:
                 Intent intentFavorites = new Intent(getActivity(), FavoritesActivity.class);
                 startActivity(intentFavorites);
+                break;
+            case R.id.menu_main_settings:
+                Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);
+                startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -92,22 +94,8 @@ public class MainFragment extends DisplayFragment {
             if (hasChanged) {
                 mPetIndex = 0;
                 mPetOffset = 0;
-                findPets();
+                search();
             }
-        }
-    }
-
-    @Override
-    protected void updatePetNavButtons() {
-        if (mPetIndex + mPetOffset - 1 < 0 || !mPetfinderServiceManager.getPetfinderPreference().isLocationSearch()) {
-            mPreviousPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mPreviousPetButton.setVisibility(View.VISIBLE);
-        }
-        if (mPetIndex + 1 >= mPets.size() && mPetSizeUnfiltered < mPetfinderServiceManager.getCount()) {
-            mNextPetButton.setVisibility(View.INVISIBLE);
-        } else {
-            mNextPetButton.setVisibility(View.VISIBLE);
         }
     }
 
