@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <LinearLayout style="@style/DetailFrameHorizontal">
+    <LinearLayout style="@style/DetailFrame">
 
         <ImageButton
             android:id="@+id/fragment_display_previous_pet_button"
@@ -94,7 +94,7 @@
         android:textSize="@dimen/text_large"
         android:visibility="gone"/>
 
-    <LinearLayout style="@style/DetailFrameHorizontal">
+    <LinearLayout style="@style/DetailFrame">
 
         <ImageButton
             android:id="@+id/fragment_display_previous_image_button"

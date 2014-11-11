@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout style="@style/DetailFrameHorizontal">
+        <LinearLayout style="@style/DetailFrame">
 
             <TextView
                 android:layout_width="0dp"
@@ -27,7 +27,7 @@
 
         </LinearLayout>
 
-        <LinearLayout style="@style/DetailFrameHorizontal">
+        <LinearLayout style="@style/DetailFrame">
 
             <TextView
                 android:layout_width="0dp"
@@ -44,7 +44,7 @@
 
         </LinearLayout>
 
-        <LinearLayout style="@style/DetailFrameHorizontal">
+        <LinearLayout style="@style/DetailFrame">
 
             <TextView
                 android:layout_width="0dp"
@@ -63,7 +63,7 @@
 
         <LinearLayout
             android:id="@+id/fragment_settings_state_layout"
-            style="@style/DetailFrameHorizontal">
+            style="@style/DetailFrame">
 
             <TextView
                 android:layout_width="0dp"
@@ -82,7 +82,7 @@
 
         <LinearLayout
             android:id="@+id/fragment_settings_zip_layout"
-            style="@style/DetailFrameHorizontal"
+            style="@style/DetailFrame"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true">
 

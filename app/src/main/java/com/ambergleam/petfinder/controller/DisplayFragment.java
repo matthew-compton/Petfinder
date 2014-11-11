@@ -235,11 +235,11 @@ public abstract class DisplayFragment extends BaseFragment {
         mEmpty.setVisibility(View.GONE);
     }
 
-    public void showSearching() {
+    private void showSearching() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    public void showLoading() {
+    private void showLoading() {
         updatePetNameTextView();
         mNameTextView.setVisibility(View.VISIBLE);
         showPetNavButtons();
@@ -250,7 +250,7 @@ public abstract class DisplayFragment extends BaseFragment {
         updateImageView();
     }
 
-    public void showFinished() {
+    private void showFinished() {
         mNameTextView.setVisibility(View.VISIBLE);
         showPetNavButtons();
         mImageIndexTextView.setVisibility(View.VISIBLE);
@@ -258,11 +258,11 @@ public abstract class DisplayFragment extends BaseFragment {
         mImageView.setVisibility(View.VISIBLE);
     }
 
-    public void showEmpty() {
+    private void showEmpty() {
         mEmpty.setVisibility(View.VISIBLE);
     }
 
-    public void showError() {
+    private void showError() {
         mError.setVisibility(View.VISIBLE);
     }
 

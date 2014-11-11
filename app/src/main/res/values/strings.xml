@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Application Name -->
-    <string name="app_name">Animal Rescue</string>
+    <string name="app_name">Petfinder</string>
 
     <!-- Activity Titles -->
     <string name="activity_main_title">Animal Rescue</string>
@@ -11,7 +11,7 @@
 
     <!-- Menu Titles -->
     <string name="menu_main_details">Details</string>
-    <string name="menu_main_favorites">Favorites Animals</string>
+    <string name="menu_main_favorites">Favorite Animals</string>
     <string name="menu_main_settings">Search Settings</string>
     <string name="menu_favorites_details">Details</string>
     <string name="menu_details_like">Like</string>
@@ -25,7 +25,7 @@
     -->
 
     <string name="fragment_pet_error">Error.\nTry again.</string>
-    <string name="fragment_pet_empty">No favorite pets!</string>
+    <string name="fragment_pet_empty">No favorites!</string>
 
     <string name="fragment_details_name">Name:</string>
     <string name="fragment_details_animal">Animal:</string>
