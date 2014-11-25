@@ -24,3 +24,7 @@ Libraries
 - [Retrolambda](https://github.com/orfjackal/retrolambda)
 - [Crittercism](http://www.crittercism.com/)
 - [AppRater](https://github.com/codechimp-org/AppRater)
+
+Contributing
+---
+If you wish to contribute, simply open a Pull Request against the latest release build.
