@@ -1,4 +1,4 @@
-Petfinder
+Animal Rescue
 ===
 
 An Android application for finding adoptable animals.
