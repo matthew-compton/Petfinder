@@ -22,7 +22,7 @@ android {
         release {
             buildConfigField "boolean", "ENABLE_CRITTERCISM", "true"
             buildConfigField "boolean", "ENABLE_RATING", "true"
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

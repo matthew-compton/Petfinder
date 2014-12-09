@@ -49,7 +49,7 @@ public abstract class BaseActivity extends ActionBarActivity {
             theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
             int color = typedValue.data;
 
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.bowl);
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_overview);
             ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(null, bm, color);
 
             setTaskDescription(td);
@@ -71,7 +71,7 @@ public abstract class BaseActivity extends ActionBarActivity {
                 menuKeyField.setBoolean(config, false);
             }
         } catch (Exception e) {
-            Log.e("TAG", "Error with displaying overflow menu.", e);
+            Log.e(TAG, "Error with displaying overflow menu.", e);
         }
 
     }
